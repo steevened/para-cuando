@@ -6,6 +6,10 @@
 @layer base {
   html {
     font-family: 'Roboto', sans-serif;
+    font-style: normal;
+  }
+  .title-1 {
+    @apply not-italic font-black text-5xl leading-[56px];
   }
 }
 
@@ -14,7 +18,7 @@
     @apply w-screen m-auto relative left-[calc(-50vw_+_50%)];
   }
   .app-container {
-    @apply m-auto container p-4 lg:max-w-6xl;
+    @apply container p-4 m-auto lg:max-w-6xl;
   }
 }
 

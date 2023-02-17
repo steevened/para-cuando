@@ -6,8 +6,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'app-blue': '#008080',
+        'app-blue': '#1B4DB1',
       },
+      boxShadow: {
+        'shadow-1': '0 2px 4px 0 rgba(0 0 0 0.25)',
+      },
+      fontFamily: {},
     },
     screens: {
       xs: '375px',
