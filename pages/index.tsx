@@ -1,3 +1,4 @@
+import Button from '@/components/buttons/Button';
 import Layout from '@/components/layouts/Layout';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -22,7 +23,7 @@ const Home: NextPageWithLayout = () => {
         <title>Para Cuándo</title>
         <meta name="description" content="description" />
       </Head>
-      <div className="flex flex-col items-center justify-between  py-10 text-white bg-app-blackLight">
+      <div className="flex flex-col items-center justify-between py-10 text-white bg-app-blackLight">
         <h1 className="title-1">HOME</h1>
         <ul className="flex justify-between w-3/4 mt-10">
           {categories.map((categorie) => (
@@ -32,9 +33,8 @@ const Home: NextPageWithLayout = () => {
                   pathname: '/categories/[slug]',
                   query: { slug: categorie.title },
                 }}
-                className="px-4 py-2 rounded-lg shadow-lg bg-slate-700 "
               >
-                {categorie.title}
+                <Button>{categorie.title}</Button>
               </Link>
             </li>
           ))}

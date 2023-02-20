@@ -11,11 +11,14 @@ export default function Navbar() {
       </Link>
       <div className="flex items-center gap-2 sm:mr-9">
         <Image src={addLogo} alt="add logo" />
-        <p className="text-2 sm:subtitle-2 text-app-blue hidden xs:block">
+        <Link
+          href="/posts/create"
+          className="hidden text-2 sm:subtitle-2 text-app-blue xs:block"
+        >
           Crear Publicación
-        </p>
+        </Link>
       </div>
-      <div className="flex gap-5 text-xs sm:subtitle-2 text-white">
+      <div className="flex gap-5 text-xs text-white sm:subtitle-2">
         <Link href="/auth/login">Log in</Link>
         <Link href="/auth/register">Sign Up</Link>
       </div>

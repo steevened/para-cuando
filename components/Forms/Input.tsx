@@ -3,14 +3,14 @@ import searchLogo from '../../public/search.svg';
 
 export default function Input() {
   return (
-    <form className="w-5/6 max-w-md relative flex items-center mt-28">
+    <form className="w-5/6 max-w-[465px] h-12 relative flex items-center mt-28 shadow-1">
       <input
-        className="w-full rounded-3xl py-4 px-6"
+        className="w-full h-full px-6 duration-300 rounded-3xl focus:outline-none focus:ring-2"
         type="text"
         placeholder="¿Qué quieres ver en tu ciudad?"
       />
       <Image
-        className="hidden xs:block absolute right-5"
+        className="absolute hidden xs:block right-5"
         src={searchLogo}
         alt="search logo"
       />

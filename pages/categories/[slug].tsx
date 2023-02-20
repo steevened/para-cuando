@@ -1,3 +1,4 @@
+import Button from '@/components/buttons/Button';
 import Layout from '@/components/layouts/Layout';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -15,13 +16,11 @@ const CategoryPage: NextPageWithLayout = () => {
         <title>{slug} - Para Cuándo</title>
         <meta name="description" content="description" />
       </Head>
-      <section className="flex flex-col items-center justify-center bg-app-blackLight text-white py-10">
+      <section className="flex flex-col items-center justify-center py-10 text-white bg-app-blackLight">
         <Link href="/">
-          <button className="px-4 py-2 rounded-lg shadow-lg bg-slate-700 ">
-            Página principal
-          </button>
+          <Button>Página principal</Button>
         </Link>
-        <h1 className="title-1 py-10">{slug}</h1>
+        <h1 className="py-10 title-1">{slug}</h1>
       </section>
     </>
   );
