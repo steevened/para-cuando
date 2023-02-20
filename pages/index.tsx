@@ -1,3 +1,4 @@
+import Arrow from '@/components/atoms/Arrow';
 import Button from '@/components/buttons/Button';
 import Layout from '@/components/layouts/Layout';
 import Head from 'next/head';
@@ -25,7 +26,7 @@ const Home: NextPageWithLayout = () => {
       </Head>
       <div className="flex flex-col items-center justify-between py-10 text-white bg-app-blackLight">
         <h1 className="title-1">HOME</h1>
-        <ul className="flex justify-between w-3/4 mt-10">
+        <ul className="flex justify-between w-full mt-10 sm:w-3/4">
           {categories.map((categorie) => (
             <li key={categorie.id}>
               <Link
@@ -39,6 +40,7 @@ const Home: NextPageWithLayout = () => {
             </li>
           ))}
         </ul>
+        <Arrow orientation="left" />
       </div>
     </>
   );
