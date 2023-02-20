@@ -1,4 +1,8 @@
+import Layout from '@/components/layouts/Layout';
+import Head from 'next/head';
 import Link from 'next/link';
+import type { ReactElement } from 'react';
+import type { NextPageWithLayout } from './_app';
 
 interface Category {
   title: string;
@@ -11,9 +15,13 @@ const categories: Array<Category> = [
   { title: 'Torneos', id: 3 },
 ];
 
-export default function Home() {
+const Home: NextPageWithLayout = () => {
   return (
     <>
+      <Head>
+        <title>Para Cuando</title>
+        <meta name="description" content="description" />
+      </Head>
       <div className="flex flex-col items-center justify-between min-h-screen py-10 text-white bg-app-blue">
         <div className="flex gap-5">
           <button className="px-4 py-1 border rounded-lg focus:scale-95">
@@ -30,7 +38,10 @@ export default function Home() {
           {categories.map((categorie) => (
             <li key={categorie.id}>
               <Link
-                href={`/categories/${categorie.id}`}
+                href={{
+                  pathname: '/categories/[slug]',
+                  query: { slug: categorie.title },
+                }}
                 className="px-4 py-2 rounded-lg shadow-lg bg-slate-700 "
               >
                 {categorie.title}
@@ -41,4 +52,10 @@ export default function Home() {
       </div>
     </>
   );
-}
+};
+
+Home.getLayout = function getLayout(page: ReactElement) {
+  return <Layout>{page}</Layout>;
+};
+
+export default Home;

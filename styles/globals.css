@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import 'custom';
 
 @layer base {
   html {
@@ -10,6 +9,24 @@
   }
   .title-1 {
     @apply not-italic font-black text-5xl leading-[56px];
+  }
+  .subtitle-1 {
+    @apply not-italic font-medium text-base leading-[19px];
+  }
+  .title-2 {
+    @apply not-italic font-medium text-2xl leading-7;
+  }
+  .subtitle-2 {
+    @apply not-italic font-normal text-base font-weight: 400 leading-[19px];
+  }
+  .title-3 {
+    @apply not-italic font-semibold text-xl leading-[23px];
+  }
+  .text-1 {
+    @apply not-italic font-normal text-[15px] leading-[18px];
+  }
+  .text-2 {
+    @apply not-italic font-medium text-sm leading-4;
   }
 }
 
