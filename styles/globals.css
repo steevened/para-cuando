@@ -17,7 +17,7 @@
     @apply not-italic font-medium text-2xl leading-7;
   }
   .subtitle-2 {
-    @apply not-italic font-normal text-base font-weight: 400 leading-[19px];
+    @apply not-italic font-normal text-base leading-[19px];
   }
   .title-3 {
     @apply not-italic font-semibold text-xl leading-[23px];

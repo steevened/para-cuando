@@ -19,21 +19,11 @@ const Home: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>Para Cuando</title>
+        <title>Para Cuándo</title>
         <meta name="description" content="description" />
       </Head>
-      <div className="flex flex-col items-center justify-between min-h-screen py-10 text-white bg-app-blue">
-        <div className="flex gap-5">
-          <button className="px-4 py-1 border rounded-lg focus:scale-95">
-            <Link href="/auth/login">Login</Link>
-          </button>
-          <button className="px-4 py-1 border rounded-lg focus:scale-95">
-            <Link href="/auth/register">Register</Link>
-          </button>
-        </div>
-        <Link href="/">
-          <h1 className="title-1">HOME</h1>
-        </Link>
+      <div className="flex flex-col items-center justify-between  py-10 text-white bg-app-blackLight">
+        <h1 className="title-1">HOME</h1>
         <ul className="flex justify-between w-3/4 mt-10">
           {categories.map((categorie) => (
             <li key={categorie.id}>
