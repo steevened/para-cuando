@@ -2,7 +2,6 @@ import { useState } from 'react';
 export default function HearthBtn() {
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
-  console.log(isChecked);
   return (
     <form className="flex ">
       <input
