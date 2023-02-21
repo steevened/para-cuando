@@ -106,11 +106,11 @@ export default function HomeSlider() {
       scrollbar={{ draggable: true }}
       onSwiper={(swiper) => console.log(swiper)}
       onSlideChange={() => console.log('slide change')}
-      className="w-1/2 "
+      className="w-2/3"
     >
       {items.map((item) => (
         <SwiperSlide
-          className="overflow-hidden bg-white rounded-tl-2xl rounded-tr-2xl text-app-black"
+          className="overflow-hidden bg-white rounded-tl-2xl min-w-[300px] rounded-tr-2xl text-app-black"
           key={item.id}
         >
           <div>
