@@ -12,3 +12,7 @@ export interface ItemSlider {
   assistants: number;
   img: StaticImageData;
 }
+
+export interface ClassName {
+  className: string;
+}

@@ -1,4 +1,4 @@
-import { ItemSlider } from '@/lib/interfaces';
+import { ClassName, ItemSlider } from '@/lib/interfaces';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -101,10 +101,10 @@ const items: ItemSlider[] = [
   },
 ];
 
-export default function HomeSlider() {
+export default function HomeSlider({ className }: ClassName) {
   return (
     <Swiper
-      className="mt-10"
+      className={className}
       spaceBetween={11}
       slidesPerView={'auto'}
       style={{ position: 'unset' }}
