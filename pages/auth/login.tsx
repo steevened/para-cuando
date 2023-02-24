@@ -27,6 +27,7 @@ export default function login() {
               <label className="font-semibold text-sm not-italic">Email</label>
               <input
                 type="email"
+                placeholder="ejemplo@mail.com"
                 className="w-76 h-14 p-4 block mb-2 text-base font-normal text-app-grayLighter bg-app-black/80 border-app-grayLighter border-y-2 border-x-2 rounded-md"
               ></input>
             </div>
@@ -39,7 +40,7 @@ export default function login() {
                 className="w-76 h-14 p-4 block mb-2 text-base font-normal text-app-grayLighter bg-app-black/80 border-app-grayLighter border-y-2 border-x-2 rounded-md"
               ></input>
             </div>
-            <p className="text-sm font-light text-app-grayLight">
+            <p className="text-xs font-normal text-app-grayLight">
               Olvidaste tu contraseña?{' '}
               <a href="#" className="font-medium text-app-yellow ">
                 Recuperala Aqui
@@ -47,12 +48,12 @@ export default function login() {
             </p>
             <button
               type="submit"
-              className="w-full w-76 h-11 text-app-black bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-app-yellow "
+              className=" w-76 h-11 text-app-black font-semibold rounded-lg text-xs px-5 py-2.5 text-center bg-app-yellow "
             >
               Iniciar Sesion
             </button>
             <p>
-              <a href="#" className="font-medium text-app-yellow">
+              <a href="#" className="font-normal text-sm text-app-yellow">
                 O crear una cuenta aqui
               </a>
             </p>
