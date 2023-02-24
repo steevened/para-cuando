@@ -1,6 +1,6 @@
 import Image, { StaticImageData } from 'next/image';
 import { useState } from 'react';
-import { Virtual } from 'swiper';
+import SwiperCore, { Navigation, Virtual } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -112,18 +112,33 @@ const items: Items[] = [
   },
 ];
 
+SwiperCore.use([Navigation]);
+
 export default function HomeSlider() {
   return (
     <Swiper
       modules={[Virtual]}
+      loop
+      breakpoints={{
+        500: {
+          // width: 415,
+          slidesPerView: 1,
+        },
+        768: {
+          slidesPerView: 2,
+        },
+        920: {
+          slidesPerView: 3,
+        },
+      }}
       spaceBetween={22}
-      slidesPerView={3}
+      slidesPerView={1}
       className="relative"
       virtual
     >
       {items.map((item) => (
         <SwiperSlide
-          className="max-w-[300px] rounded-[20px] overflow-hidden text-black bg-white"
+          className="shadow-shadow1 max-w-[300px] rounded-[20px] overflow-hidden text-black bg-white"
           key={item.id}
           virtualIndex={item.id}
         >
@@ -192,7 +207,7 @@ function HearthBtn() {
 function Arrow({ orientation, className }: ArrowProps) {
   const swiper = useSwiper();
   return (
-    <div className={className}>
+    <div className={`${className} hidden sm:block`}>
       <button
         onClick={() =>
           orientation === 'right' ? swiper.slideNext() : swiper.slidePrev()
