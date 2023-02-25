@@ -70,9 +70,12 @@ export default function register() {
               Crear cuenta
             </button>
             <p>
-              <a href="#" className="font-normal text-sm text-app-yellow">
+              <Link
+                href="/auth/login"
+                className="font-normal text-sm text-app-yellow"
+              >
                 O iniciar sesión
-              </a>
+              </Link>
             </p>
           </form>
         </div>

@@ -15,7 +15,7 @@ export default function login() {
         </Link>
         <h1 className="title-1 ">Login</h1>
 
-        <div className="flex flex-col justify-start h-screen w-95 h-133 mt-13 ml-11 border-y-2 border-x-2 rounded-2xl border-app-gray bg-app-black/80">
+        <div className="flex flex-col justify-start  mt-13 ml-11 border-y-2 border-x-2 rounded-2xl border-app-gray bg-app-black/80">
           <h1 className=" pb-4 font-sans not-italic font-semibold text-3xl  text-app-grayLighter">
             ¡Hola!
           </h1>
@@ -42,9 +42,9 @@ export default function login() {
             </div>
             <p className="text-xs font-normal text-app-grayLight">
               Olvidaste tu contraseña?{' '}
-              <a href="#" className="font-medium text-app-yellow ">
+              <Link href="#" className="font-medium text-app-yellow ">
                 Recuperala Aqui
-              </a>
+              </Link>
             </p>
             <button
               type="submit"
@@ -53,9 +53,12 @@ export default function login() {
               Iniciar Sesion
             </button>
             <p>
-              <a href="#" className="font-normal text-sm text-app-yellow">
+              <Link
+                href="/auth/register"
+                className="font-normal text-sm text-app-yellow"
+              >
                 O crear una cuenta aqui
-              </a>
+              </Link>
             </p>
           </form>
         </div>
