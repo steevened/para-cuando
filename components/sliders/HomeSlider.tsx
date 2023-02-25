@@ -103,46 +103,48 @@ const items: ItemSlider[] = [
 
 export default function HomeSlider({ className }: ClassName) {
   return (
-    <Swiper
-      className={className}
-      spaceBetween={11}
-      slidesPerView={'auto'}
-      style={{ position: 'unset' }}
-      loop
-      breakpoints={{
-        0: {
-          slidesPerView: 1,
-        },
-        375: {
-          slidesPerView: 1.2,
-        },
-        600: {
-          slidesPerView: 1.8,
-        },
-        800: {
-          slidesPerView: 2.5,
-        },
-        1200: {
-          slidesPerView: 3,
-        },
-      }}
-    >
-      {items.map((item) => (
-        <SwiperSlide key={item.id}>
-          <CardItem
-            id={item.id}
-            title={item.title}
-            description={item.description}
-            web={item.web}
-            assistants={item.assistants}
-            img={item.img}
-          />
-        </SwiperSlide>
-      ))}
+    <div className="relative">
+      <Swiper
+        className={className}
+        spaceBetween={11}
+        slidesPerView={'auto'}
+        style={{ position: 'unset' }}
+        loop
+        breakpoints={{
+          0: {
+            slidesPerView: 1,
+          },
+          375: {
+            slidesPerView: 1.2,
+          },
+          600: {
+            slidesPerView: 1.8,
+          },
+          800: {
+            slidesPerView: 2.5,
+          },
+          1200: {
+            slidesPerView: 3,
+          },
+        }}
+      >
+        {items.map((item) => (
+          <SwiperSlide key={item.id}>
+            <CardItem
+              id={item.id}
+              title={item.title}
+              description={item.description}
+              web={item.web}
+              assistants={item.assistants}
+              img={item.img}
+            />
+          </SwiperSlide>
+        ))}
 
-      <Arrow className="absolute left-0 z-50 top-1/2" orientation="left" />
-      <Arrow className="absolute right-0 z-50 top-1/2" orientation="right" />
-    </Swiper>
+        <Arrow className="absolute z-50 -left-14 top-1/2" orientation="left" />
+        <Arrow className="absolute right-0 z-50 top-1/2" orientation="right" />
+      </Swiper>
+    </div>
   );
 }
 

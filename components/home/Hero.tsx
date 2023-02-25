@@ -28,7 +28,7 @@ export default function Hero() {
     >
       <Image src={logo} alt="para cuando logo" className="mb-12" />
       <Input />
-      <ul className="flex justify-between items-center w-full mt-10 sm:w-3/4">
+      <ul className="flex justify-between items-center w-full mt-10 max-w-[425px]">
         {categories.map((categorie) => (
           <li key={categorie.id}>
             <Link

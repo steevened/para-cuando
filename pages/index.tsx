@@ -14,23 +14,6 @@ const Home: NextPageWithLayout = () => {
       </Head>
       <Hero />
       <Main />
-
-      {/* <div className="flex flex-col items-center justify-between py-10 text-white bg-app-grayDark">
-  
-        
-        <div className="relative grid grid-cols-3 gap-4 p-5 mt-10 border rounded-md place-items-center">
-          <h2 className="absolute px-3 -top-3 bg-app-grayDark">Átomos</h2>
-          <UserLogo />
-          <UserOutlined />
-          <Eye />
-          <Checked />
-          <Warning />
-          <BtnNext disabled={true}>Siguiente</BtnNext>
-          <BtnNext disabled={false}>Siguiente</BtnNext>
-          <BtnVote voted={true} />
-          <BtnVote voted={false} />
-        </div>
-      </div> */}
     </>
   );
 };

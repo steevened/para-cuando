@@ -30,7 +30,7 @@ export default function Main() {
 
 function Section({ title, subtitle, className }: SectionProps) {
   return (
-    <div className={`pl-5 max-w-[1103px] mx-auto mt-12 ${className}`}>
+    <div className={`pl-5 max-w-[1103px] mx-auto mt-12 md:pl-0 ${className}`}>
       <h2 className="title-2 mt-2.5">{title}</h2>
       <p className="mt-2 subtitle-2 text-app-grayDark">{subtitle}</p>
       <HomeSlider className="mt-9" />
