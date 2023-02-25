@@ -19,12 +19,12 @@ export default function login() {
           <h1 className=" pb-4 font-sans not-italic font-semibold text-3xl  text-app-grayLighter">
             ¡Hola!
           </h1>
-          <p className="pb-10 font-sans not-italic font-normal text-sm text-app-grayLighter ">
+          <p className="pb-10 font-sans text-sm not-italic font-normal text-app-grayLighter ">
             Inicie sesion con los datos que ingreso durante su registro
           </p>
           <form>
             <div className="pb-1">
-              <label className="font-semibold text-sm not-italic">Email</label>
+              <label className="text-sm not-italic font-semibold">Email</label>
               <input
                 type="email"
                 placeholder="ejemplo@mail.com"
@@ -32,12 +32,12 @@ export default function login() {
               ></input>
             </div>
             <div className="">
-              <label className="font-semibold text-sm not-italic">
+              <label className="text-sm not-italic font-semibold">
                 Contraseña
               </label>
               <input
                 type="password"
-                className="w-76 h-14 p-4 block mb-2 text-base font-normal text-app-grayLighter bg-app-black/80 border-app-grayLighter border-y-2 border-x-2 rounded-md"
+                className="block p-4 mb-2 text-base font-normal rounded-md w-76 h-14 text-app-grayLighter bg-app-black/80 border-app-grayLighter border-y-2 border-x-2"
               ></input>
             </div>
             <p className="text-xs font-normal text-app-grayLight">

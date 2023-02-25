@@ -3,7 +3,7 @@ import searchLogo from '../../public/search.svg';
 
 export default function Input() {
   return (
-    <form className="w-5/6 max-w-[465px] h-12 relative flex items-center mt-28 shadow-1">
+    <form className="w-full max-w-[465px] h-12 relative flex items-center shadow-1">
       <input
         className="w-full h-full px-6 duration-300 rounded-3xl focus:outline-none focus:ring-2"
         type="text"

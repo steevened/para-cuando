@@ -1,30 +1,28 @@
-import Image, { StaticImageData } from 'next/image';
-import { A11y, Navigation, Pagination, Scrollbar } from 'swiper';
+import { ClassName, ItemSlider } from '@/lib/interfaces';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css/virtual';
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import brand from '../../public/cardImgs/brand.png';
 import bts from '../../public/cardImgs/bts.png';
 import hotel from '../../public/cardImgs/hotel.png';
 import lady from '../../public/cardImgs/lady.png';
 import shop from '../../public/cardImgs/shop.png';
+import CardItem from './CardItem';
 
-interface Items {
-  id: number;
-  title: string;
-  description: string;
-  web: string;
-  assistants: number;
-  img: StaticImageData;
+interface ArrowProps {
+  orientation: 'left' | 'right';
+  className: string;
 }
 
-const items: Items[] = [
+const items: ItemSlider[] = [
   {
     id: 1,
     title: 'concert 1',
-    description: 'description 1',
+    description:
+      'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups 1',
     web: 'concert1.com',
     assistants: 654,
     img: lady,
@@ -32,7 +30,8 @@ const items: Items[] = [
   {
     id: 2,
     title: 'shop 1',
-    description: 'description 1',
+    description:
+      'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups 1',
     web: 'shop1.com',
     assistants: 10324,
     img: brand,
@@ -40,7 +39,8 @@ const items: Items[] = [
   {
     id: 3,
     title: 'tournament 1',
-    description: 'description 1',
+    description:
+      'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups 1',
     web: 'tournament1.com',
     assistants: 234,
     img: bts,
@@ -48,7 +48,8 @@ const items: Items[] = [
   {
     id: 4,
     title: 'concert 2',
-    description: 'description 2',
+    description:
+      'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups 2',
     web: 'concert2.com',
     assistants: 543,
     img: hotel,
@@ -56,7 +57,8 @@ const items: Items[] = [
   {
     id: 5,
     title: 'shop 2',
-    description: 'description 2',
+    description:
+      'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups 2',
     web: 'shop2.com',
     assistants: 908,
     img: shop,
@@ -64,7 +66,8 @@ const items: Items[] = [
   {
     id: 6,
     title: 'tournament 2',
-    description: 'description 2',
+    description:
+      'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups 2',
     web: 'tournament2.com',
     assistants: 8986,
     img: lady,
@@ -72,7 +75,8 @@ const items: Items[] = [
   {
     id: 7,
     title: 'concert 3',
-    description: 'description 3',
+    description:
+      'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups 3',
     web: 'concert3.com',
     assistants: 654,
     img: brand,
@@ -80,7 +84,8 @@ const items: Items[] = [
   {
     id: 8,
     title: 'shop 3',
-    description: 'description 3',
+    description:
+      'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups 3',
     web: 'shop3.com',
     assistants: 30324,
     img: bts,
@@ -88,48 +93,90 @@ const items: Items[] = [
   {
     id: 9,
     title: 'tournament 3',
-    description: 'description 3',
+    description:
+      'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups 3',
     web: 'tournament3.com',
     assistants: 234,
     img: hotel,
   },
 ];
 
-export default function HomeSlider() {
+export default function HomeSlider({ className }: ClassName) {
   return (
-    <Swiper
-      modules={[Navigation, Pagination, Scrollbar, A11y]}
-      spaceBetween={50}
-      slidesPerView={3}
-      navigation
-      pagination={{ clickable: true }}
-      scrollbar={{ draggable: true }}
-      onSwiper={(swiper) => console.log(swiper)}
-      onSlideChange={() => console.log('slide change')}
-      className="w-2/3"
-    >
-      {items.map((item) => (
-        <SwiperSlide
-          className="overflow-hidden bg-white rounded-tl-2xl min-w-[300px] rounded-tr-2xl text-app-black"
-          key={item.id}
+    <div className="relative">
+      <Swiper
+        className={className}
+        spaceBetween={11}
+        slidesPerView={'auto'}
+        style={{ position: 'unset' }}
+        loop
+        breakpoints={{
+          0: {
+            slidesPerView: 1,
+          },
+          375: {
+            slidesPerView: 1.2,
+          },
+          600: {
+            slidesPerView: 1.8,
+          },
+          800: {
+            slidesPerView: 2.5,
+          },
+          1200: {
+            slidesPerView: 3,
+          },
+        }}
+      >
+        {items.map((item) => (
+          <SwiperSlide key={item.id}>
+            <CardItem
+              id={item.id}
+              title={item.title}
+              description={item.description}
+              web={item.web}
+              assistants={item.assistants}
+              img={item.img}
+            />
+          </SwiperSlide>
+        ))}
+
+        <Arrow className="absolute z-50 -left-14 top-1/2" orientation="left" />
+        <Arrow className="absolute right-0 z-50 top-1/2" orientation="right" />
+      </Swiper>
+    </div>
+  );
+}
+
+function Arrow({ orientation, className }: ArrowProps) {
+  const swiper = useSwiper();
+  return (
+    <div className={`${className} hidden sm:block`}>
+      <button
+        onClick={() =>
+          orientation === 'right' ? swiper.slideNext() : swiper.slidePrev()
+        }
+        className={`${
+          orientation === 'left' && 'rotate-180'
+        } cursor-pointer text-app-blue hover:text-app-blue/50 duration-150`}
+      >
+        <svg
+          width="52"
+          height="52"
+          viewBox="0 0 52 52"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <div>
-            <Image src={item.img} alt="evento" />
-          </div>
-          <div>
-            <h3>{item.title}</h3>
-          </div>
-          <div>
-            <p>{item.description}</p>
-          </div>
-          <div>
-            <p>{item.web}</p>
-          </div>
-          <div>
-            <p>{item.assistants} votos</p>
-          </div>
-        </SwiperSlide>
-      ))}
-    </Swiper>
+          <path
+            d="M25.8125 11.0625L23.1759 13.6309L33.4641 23.9688H11.0625V27.6563H33.4641L23.1759 37.9315L25.8125 40.5625L40.5625 25.8125L25.8125 11.0625Z"
+            fill="currentColor"
+          />
+          <path
+            d="M25.8125 51.625C20.7073 51.625 15.7167 50.1111 11.4719 47.2748C7.22701 44.4385 3.91856 40.4071 1.96487 35.6905C0.0111841 30.9739 -0.499989 25.7839 0.495992 20.7767C1.49197 15.7696 3.95037 11.1703 7.56032 7.56032C11.1703 3.95037 15.7696 1.49197 20.7767 0.495992C25.7839 -0.499989 30.9739 0.0111841 35.6905 1.96487C40.4071 3.91856 44.4385 7.22701 47.2748 11.4719C50.1111 15.7167 51.625 20.7073 51.625 25.8125C51.6172 32.656 48.8952 39.217 44.0561 44.0561C39.217 48.8952 32.656 51.6172 25.8125 51.625ZM25.8125 3.68751C21.4366 3.68751 17.159 4.98512 13.5205 7.41625C9.88208 9.84737 7.04627 13.3028 5.37168 17.3456C3.69709 21.3885 3.25894 25.8371 4.11264 30.1289C4.96634 34.4207 7.07354 38.363 10.1678 41.4572C13.262 44.5515 17.2043 46.6587 21.4961 47.5124C25.788 48.3661 30.2366 47.9279 34.2794 46.2533C38.3222 44.5788 41.7776 41.7429 44.2088 38.1045C46.6399 34.4661 47.9375 30.1884 47.9375 25.8125C47.9307 19.9467 45.5975 14.3231 41.4497 10.1753C37.3019 6.02756 31.6783 3.69434 25.8125 3.68751Z"
+            fill="currentColor"
+          />
+        </svg>
+      </button>
+    </div>
   );
 }
