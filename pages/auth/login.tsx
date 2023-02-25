@@ -16,34 +16,34 @@ export default function login() {
         <h1 className="title-1 ">Login</h1>
 
         <div className="flex flex-col justify-start h-screen w-95 h-133 mt-13 ml-11 border-y-2 border-x-2 rounded-2xl border-app-gray bg-app-black/80">
-          <h1 className=" pb-4 font-sans not-italic font-semibold text-3xl  text-app-grayLighter">
+          <h1 className="pb-4 font-sans text-3xl not-italic font-semibold text-app-grayLighter">
             ¡Hola!
           </h1>
-          <p className="pb-10 font-sans not-italic font-normal text-sm text-app-grayLighter ">
+          <p className="pb-10 font-sans text-sm not-italic font-normal text-app-grayLighter ">
             Inicie sesion con los datos que ingreso durante su registro
           </p>
           <form>
             <div className="pb-1">
-              <label className="font-semibold text-sm not-italic">Email</label>
+              <label className="text-sm not-italic font-semibold">Email</label>
               <input
                 type="email"
-                className="w-76 h-14 p-4 block mb-2 text-base font-normal text-app-grayLighter bg-app-black/80 border-app-grayLighter border-y-2 border-x-2 rounded-md"
+                className="block p-4 mb-2 text-base font-normal rounded-md w-76 h-14 text-app-grayLighter bg-app-black/80 border-app-grayLighter border-y-2 border-x-2"
               ></input>
             </div>
             <div className="">
-              <label className="font-semibold text-sm not-italic">
+              <label className="text-sm not-italic font-semibold">
                 Contraseña
               </label>
               <input
                 type="password"
-                className="w-76 h-14 p-4 block mb-2 text-base font-normal text-app-grayLighter bg-app-black/80 border-app-grayLighter border-y-2 border-x-2 rounded-md"
+                className="block p-4 mb-2 text-base font-normal rounded-md w-76 h-14 text-app-grayLighter bg-app-black/80 border-app-grayLighter border-y-2 border-x-2"
               ></input>
             </div>
             <p className="text-sm font-light text-app-grayLight">
-              Olvidaste tu contraseña?{' '}
-              <a href="#" className="font-medium text-app-yellow ">
+              Olvidaste tu contraseña?
+              <div className="font-medium text-app-yellow ">
                 Recuperala Aqui
-              </a>
+              </div>
             </p>
             <button
               type="submit"
@@ -52,9 +52,12 @@ export default function login() {
               Iniciar Sesion
             </button>
             <p>
-              <a href="#" className="font-medium text-app-yellow">
+              <Link
+                href="/auth/register"
+                className="font-medium text-app-yellow"
+              >
                 O crear una cuenta aqui
-              </a>
+              </Link>
             </p>
           </form>
         </div>
