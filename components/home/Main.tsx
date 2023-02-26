@@ -9,7 +9,7 @@ interface SectionProps {
 
 export default function Main() {
   return (
-    <main className="mt-5">
+    <main className="mt-5 w-full max-w-[941px] mx-auto ">
       <Section
         title="Populares en Querétaro"
         subtitle="Lo que las personas piden más"
