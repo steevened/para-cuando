@@ -24,19 +24,14 @@ export default function Hero() {
   return (
     <section
       style={styles}
-      className="h-[488px] px-5 bg-cover bg-none bg-center flex items-center justify-center  flex-col "
+      className="h-[488px] px-5 bg-cover bg-none bg-center flex items-center justify-center flex-col "
     >
       <Image src={logo} alt="para cuando logo" className="mb-12" />
       <Input />
       <ul className="flex justify-between items-center w-full mt-10 max-w-[425px]">
         {categories.map((categorie) => (
           <li key={categorie.id}>
-            <Link
-              href={{
-                pathname: '/categories/[slug]',
-                query: { slug: categorie.title },
-              }}
-            >
+            <Link href={`/categories/${encodeURIComponent(categorie.title)}`}>
               <Button>{categorie.title}</Button>
             </Link>
           </li>

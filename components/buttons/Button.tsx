@@ -1,8 +1,12 @@
-import Children from '@/lib/interfaces/components.interface';
+interface IButtons extends React.ComponentPropsWithoutRef<'button'> {
+  size?: 'sm' | 'md';
+}
 
-const Button: React.FC<Children> = ({ children }) => {
+const Button: React.FC<IButtons> = ({ children, className }) => {
   return (
-    <button className="px-2 py-3 bg-white border sm:px-5 rounded-3xl text-2 text-app-gray whitespace-nowrap border-app-gray w-full">
+    <button
+      className={`px-2 py-3 bg-white border sm:px-5 rounded-3xl text-2 text-app-gray whitespace-nowrap border-app-gray w-full ${className}`}
+    >
       {children}
     </button>
   );
