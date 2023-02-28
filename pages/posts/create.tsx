@@ -145,6 +145,70 @@ export default function create() {
               </button>
             </Link>
           </form>
+          <h2 className="pb-2 title-2 text-app-blackLight">Fotos</h2>
+          <p className="pb-6 subtitle-2 text-app-grayDark">
+            Selecciona máximo tres fotos para crear una galería
+          </p>
+          <div className="flex items-center justify-center border-2 w-155 h-64">
+            <label className=" hover:bg-gray-100 hover:border-gray-300">
+              <div className="flex items-center justify-center border-2 w-44 h-52">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M16 9.14286H9.14286V16H6.85714V9.14286H0V6.85714H6.85714V0H9.14286V6.85714H16V9.14286Z"
+                    fill="#1B4DB1"
+                  />
+                </svg>
+                <input type="file" className="opacity-0" />
+              </div>
+            </label>
+            <label className=" hover:bg-gray-100 hover:border-gray-300">
+              <div className="flex items-center justify-center border-2 w-44 h-52">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M16 9.14286H9.14286V16H6.85714V9.14286H0V6.85714H6.85714V0H9.14286V6.85714H16V9.14286Z"
+                    fill="#1B4DB1"
+                  />
+                </svg>
+                <input type="file" className="opacity-0" />
+              </div>
+            </label>
+            <label className=" hover:bg-gray-100 hover:border-gray-300">
+              <div className="flex items-center justify-center border-2 w-44 h-52">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M16 9.14286H9.14286V16H6.85714V9.14286H0V6.85714H6.85714V0H9.14286V6.85714H16V9.14286Z"
+                    fill="#1B4DB1"
+                  />
+                </svg>
+                <input type="file" className="opacity-0" />
+              </div>
+            </label>
+          </div>
+
+          <button
+            type="submit"
+            className=" w-31 h-12 text-app-black font-semibold rounded-lg text-xs px-5 py-2.5 text-center bg-app-blue "
+          >
+            Publicar
+          </button>
         </div>
       </div>
     </>
