@@ -2422,6 +2422,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"goober@npm:^2.1.10":
+  version: 2.1.12
+  resolution: "goober@npm:2.1.12"
+  peerDependencies:
+    csstype: ^3.0.10
+  checksum: 5945cbe92413031b8859d9087d125a744149e237c8bcf6c15db1998ee3d1b6d680ee4a47dd420f95684b76f72eebc34e98155e8a1cb06748d00cbdc05ede186d
+  languageName: node
+  linkType: hard
+
 "gopd@npm:^1.0.1":
   version: 1.0.1
   resolution: "gopd@npm:1.0.1"
@@ -3584,6 +3593,7 @@ __metadata:
     prettier: ^2.8.4
     react: 18.2.0
     react-dom: 18.2.0
+    react-hot-toast: ^2.4.0
     swiper: ^9.0.5
     tailwind-scrollbar: ^2.1.0
     tailwindcss: ^3.2.6
@@ -4133,6 +4143,18 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
   checksum: 7d323310bea3a91be2965f9468d552f201b1c27891e45ddc2d6b8f717680c95a75ae0bc1e3f5cf41472446a2589a75aed4483aee8169287909fcd59ad149e8cc
+  languageName: node
+  linkType: hard
+
+"react-hot-toast@npm:^2.4.0":
+  version: 2.4.0
+  resolution: "react-hot-toast@npm:2.4.0"
+  dependencies:
+    goober: ^2.1.10
+  peerDependencies:
+    react: ">=16"
+    react-dom: ">=16"
+  checksum: 910214496d6821af8e643c5f7087eff6c76f1395756f3d6cf1fc07a599c582c443cbb5a4cadfc58205acf0845b77a2a10a4ca49b385e772b72edc57dfd38d016
   languageName: node
   linkType: hard
 

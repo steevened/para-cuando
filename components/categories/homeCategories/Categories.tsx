@@ -47,7 +47,7 @@ const categories: ICategorie[] = [
 
 export default function Categories() {
   return (
-    <div className="w-full pl-6 md:px-16 mt-12 bg-app-grayLight pb-11">
+    <div className="w-full pl-6 md:px-16 mt-12 bg-app-grayLighter  pb-11">
       <div className=" mx-auto">
         <h2 className="pt-7 title-2 text-app-grayDark">
           ¡Hagámoslo más personal!

@@ -1,4 +1,5 @@
 import Button from '@/components/buttons/Button';
+import UlCategories from '@/components/categories/homeCategories/UlCategories';
 import Input from '@/components/Forms/Input';
 import Main from '@/components/home/Main';
 import Layout from '@/components/layouts/Layout';
@@ -54,6 +55,7 @@ const CategoryPage: NextPageWithLayout = () => {
       </Head>
       <section className="relative">
         <div style={styles} className="h-52 bg-cover bg-none bg-center" />
+
         <div className="absolute inset-0 px-4 max-w-[940px] mx-auto flex flex-col justify-evenly md:justify-center py-3">
           <nav className="flex subtitle-1 text-white" aria-label="Breadcrumb">
             <ul className="inline-flex items-center space-x-1 md:space-x-3 md:mb-6">
@@ -72,9 +74,16 @@ const CategoryPage: NextPageWithLayout = () => {
           <p className="subtitle-1 text-white md:mb-4">{subtitle}</p>
         </div>
       </section>
-      <div className="relative shadow-shadow1 px-5 flex gap-5 py-8">
-        <MenuDropDown />
-        <Input />
+      <div className="relative shadow-shadow1 w-full py-9">
+        <div className="flex px-5 max-w-[980px] mx-auto justify-between gap-2 items-center">
+          <MenuDropDown />
+          <div className="hidden md:block md:flex-[1] mr-10 ">
+            <UlCategories />
+          </div>
+          <div className="flex-1 ">
+            <Input />
+          </div>
+        </div>
       </div>
       <Main />
     </>
@@ -83,7 +92,7 @@ const CategoryPage: NextPageWithLayout = () => {
 
 const MenuDropDown = () => {
   return (
-    <Menu as="div" className="relative inline-block">
+    <Menu as="div" className="relative inline-block md:hidden">
       <Menu.Button className="rounded-full border border-app-gray p-3">
         <svg
           width="24"
