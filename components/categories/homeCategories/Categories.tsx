@@ -1,4 +1,6 @@
 import Button from '@/components/buttons/Button';
+import { Scrollbar } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
 interface ICategorie {
   name: string;
   id: number;
@@ -45,8 +47,8 @@ const categories: ICategorie[] = [
 
 export default function Categories() {
   return (
-    <div className="w-full pl-6 mt-12 bg-app-grayLight pb-11">
-      <div className="max-w-[941px] mx-auto">
+    <div className="w-full pl-6 md:px-16 mt-12 bg-app-grayLighter  pb-11">
+      <div className=" mx-auto">
         <h2 className="pt-7 title-2 text-app-grayDark">
           ¡Hagámoslo más personal!
         </h2>
@@ -54,13 +56,37 @@ export default function Categories() {
           Selecciona tus interes para brindarte sugerencia de acuerdo a tus
           gustos
         </p>
-        <ul className="flex items-center gap-3 mt-6 overflow-x-auto">
+        <Swiper
+          modules={[Scrollbar]}
+          slidesPerView={'auto'}
+          spaceBetween={11}
+          scrollbar={{ draggable: true }}
+          breakpoints={{
+            0: {
+              slidesPerView: 2,
+            },
+            375: {
+              slidesPerView: 2.5,
+            },
+            415: {
+              slidesPerView: 3.2,
+            },
+            500: {
+              slidesPerView: 4.5,
+            },
+            720: {
+              slidesPerView: 5,
+              spaceBetween: 14,
+            },
+          }}
+          className="mt-6"
+        >
           {categories.map((categorie) => (
-            <li key={categorie.id}>
+            <SwiperSlide key={categorie.id} className="">
               <Button>{categorie.name}</Button>
-            </li>
+            </SwiperSlide>
           ))}
-        </ul>
+        </Swiper>
         <p className="mt-[60px] subtitle-2 text-app-blue">
           Ver todos los intereses
         </p>

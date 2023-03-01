@@ -18,7 +18,7 @@ module.exports = {
         'app-red': '#EF3F47',
       },
       boxShadow: {
-        shadow1: '0 2px 4px 0 rgba(0, 0, 0, 0.25)',
+        shadow1: '0 2px 4px 0px rgba(0, 0, 0, 0.25)',
       },
       fontFamily: {},
     },

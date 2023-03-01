@@ -1,9 +1,5 @@
 import { ClassName, ItemSlider } from '@/lib/interfaces';
 import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
-import 'swiper/css/virtual';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import brand from '../../public/cardImgs/brand.png';
 import bts from '../../public/cardImgs/bts.png';
@@ -142,7 +138,10 @@ export default function HomeSlider({ className }: ClassName) {
         ))}
 
         <Arrow className="absolute z-50 -left-14 top-1/2" orientation="left" />
-        <Arrow className="absolute right-0 z-50 top-1/2" orientation="right" />
+        <Arrow
+          className="absolute -right-14 z-50 top-1/2"
+          orientation="right"
+        />
       </Swiper>
     </div>
   );
