@@ -1,15 +1,31 @@
-import { Input } from '@/components/create/Input';
+import Input from '@/components/create/Input';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useForm } from 'react-hook-form';
 import logo from '../../public/create/logo.svg';
+
+interface FormData {
+  title: string;
+}
 
 export default function Create() {
   const router = useRouter();
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
+
   const handleBack = () => {
     router.back();
   };
+
+  const onSubmit = (data: FormData) => {
+    console.log(data);
+  };
+
   return (
     <>
       <Head>
@@ -41,8 +57,12 @@ export default function Create() {
           <p className="mt-2 subtitle-2 text-app-grayDark">
             Información básica
           </p>
-          <form className="mt-11">
-            <Input label="Titulo de la publicación" />
+          <form onSubmit={handleSubmit(onSubmit)} className="mt-11">
+            <Input
+              {...register('title')}
+              label="Titulo de la publicación"
+              error={errors.title}
+            />
           </form>
         </div>
       </div>
