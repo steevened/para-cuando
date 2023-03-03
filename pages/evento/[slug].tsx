@@ -28,7 +28,7 @@ const EventoPage: NextPageWithLayout = () => {
         <meta name="description" content="description" />
       </Head>
       <CategorieNavbar />
-      <div>
+      <div className="app-container">
         <ul className="inline-flex items-center mt-[58px] space-x-1 md:space-x-3 md:mb-6">
           <li className="inline-flex items-center">
             <p>{evento?.[0]?.tipo}</p>
