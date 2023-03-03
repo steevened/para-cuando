@@ -20,6 +20,7 @@ const EventoPage: NextPageWithLayout = () => {
     const eventoFilter = db.filter((event) => event.id === Number(slug));
     setEvento(eventoFilter);
   }, [slug]);
+  console.log(evento);
 
   return (
     <>
