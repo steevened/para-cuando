@@ -1,23 +1,17 @@
 import { forwardRef } from 'react';
-import { FieldError, FieldErrors } from 'react-hook-form';
 
 interface InterfaceInput extends React.ComponentPropsWithoutRef<'input'> {
   label: string;
-  name: string;
-  error?: FieldError | FieldErrors;
 }
 
 const Input = forwardRef<HTMLInputElement, InterfaceInput>(
-  ({ label, name, className, error, ...inputProps }, ref) => {
+  ({ label, className, ...inputProps }, ref) => {
     return (
       <label className="relative">
         <input
           {...inputProps}
-          name={name}
           ref={ref}
-          className={`w-full px-5 py-2 duration-100 border peer border-app-grayDark rounded-xl focus:ring-1 focus:ring-app-blue focus:outline-none ${
-            error && 'border-red-500 '
-          } ${className}`}
+          className={`w-full px-5 py-2 duration-100 border peer border-app-grayDark rounded-xl focus:ring-1 focus:ring-app-blue focus:outline-none  ${className}`}
         />
         <span
           className={`absolute text-base cursor-text text-app-grayDark peer-active:-top-[25px] whitespace-nowrap left-3 -top-[4px] bg-white p-1 duration-200 peer-focus:-top-[25px] peer-focus:text-sm ease-in-out ${

@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "img": "/cardImgs/lady.png",
+    "title": "Concierto de Lady Gaga",
+    "description": "El concierto con la temática de Lady gaga en las Vegas.",
+    "web": "ladygaga.com",
+    "votes": 90800756,
+    "tipo": "artistas",
+    "categorias": "Pop-Rock"
+  },
+  {
+    "id": 2,
+    "img": "/cardImgs/shop.png",
+    "title": "Tienda de ropa femenina...",
+    "description": "Tienda de ropa",
+    "web": "ladygaga.com",
+    "votes": 90800756,
+    "tipo": "marcas  y tiendas",
+    "categorias": "tiendas"
+  },
+  {
+    "id": 3,
+    "img": "/cardImgs/bts.png",
+    "title": "Concierto de BTS",
+    "description": "Grupo musical coreano",
+    "web": "bts.com",
+    "votes": 90800756,
+    "tipo": "artistas",
+    "categorias": "Pop-Rock"
+  },
+  {
+    "id": 4,
+    "img": "/cardImgs/hotel.png",
+    "title": "Hotel Selina",
+    "description": "Hotel que te permite hospedarte, trabajar, comer y vivir experiencias auténticas en todo el mundo",
+    "web": "selina.com",
+    "votes": 90800756,
+    "tipo": "artistas",
+    "categorias": "Pop-Rock"
+  },
+  {
+    "id": 5,
+    "img": "/cardImgs/brand.png",
+    "title": "Marca Ecoalf",
+    "description": "Marca española de prendas y accesorios, elaborando como materia prima, diversos tipos de desechos que se arrojan al mar",
+    "web": "ecoalf.com",
+    "votes": 90800756,
+    "tipo": "artistas",
+    "categorias": "Pop-Rock"
+  },
+  {
+    "id": 6,
+    "img": "/cardImgs/bts.png",
+    "title": "Concierto de BTS",
+    "description": "Grupo musical coreano",
+    "web": "bts.com",
+    "votes": 90800756,
+    "tipo": "artistas",
+    "categorias": "Pop-Rock"
+  },
+  {
+    "id": 7,
+    "img": "/cardImgs/shop.png",
+    "title": "Tienda de ropa femenina...",
+    "description": "Tienda de ropa",
+    "web": "ladygaga.com",
+    "votes": 90800756,
+    "tipo": "artistas",
+    "categorias": "Pop-Rock"
+  },
+  {
+    "id": 8,
+    "img": "/cardImgs/lady.png",
+    "title": "Concierto de Lady Gaga",
+    "description": "El concierto con la temática de Lady gaga en las Vegas.",
+    "web": "ladygaga.com",
+    "votes": 90800756,
+    "tipo": "artistas",
+    "categorias": "Pop-Rock"
+  },
+  {
+    "id": 9,
+    "img": "/cardImgs/lady.png",
+    "title": "Concierto de Lady Gaga",
+    "description": "El concierto con la temática de Lady gaga en las Vegas.",
+    "web": "ladygaga.com",
+    "votes": 90800756,
+    "tipo": "artistas",
+    "categorias": "Pop-Rock"
+  }
+]
