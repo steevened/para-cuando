@@ -1,30 +1,32 @@
-import Input from '@/components/create/Input';
+import { useFormik } from 'formik';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
+import * as Yup from 'yup';
 import logo from '../../public/create/logo.svg';
-
-interface FormData {
-  title: string;
-}
 
 export default function Create() {
   const router = useRouter();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>();
 
   const handleBack = () => {
     router.back();
   };
 
-  const onSubmit = (data: FormData) => {
-    console.log(data);
-  };
+  const formik = useFormik({
+    initialValues: {
+      title: '',
+      tipo: '',
+      categoria: '',
+    },
+    validationSchema: Yup.object({
+      title: Yup.string().max(15, 'Máximo 15 carácteres').required('Required'),
+      tipo: Yup.string().required('Required'),
+      categoria: Yup.string().required('Required'),
+    }),
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
 
   return (
     <>
@@ -52,18 +54,71 @@ export default function Create() {
           <button className="text-app-blue " onClick={handleBack}>
             Back
           </button>
-          <div className="relative w-full h-2 overflow-hidden duration-300 rounded-full bg-app-grayLight mt-11 after:absolute after:bg-app-blue after:w-1/2 after:inset-y-0" />
+          <div className="relative w-full h-2 overflow-hidden duration-300 rounded-full bg-app-grayLight mt-11 after:absolute after:bg-app-blue after:w-1/2 after:inset-y-0 transition-all" />
           <h2 className="title-2 text-app-blackLight mt-11">Publicación</h2>
           <p className="mt-2 subtitle-2 text-app-grayDark">
             Información básica
           </p>
-          <form onSubmit={handleSubmit(onSubmit)} className="mt-11">
-            <Input
-              {...register('title')}
-              label="Titulo de la publicación"
-              error={errors.title}
-            />
+          <form
+            className="mt-11"
+            onSubmit={formik.handleSubmit}
+            // className="relative"
+          >
+            <label htmlFor="title">
+              <p>Titulo de la publicación</p>
+              <input
+                type="text"
+                id="title"
+                {...formik.getFieldProps('title')}
+              />
+              {formik.errors.title && formik.touched.title ? (
+                <div>{formik.errors.title}</div>
+              ) : null}
+            </label>
+            <label htmlFor="tipo" className="relative">
+              <p>Selecciona el tipo</p>
+              <select
+                id="tipo"
+                {...formik.getFieldProps('tipo')}
+                // defaultValue={formik.values.tipo}
+              >
+                <option value={formik.values.tipo} disabled>
+                  Tipo
+                </option>
+                <option value="tipo 1">Tipo 1</option>
+                <option value="tipo 2">Tipo 2</option>
+                <option value="tipo 3">Tipo 3</option>
+              </select>
+              {formik.errors.tipo && formik.touched.tipo ? (
+                <div>{formik.errors.tipo}</div>
+              ) : null}
+            </label>
+            <label htmlFor="categoria">
+              <p>Selecciona la categoria</p>
+              <select
+                name="categoria"
+                id="categoria"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                defaultValue={formik.values.categoria}
+              >
+                <option value={formik.values.categoria} disabled>
+                  Categoría
+                </option>
+                <option value="categoria 1">categoria 1</option>
+                <option value="categoria 2">categoria 2</option>
+                <option value="categoria 3">categoria 3</option>
+              </select>
+            </label>
+            {formik.errors.categoria && formik.touched.categoria ? (
+              <div>{formik.errors.categoria}</div>
+            ) : null}
+            <button type="submit">Siguiente</button>
           </form>
+
+          {/* <form className="mt-11">
+            <Input label="Titulo de la publicación" />
+          </form> */}
         </div>
       </div>
 

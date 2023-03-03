@@ -1,101 +1,14 @@
-import { ClassName, ItemSlider } from '@/lib/interfaces';
+import { ClassName } from '@/lib/interfaces';
+import Link from 'next/link';
 import 'swiper/css';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
-import brand from '../../public/cardImgs/brand.png';
-import bts from '../../public/cardImgs/bts.png';
-import hotel from '../../public/cardImgs/hotel.png';
-import lady from '../../public/cardImgs/lady.png';
-import shop from '../../public/cardImgs/shop.png';
+import db from '../../db.json';
 import CardItem from './CardItem';
 
 interface ArrowProps {
   orientation: 'left' | 'right';
   className: string;
 }
-
-const items: ItemSlider[] = [
-  {
-    id: 1,
-    title: 'concert 1',
-    description:
-      'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups 1',
-    web: 'concert1.com',
-    assistants: 654,
-    img: lady,
-  },
-  {
-    id: 2,
-    title: 'shop 1',
-    description:
-      'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups 1',
-    web: 'shop1.com',
-    assistants: 10324,
-    img: brand,
-  },
-  {
-    id: 3,
-    title: 'tournament 1',
-    description:
-      'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups 1',
-    web: 'tournament1.com',
-    assistants: 234,
-    img: bts,
-  },
-  {
-    id: 4,
-    title: 'concert 2',
-    description:
-      'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups 2',
-    web: 'concert2.com',
-    assistants: 543,
-    img: hotel,
-  },
-  {
-    id: 5,
-    title: 'shop 2',
-    description:
-      'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups 2',
-    web: 'shop2.com',
-    assistants: 908,
-    img: shop,
-  },
-  {
-    id: 6,
-    title: 'tournament 2',
-    description:
-      'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups 2',
-    web: 'tournament2.com',
-    assistants: 8986,
-    img: lady,
-  },
-  {
-    id: 7,
-    title: 'concert 3',
-    description:
-      'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups 3',
-    web: 'concert3.com',
-    assistants: 654,
-    img: brand,
-  },
-  {
-    id: 8,
-    title: 'shop 3',
-    description:
-      'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups 3',
-    web: 'shop3.com',
-    assistants: 30324,
-    img: bts,
-  },
-  {
-    id: 9,
-    title: 'tournament 3',
-    description:
-      'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups 3',
-    web: 'tournament3.com',
-    assistants: 234,
-    img: hotel,
-  },
-];
 
 export default function HomeSlider({ className }: ClassName) {
   return (
@@ -124,22 +37,24 @@ export default function HomeSlider({ className }: ClassName) {
           },
         }}
       >
-        {items.map((item) => (
+        {db.map((item) => (
           <SwiperSlide key={item.id}>
-            <CardItem
-              id={item.id}
-              title={item.title}
-              description={item.description}
-              web={item.web}
-              assistants={item.assistants}
-              img={item.img}
-            />
+            <Link href={`/evento/${encodeURIComponent(item.id)}`}>
+              <CardItem
+                id={item.id}
+                title={item.title}
+                description={item.description}
+                web={item.web}
+                votes={item.votes}
+                img={item.img}
+              />
+            </Link>
           </SwiperSlide>
         ))}
 
         <Arrow className="absolute z-50 -left-14 top-1/2" orientation="left" />
         <Arrow
-          className="absolute -right-14 z-50 top-1/2"
+          className="absolute z-50 -right-14 top-1/2"
           orientation="right"
         />
       </Swiper>

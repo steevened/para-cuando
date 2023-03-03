@@ -4,12 +4,18 @@ import { useState } from 'react';
 import UserLogo from '../atoms/UserLogo';
 import { HearthBtn } from '../buttons/HearthBtn';
 
-const CardItem = ({ title, description, web, assistants, img }: ItemSlider) => {
+const CardItem = ({ title, description, web, votes, img }: ItemSlider) => {
   const [isActive, setIsActive] = useState<boolean>(false);
 
   return (
     <div className="shadow-shadow1 m-2 w-[300px] rounded-[20px]  overflow-hidden text-black bg-white border">
-      <Image className="w-full" src={img} alt="picture" />
+      <Image
+        width={300}
+        height={299}
+        className="w-full"
+        src={img}
+        alt="picture"
+      />
       <div className=" mx-[22px] mt-[15px] relative mb-10">
         <div className="absolute right-0 -top-10">
           <HearthBtn
@@ -26,7 +32,7 @@ const CardItem = ({ title, description, web, assistants, img }: ItemSlider) => {
           <span>
             <UserLogo />
           </span>
-          <p>{assistants} votos</p>
+          <p>{votes} votos</p>
         </div>
       </div>
     </div>
