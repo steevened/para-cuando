@@ -20,9 +20,9 @@ const EventoPage: NextPageWithLayout = () => {
     const eventoFilter = db.filter((event) => event.id === Number(slug));
     setEvento(eventoFilter);
   }, [slug]);
-  console.log(evento);
+//  mt-[58px] space-x-1 md:space-x-3 md:mb-6
 
-  return (
+return (
     <>
       <Head>
         <title>{slug} - Para Cuándo</title>
@@ -30,29 +30,41 @@ const EventoPage: NextPageWithLayout = () => {
       </Head>
       <CategorieNavbar />
       <div className="app-container">
-        <ul className="inline-flex items-center mt-[58px] space-x-1 md:space-x-3 md:mb-6">
-          <li className="inline-flex items-center">
-            <p>{evento?.[0]?.tipo}</p>
-          </li>
-          <li>/</li>
-          <li className="ml-1">
-            <p>{evento?.[0]?.categorias}</p>
-          </li>
-        </ul>
-        <h2>{evento?.[0]?.title}</h2>
-        <p>{evento?.[0]?.description}</p>
-        <p>{evento?.[0]?.web}</p>
-        <div>
-          <UserLogo />
-          <p>{evento?.[0]?.votes} votos</p>
-        </div>
-        <Image
-          src={evento?.[0]?.img}
-          alt={evento?.[0]?.title}
-          width={300}
-          height={299}
-        />
-        <BtnVote voted={false} />
+
+        <section className="w-full grid items-start md:grid-cols-2 mt-[102px] gap-x-5">
+          <div className='md:row-span-2'>
+              <p>
+                {evento?.[0]?.tipo} / {evento?.[0]?.categorias}
+              </p>
+
+            <div className='mt-1.5'>
+              <h1 className="title-1 text-black">
+                {evento?.[0]?.title}
+              </h1>
+              <p className='mt-[22px] text-app-grayDark'>{evento?.[0]?.description}</p>
+            </div>
+
+            <div className="mt-8">
+              <p className='text-[#1B4DB1]'>{evento?.[0]?.web}</p>
+              <div className='mt-4 flex gap-2'>
+                <UserLogo />
+                <p>{evento?.[0]?.votes} votos</p>
+              </div>
+            </div>
+            </div>
+          <Image
+            className="mt-6 w-full md:mt-0 md:row-span-3"
+            src={evento?.[0]?.img}
+            alt={evento?.[0]?.title}
+            width={539}
+            height={381}
+            />
+            
+          <div className="mt-7 w-full">
+            <BtnVote voted={false} />
+          </div>
+        </section>
+
         <Categories />
         <SectionSlider
           title="Recientes"

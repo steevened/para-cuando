@@ -37,6 +37,7 @@
   .app-container {
     @apply container p-4 m-auto lg:max-w-6xl;
   }
+
 }
 
 @layer utilities {
