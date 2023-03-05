@@ -8,7 +8,7 @@ const CardItem = ({ title, description, web, votes, img }: ItemSlider) => {
   const [isActive, setIsActive] = useState<boolean>(false);
 
   return (
-    <div className="shadow-shadow1 m-2 w-[300px] rounded-[20px]  overflow-hidden text-black bg-white border">
+    <div className="shadow-shadow1 m-2 w-[300px] rounded-[20px] h-[454px] overflow-hidden text-black bg-white border">
       <Image
         width={300}
         height={299}
@@ -16,7 +16,7 @@ const CardItem = ({ title, description, web, votes, img }: ItemSlider) => {
         src={img}
         alt="picture"
       />
-      <div className=" mx-[22px] mt-[15px] relative mb-10">
+      <div className=" mx-[22px] mt-[15px] relative mb-10 h-full">
         <div className="absolute right-0 -top-10">
           <HearthBtn
             aria-label="like-button"
