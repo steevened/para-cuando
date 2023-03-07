@@ -76,6 +76,29 @@ export default function TwoStepsForm({
   steps: number;
   setSteps: any;
 }) {
+  const firstValidationSchema = Yup.object({
+    title: Yup.string().max(15, 'Máximo 15 carácteres').required('Required'),
+    type: Yup.string().required('Required'),
+    category: Yup.string().required('Required'),
+    recomendation: Yup.string().required('Required'),
+    reference: Yup.string().required('Required'),
+  });
+
+  const lastValidationSchema = Yup.object({
+    title: Yup.string().max(15, 'Máximo 15 carácteres').required('Required'),
+    type: Yup.string().required('Required'),
+    category: Yup.string().required('Required'),
+    recomendation: Yup.string().required('Required'),
+    reference: Yup.string().required('Required'),
+    images: Yup.array().test(
+      'at least one image',
+      'At least one image is required',
+      (arr) => {
+        return arr && arr.some((image) => image !== null);
+      }
+    ),
+  });
+
   return (
     <Formik
       initialValues={{
@@ -84,26 +107,21 @@ export default function TwoStepsForm({
         category: '',
         recomendation: '',
         reference: '',
-        files: [],
-        // 'img-1': '',
-        // 'img-2': '',
-        // 'img-3': '',
+        images: [null, null, null],
       }}
-      validationSchema={Yup.object({
-        title: Yup.string()
-          .max(15, 'Máximo 15 carácteres')
-          .required('Required'),
-        type: Yup.string().required('Required'),
-        category: Yup.string().required('Required'),
-        recomendation: Yup.string().required('Required'),
-        reference: Yup.string().required('Required'),
-        // 'img-1': Yup.string().required('Required'),
-      })}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
+      validationSchema={
+        steps === 1 ? firstValidationSchema : lastValidationSchema
+      }
+      onSubmit={async (values, { setSubmitting }) => {
+        if (steps === 1) {
+          // await firs
+          setSteps(2);
           setSubmitting(false);
-        }, 400);
+        } else {
+          // alert(JSON.stringify(values, null, 2));
+          console.log(values);
+          setSubmitting(false);
+        }
       }}
     >
       <Form className="mt-11">
@@ -164,13 +182,7 @@ export default function TwoStepsForm({
           <>
             <InputGroup inputFiles={inputFiles} className="mt-6" />
             <div className="flex justify-center w-full mt-11">
-              <BtnNext
-                // onClick={() => setSteps(2)}
-                // type="submit"
-                className=""
-              >
-                Publicar
-              </BtnNext>
+              <BtnNext className="">Publicar</BtnNext>
             </div>
           </>
         )}

@@ -6,9 +6,10 @@ interface Props extends ComponentPropsWithoutRef<'button'> {
   className?: string;
 }
 export default function BtnNext({ className, ...BtnProps }: Props) {
-  const { isValid, dirty, handleSubmit } = useFormikContext();
+  const { isValid, dirty, handleSubmit, setTouched } = useFormikContext();
 
-  const handleClick = () => {
+  const handleFinalSubmit = () => {
+    setTouched({});
     handleSubmit();
   };
 
@@ -16,7 +17,7 @@ export default function BtnNext({ className, ...BtnProps }: Props) {
     <button
       disabled={!isValid || !dirty}
       type={!isValid || !dirty ? 'button' : 'submit'}
-      onClick={handleClick}
+      onClick={BtnProps.onClick ? BtnProps.onClick : handleFinalSubmit}
       className={`${
         !isValid || !dirty ? 'disabled' : 'bg-app-blue'
       } ${className} py-2 px-4 rounded-3xl text-white text-base font-semibold focus:ring-[3px] duration-200 md:w-[305px]`}

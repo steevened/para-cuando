@@ -1,40 +1,58 @@
+import { useField, useFormikContext } from 'formik';
 import { useState } from 'react';
 
-export default function InputGroup({ inputFiles, className }: any) {
+interface IInputFiles {
+  name: string;
+  id: number;
+}
+
+interface InputGroupProps {
+  inputFiles: IInputFiles[];
+  className?: string;
+}
+
+export default function InputGroup({ inputFiles, className }: InputGroupProps) {
+  const { setFieldValue } = useFormikContext();
+
   return (
     <div
       className={`flex w-full h-full gap-3 px-4 py-5 border border-app-grayDark rounded-xl ${className}`}
     >
       {inputFiles.map((inputFile: any) => (
-        <Label key={inputFile.id} inputFile={inputFile} />
+        <Label
+          key={inputFile.id}
+          inputFile={inputFile}
+          setFieldValue={setFieldValue}
+        />
       ))}
     </div>
   );
 }
 
-const Label = ({ inputFile, ...props }: any) => {
+interface LabelProps {
+  inputFile: IInputFiles;
+  setFieldValue: any;
+}
+const Label = ({ inputFile, setFieldValue }: LabelProps) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  // const [field, meta] = useField(props);
+  const [field, meta] = useField(inputFile.name);
 
-  const handleFileChange = (e: any) => {
-    const file = e.target.files[e.target.files.length - 1];
-    console.log(file);
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result as string);
+        setFieldValue(`images[${inputFile.id - 1}]`, file);
       };
       reader.readAsDataURL(file);
     }
   };
 
-  // console.log({ field, meta });
-
   return (
     <label
       key={inputFile?.id}
-      htmlFor={`img-${inputFile?.id}`}
-      // htmlFor={props.id || props.name}
+      htmlFor={inputFile.name}
       className="relative w-[105px] h-[123px]"
       style={
         imagePreview
@@ -48,15 +66,17 @@ const Label = ({ inputFile, ...props }: any) => {
     >
       <input
         type="file"
-        name={`img-${inputFile?.id}`}
+        name={inputFile.name}
         accept="image/*"
-        id={`img-${inputFile?.id}`}
+        id={inputFile.name}
         className="hidden"
-        onChange={handleFileChange}
-        // {...field}
-        // {...props}
+        onChange={(e) => {
+          handleFileChange(e);
+          // field.onChange(e);
+        }}
       />
       {!imagePreview && <AddIcon />}
+      {meta.touched && meta.error ? <div>{meta.error}</div> : null}
     </label>
   );
 };
