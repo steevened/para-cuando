@@ -69,7 +69,7 @@ export default function profile() {
         </ul>
       </div>
       <div className="">
-        <ProfileSlider className="" />
+        <ProfileSlider />
       </div>
       <div className="flex justify-center">
         <nav aria-label="Page navigation example">

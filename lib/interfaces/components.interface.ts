@@ -10,7 +10,7 @@ export interface ItemSlider {
   description: string;
   web: string;
   votes: number;
-  img: StaticImageData;
+  img: StaticImageData | String;
 }
 
 export interface ClassName {
