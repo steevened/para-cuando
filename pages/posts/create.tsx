@@ -18,24 +18,27 @@ export default function Create() {
       <Head>
         <title>Crear Publicación - Para Cuándo</title>
       </Head>
-      <div className="h-full min-h-screen">
-        <div className="pb-5 bg-app-blue">
-          <div className="app-container">
+      <div className="h-full min-h-screen flex flex-col sm:flex-row">
+        <div className="pb-5 bg-app-blue w-full sm:max-w-[255px] ">
+          <div className="app-container relative h-full ">
             <Image
               src={logo}
               alt="para cuando logo"
-              className="pt-8 mx-auto "
+              className="pt-8 sm:pt-24 mx-auto "
             />
-            <h1 className="mt-8 title-3 text-app-yellow">
+            <h1 className="mt-8 title-3 text-app-yellow sm:pt-10 sm:w-1/2">
               ¡Bienvenido, creador!
             </h1>
             <p className="mt-6 text-white text-1">
               A continuación puedes completar la info de la marca, artista o
               torneo que quieres cerca.
             </p>
+            <p className="absolute text-1 text-white bottom-6 hidden sm:block">
+              Ayuda
+            </p>
           </div>
         </div>
-        <div className="mt-6 text-xl app-container">
+        <div className="mt-6 sm:mt-2 text-xl app-container ">
           <button
             className="text-app-blue "
             onClick={() => {
@@ -44,24 +47,26 @@ export default function Create() {
           >
             Back
           </button>
-          <div
-            className={`relative w-full h-2 overflow-hidden  rounded-full bg-app-grayLight mt-11`}
-          >
+          <div className="w-full max-w-[620px] mx-auto">
             <div
-              className={`absolute inset-y-0  transition-all duration-300 bg-app-blue ${
-                steps === 1 ? 'w-1/2' : 'w-full'
-              }`}
-            />
+              className={`relative w-full h-2 overflow-hidden  rounded-full bg-app-grayLight mt-11 border`}
+            >
+              <div
+                className={`absolute inset-y-0  transition-all duration-300 bg-app-blue ${
+                  steps === 1 ? 'w-1/2' : 'w-full'
+                }`}
+              />
+            </div>
+            <h2 className="title-2 text-app-blackLight mt-11">
+              {steps === 1 ? 'Publicación' : 'Fotos'}
+            </h2>
+            <p className="mt-2 subtitle-2 text-app-grayDark">
+              {steps === 1
+                ? 'Información básica'
+                : 'Selecciona máximo tres fotos para crear una galería'}
+            </p>
+            <TwoStepsForm steps={steps} setSteps={setSteps} />
           </div>
-          <h2 className="title-2 text-app-blackLight mt-11">
-            {steps === 1 ? 'Publicación' : 'Fotos'}
-          </h2>
-          <p className="mt-2 subtitle-2 text-app-grayDark">
-            {steps === 1
-              ? 'Información básica'
-              : 'Selecciona máximo tres fotos para crear una galería'}
-          </p>
-          <TwoStepsForm steps={steps} setSteps={setSteps} />
         </div>
       </div>
     </>

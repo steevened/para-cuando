@@ -16,7 +16,7 @@ export default function InputGroup({ inputFiles, className }: InputGroupProps) {
 
   return (
     <div
-      className={`flex w-full h-full gap-3 px-4 py-5 border border-app-grayDark rounded-xl ${className}`}
+      className={`flex w-full h-full gap-3 md:gap-6 px-4 py-5 border border-app-grayDark rounded-xl ${className}`}
     >
       {inputFiles.map((inputFile: any) => (
         <Label
@@ -53,7 +53,7 @@ const Label = ({ inputFile, setFieldValue }: LabelProps) => {
     <label
       key={inputFile?.id}
       htmlFor={inputFile.name}
-      className="relative w-[105px] h-[123px]"
+      className="relative w-[105px] md:w-[177px] h-[123px] md:h-[206px]"
       style={
         imagePreview
           ? {
@@ -90,7 +90,7 @@ const AddIcon = () => {
         viewBox="0 0 24 24"
         strokeWidth={1.5}
         stroke="currentColor"
-        className="w-6 h-6"
+        className="w-6 h-6 text-app-blue"
       >
         <path
           strokeLinecap="round"

@@ -85,7 +85,7 @@ export default function TwoStepsForm({
   });
 
   const lastValidationSchema = Yup.object({
-    title: Yup.string().max(15, 'Máximo 15 carácteres').required('Required'),
+    title: Yup.string().required('Required'),
     type: Yup.string().required('Required'),
     category: Yup.string().required('Required'),
     recomendation: Yup.string().required('Required'),
@@ -132,28 +132,33 @@ export default function TwoStepsForm({
               name="title"
               type="text"
             />
-            <SelectInput label="Tipo" name="type" className="mt-6">
-              <option value="" disabled>
-                Tipo
-              </option>
-              {tipos.map((tipo) => (
-                <option key={tipo.id} value={tipo.name}>
-                  {tipo.name}
+            <div className="flex flex-col sm:flex-row gap-5">
+              <SelectInput label="Tipo" name="type" className="mt-6 w-full">
+                <option value="" disabled>
+                  Tipo
                 </option>
-              ))}
-            </SelectInput>
+                {tipos.map((tipo) => (
+                  <option key={tipo.id} value={tipo.name}>
+                    {tipo.name}
+                  </option>
+                ))}
+              </SelectInput>
 
-            <SelectInput label="Categoria" name="category" className="mt-6">
-              <option value="" disabled>
-                Categoria
-              </option>
-              {categories.map((categorie) => (
-                <option key={categorie.id} value={categorie.name}>
-                  {categorie.name}
+              <SelectInput
+                label="Categoria"
+                name="category"
+                className="mt-6 w-full"
+              >
+                <option value="" disabled>
+                  Categoria
                 </option>
-              ))}
-            </SelectInput>
-
+                {categories.map((categorie) => (
+                  <option key={categorie.id} value={categorie.name}>
+                    {categorie.name}
+                  </option>
+                ))}
+              </SelectInput>
+            </div>
             <TextArea
               label="¿Por qué lo recomiendas?"
               name="recomendation"

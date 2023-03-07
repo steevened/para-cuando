@@ -20,7 +20,7 @@ export default function BtnNext({ className, ...BtnProps }: Props) {
       onClick={BtnProps.onClick ? BtnProps.onClick : handleFinalSubmit}
       className={`${
         !isValid || !dirty ? 'disabled' : 'bg-app-blue'
-      } ${className} py-2 px-4 rounded-3xl text-white text-base font-semibold focus:ring-[3px] duration-200 md:w-[305px]`}
+      } ${className} py-2 px-4 rounded-3xl text-white text-base font-semibold focus:ring-[3px] duration-200 `}
       {...BtnProps}
     />
   );
