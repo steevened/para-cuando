@@ -8,7 +8,7 @@ export interface ItemSlider {
   description: string;
   web: string;
   votes: number;
-  img: string;
+  img: any;
 }
 
 export interface ClassName {
