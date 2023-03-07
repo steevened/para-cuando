@@ -42,7 +42,7 @@ export default function Navbar() {
         </div>
       ) : (
         <div className=" flex items-center gap-3 sm:gap-10">
-          <Link href="#" className="sm:flex gap-2 hidden">
+          <Link href="/profile/votes" className="sm:flex gap-2 hidden">
             <Image src={votesLogo} alt="votes logo" />
             <p className="text-white text-2">Mis votos</p>
           </Link>
@@ -72,7 +72,7 @@ export default function Navbar() {
                 <Menu.Item>
                   {({ active }) => (
                     <Link
-                      href="/"
+                      href="/profile"
                       className="flex w-full gap-6 items-center mb-5 justify-center"
                     >
                       <Image
