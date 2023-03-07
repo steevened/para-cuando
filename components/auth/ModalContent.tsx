@@ -10,6 +10,7 @@ interface ModalProps {
   btnText: string;
   contentFor: 'login' | 'register';
   redirectTo: string;
+  handleSubmit: any;
 }
 
 export default function ModalContent({
@@ -20,6 +21,7 @@ export default function ModalContent({
   passwordAction,
   redirectTo,
   contentFor,
+  handleSubmit,
 }: ModalProps) {
   return (
     <ModalContainer>
@@ -47,6 +49,7 @@ export default function ModalContent({
         </div>
         <button
           type="submit"
+          onClick={contentFor === 'login' ? handleSubmit : null}
           className=" w-full text-app-black font-semibold rounded-md text-base px-5 py-2.5 text-center bg-app-yellow mt-7"
         >
           {btnText}
