@@ -1,5 +1,3 @@
-import { StaticImageData } from 'next/image';
-
 export default interface Children {
   children: React.ReactNode;
 }
@@ -10,7 +8,7 @@ export interface ItemSlider {
   description: string;
   web: string;
   votes: number;
-  img: StaticImageData | String;
+  img: any;
 }
 
 export interface ClassName {
