@@ -1,8 +1,8 @@
 import { ClassName } from '@/lib/interfaces';
-import { usePublications } from '@/lib/services/publications.services';
+import { usePublications } from '@/lib/services/publications/publications.services';
+
 import 'swiper/css';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
-import db from '../../db.json';
 import CardItem from './CardItem';
 
 interface ArrowProps {
@@ -13,9 +13,11 @@ interface ArrowProps {
 export default function HomeSlider({ className }: ClassName) {
   const { data: publications, error, isLoading } = usePublications();
 
+  // console.log(publications?.rows[0]);
+
   if (isLoading) {
     return (
-      <div className="absolute inset-0 text-3xl bg-white flex items-center justify-center">
+      <div className="absolute inset-0 flex items-center justify-center text-3xl bg-white">
         LOADING
       </div>
     );
@@ -23,7 +25,7 @@ export default function HomeSlider({ className }: ClassName) {
 
   if (error) {
     return (
-      <div className="absolute inset-0 text-3xl bg-white flex items-center justify-center">
+      <div className="absolute inset-0 flex items-center justify-center text-3xl bg-white">
         Intente nuevamente
       </div>
     );
@@ -55,15 +57,14 @@ export default function HomeSlider({ className }: ClassName) {
           },
         }}
       >
-        {db.map((item) => (
-          <SwiperSlide key={item.id}>
+        {publications?.rows.map((publication) => (
+          <SwiperSlide key={publication.id}>
             <CardItem
-              id={item.id}
-              title={item.title}
-              description={item.description}
-              web={item.web}
-              votes={item.votes}
-              img={item.img}
+              content={publication.content}
+              description={publication.description}
+              title={publication.title}
+              votes_count={publication.votes_count}
+              id={publication.id}
             />
           </SwiperSlide>
         ))}

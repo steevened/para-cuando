@@ -3,7 +3,7 @@ import SectionSlider from '../sliders/SectionSlider';
 
 export default function Main() {
   return (
-    <main className="mt-5 w-full max-w-[941px] mx-auto">
+    <div className="mt-5 w-full max-w-[941px] mx-auto">
       <SectionSlider
         title="Populares en Querétaro"
         subtitle="Lo que las personas piden más"
@@ -18,6 +18,6 @@ export default function Main() {
         title="Recientes"
         subtitle="Las personas últimamente están hablando de esto"
       />
-    </main>
+    </div>
   );
 }
