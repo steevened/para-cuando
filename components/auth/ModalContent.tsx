@@ -10,7 +10,7 @@ interface ModalProps {
   btnText: string;
   contentFor: 'login' | 'register';
   redirectTo: string;
-  handleSubmit: any;
+  handleSubmit?: any;
 }
 
 export default function ModalContent({
