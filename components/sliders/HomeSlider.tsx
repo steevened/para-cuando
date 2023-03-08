@@ -1,4 +1,5 @@
 import { ClassName } from '@/lib/interfaces';
+import { usePublications } from '@/lib/services/publications.services';
 import 'swiper/css';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import db from '../../db.json';
@@ -10,6 +11,24 @@ interface ArrowProps {
 }
 
 export default function HomeSlider({ className }: ClassName) {
+  const { data: publications, error, isLoading } = usePublications();
+
+  if (isLoading) {
+    return (
+      <div className="absolute inset-0 text-3xl bg-white flex items-center justify-center">
+        LOADING
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="absolute inset-0 text-3xl bg-white flex items-center justify-center">
+        Intente nuevamente
+      </div>
+    );
+  }
+
   return (
     <div className="relative">
       <Swiper
