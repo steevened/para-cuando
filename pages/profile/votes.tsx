@@ -1,14 +1,12 @@
 import Button from '@/components/buttons/Button';
-import FooterProfile from '@/components/sliders/FooterProfile';
+import ProfileLayout from '@/components/layouts/ProfileLayout';
 import ProfileSlider from '@/components/sliders/ProfileSlider';
 import Image from 'next/image';
 import Link from 'next/link';
+import { ReactElement } from 'react';
 import 'swiper/css';
-import addLogo from '../../public/add.svg';
-import logo from '../../public/icon-logo.svg';
 import photoProfile from '../../public/profile/Ellipse 5.svg';
-import heart from '../../public/profile/heart.svg';
-import icon from '../../public/profile/icono.svg';
+import { NextPageWithLayout } from '../_app';
 
 interface Category {
   title: string;
@@ -20,34 +18,10 @@ const categories: Array<Category> = [
   { title: 'Mis publicaciones', id: 2 },
 ];
 
-export default function profile() {
+const VotesPage: NextPageWithLayout = () => {
   const pages = [1, 2, 3];
   return (
     <div className="w-full ">
-      <div className="w-full h-[71px] text-center bg-black flex items-center justify-between px-5 sm:px-[52px]">
-        <Link href="/" className="sm:flex-1">
-          <Image src={logo} alt="para cuando logo" />
-        </Link>
-        <div className="hidden sm:flex items-center gap-2 sm:mr-9">
-          <Image src={addLogo} alt="add logo" />
-          <Link
-            href="/posts/profile"
-            className="hidden text-2 sm:subtitle-2 text-app-blue xs:block"
-          >
-            Crear Publicación
-          </Link>
-        </div>
-        <div className="flex gap-8  not-italic font-normal text-[13px] leading-[15px] text-white">
-          <Link className="hidden sm:block" href="/">
-            <Image src={heart} alt="add heart" />
-            Mis votos
-          </Link>
-          <Link href="/">
-            <Image src={icon} alt="add icon" />
-            ejemplo@hotmail.com
-          </Link>
-        </div>
-      </div>
       <div className="w-full h-[129px] bg-app-blue">
         <div className="flex justify-center items-center">
           <Image
@@ -106,9 +80,12 @@ export default function profile() {
           </ul>
         </nav>
       </div>
-      <div className="">
-        <FooterProfile />
-      </div>
     </div>
   );
-}
+};
+
+VotesPage.getLayout = function getLayout(page: ReactElement) {
+  return <ProfileLayout>{page}</ProfileLayout>;
+};
+
+export default VotesPage;

@@ -1,5 +1,5 @@
 import { ClassName } from '@/lib/interfaces';
-import Link from 'next/link';
+import { usePublications } from '@/lib/services/publications.services';
 import 'swiper/css';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import db from '../../db.json';
@@ -11,6 +11,24 @@ interface ArrowProps {
 }
 
 export default function HomeSlider({ className }: ClassName) {
+  const { data: publications, error, isLoading } = usePublications();
+
+  if (isLoading) {
+    return (
+      <div className="absolute inset-0 text-3xl bg-white flex items-center justify-center">
+        LOADING
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="absolute inset-0 text-3xl bg-white flex items-center justify-center">
+        Intente nuevamente
+      </div>
+    );
+  }
+
   return (
     <div className="relative">
       <Swiper
@@ -39,16 +57,14 @@ export default function HomeSlider({ className }: ClassName) {
       >
         {db.map((item) => (
           <SwiperSlide key={item.id}>
-            <Link href={`/evento/${encodeURIComponent(item.id)}`}>
-              <CardItem
-                id={item.id}
-                title={item.title}
-                description={item.description}
-                web={item.web}
-                votes={item.votes}
-                img={item.img}
-              />
-            </Link>
+            <CardItem
+              id={item.id}
+              title={item.title}
+              description={item.description}
+              web={item.web}
+              votes={item.votes}
+              img={item.img}
+            />
           </SwiperSlide>
         ))}
 

@@ -16,7 +16,7 @@ export default function Hero() {
     >
       <Image src={logo} alt="para cuando logo" className="mb-12" />
       <Input />
-      <div className="mt-10 max-w-[425px] w-full">
+      <div className="mt-4 max-w-[425px] w-full">
         <UlCategories />
       </div>
     </section>
