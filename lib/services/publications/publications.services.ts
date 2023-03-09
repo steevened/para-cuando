@@ -1,6 +1,6 @@
+import { PublicationsResponse } from '@/lib/interfaces/publications/publications.interface';
 import useSWR from 'swr';
 import { fetcher } from '../../helpers/fetcher.helper';
-import { PublicationsResponse } from '../../interfaces/publications/publications.interface';
 
 function usePublications() {
   const { data, error, isLoading, mutate } = useSWR<PublicationsResponse>(

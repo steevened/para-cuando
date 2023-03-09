@@ -13,7 +13,7 @@ interface ArrowProps {
 export default function HomeSlider({ className }: ClassName) {
   const { data: publications, error, isLoading } = usePublications();
 
-  // console.log(publications?.rows[0]);
+  console.log(publications);
 
   if (isLoading) {
     return (

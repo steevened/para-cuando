@@ -1,7 +1,9 @@
+import { useProfile } from '@/lib/services/profile/ProfileInfo.services';
 import { Menu } from '@headlessui/react';
+import Cookies from 'js-cookie';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import addLogo from '../public/add.svg';
 import votesLogo from '../public/authRegister/votesLogo.svg';
 import closeSession from '../public/closeSession.svg';
@@ -10,14 +12,17 @@ import logo from '../public/icon-logo.svg';
 import UserOutlined from './atoms/UserOutlined';
 
 export default function Navbar() {
-  const [userLogged, setUserLogged] = useState<any>(null);
+  const [userLogged, setUserLogged] = useState<boolean>(false);
 
-  useEffect(() => {
-    const email = localStorage.getItem('email');
-    if (email) {
-      setUserLogged(email);
-    }
-  }, []);
+  const { data, error, isLoading } = useProfile();
+
+  // if (data) {
+  //   setUserLogged(true);
+  // } else {
+  //   setUserLogged(false);
+  // }
+
+  console.log(data);
 
   return (
     <div className="w-full h-[71px] text-center bg-black flex items-center justify-between px-5 sm:px-[52px]">
@@ -41,14 +46,14 @@ export default function Navbar() {
           <Link href="/auth/register">Sign Up</Link>
         </div>
       ) : (
-        <div className=" flex items-center gap-3 sm:gap-10">
-          <Link href="/profile/votes" className="sm:flex gap-2 hidden">
+        <div className="flex items-center gap-3 sm:gap-10">
+          <Link href="/profile/votes" className="hidden gap-2 sm:flex">
             <Image src={votesLogo} alt="votes logo" />
             <p className="text-white text-2">Mis votos</p>
           </Link>
-          <div className="flex gap-3 items-center">
+          <div className="flex items-center gap-3">
             <UserOutlined />
-            <p className="text-white">{localStorage.getItem('email')}</p>
+            <p className="text-white">{data?.results.email}</p>
             <Menu as="div" className="relative flex ">
               <Menu.Button>
                 <span className="text-white">
@@ -73,7 +78,7 @@ export default function Navbar() {
                   {({ active }) => (
                     <Link
                       href="/profile"
-                      className="flex w-full gap-6 items-center mb-5 justify-center"
+                      className="flex items-center justify-center w-full gap-6 mb-5"
                     >
                       <Image
                         src={configLogo}
@@ -89,8 +94,8 @@ export default function Navbar() {
                   {({ active }) => (
                     <Link
                       href="/auth/login"
-                      onClick={() => localStorage.removeItem('email')}
-                      className="flex w-full gap-6 items-center mb-5 justify-center"
+                      onClick={() => Cookies.remove('token')}
+                      className="flex items-center justify-center w-full gap-6 mb-5"
                     >
                       <Image
                         src={closeSession}

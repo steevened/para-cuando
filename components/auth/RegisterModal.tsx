@@ -1,9 +1,14 @@
+import { useAuthRegister } from '@/lib/services/auth/register.services';
 import { Input } from './InputAuth';
 import Label from './Label';
 import ModalContent from './ModalContent';
 import PasswordInput from './PasswordInput';
 
 export default function RegisterModal() {
+  const { mutate } = useAuthRegister();
+
+  console.log(mutate);
+
   return (
     <ModalContent
       redirectTo="O inicia sesión"
