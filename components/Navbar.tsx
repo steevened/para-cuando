@@ -1,9 +1,10 @@
 import { useProfile } from '@/lib/services/profile/ProfileInfo.services';
+import useAuthStore from '@/store/auth';
 import { Menu } from '@headlessui/react';
 import Cookies from 'js-cookie';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
 import addLogo from '../public/add.svg';
 import votesLogo from '../public/authRegister/votesLogo.svg';
 import closeSession from '../public/closeSession.svg';
@@ -12,15 +13,16 @@ import logo from '../public/icon-logo.svg';
 import UserOutlined from './atoms/UserOutlined';
 
 export default function Navbar() {
-  const [userLogged, setUserLogged] = useState<boolean>(false);
+  const router = useRouter();
+  const { logout, isLoggedIn } = useAuthStore();
 
   const { data, error, isLoading } = useProfile();
 
-  // if (data) {
-  //   setUserLogged(true);
-  // } else {
-  //   setUserLogged(false);
-  // }
+  const handleLogOut = () => {
+    Cookies.remove('token');
+    logout();
+    router.push('/auth/login');
+  };
 
   console.log(data);
 
@@ -32,7 +34,7 @@ export default function Navbar() {
       <Link
         href="/posts/create"
         className={`mr-4 sm:mr-9 gap-2 ${
-          userLogged ? 'hidden sm:flex' : 'flex items-center '
+          isLoggedIn ? 'hidden sm:flex' : 'flex items-center '
         }`}
       >
         <Image src={addLogo} alt="add logo" className="" />
@@ -40,7 +42,7 @@ export default function Navbar() {
           Crear Publicación
         </span>
       </Link>
-      {!userLogged ? (
+      {!isLoggedIn ? (
         <div className="flex gap-5 text-xs text-white sm:subtitle-2">
           <Link href="/auth/login">Log in</Link>
           <Link href="/auth/register">Sign Up</Link>
@@ -94,7 +96,7 @@ export default function Navbar() {
                   {({ active }) => (
                     <Link
                       href="/auth/login"
-                      onClick={() => Cookies.remove('token')}
+                      onClick={handleLogOut}
                       className="flex items-center justify-center w-full gap-6 mb-5"
                     >
                       <Image

@@ -120,6 +120,9 @@ export default function TwoStepsForm({
         } else {
           // alert(JSON.stringify(values, null, 2));
           console.log(values);
+          //services -> send values{..image}
+          // const {image, ...restValues} = values
+          // axios.post(publications).then(axios.post(images(imageID)).then(error))
           setSubmitting(false);
         }
       }}
@@ -132,8 +135,8 @@ export default function TwoStepsForm({
               name="title"
               type="text"
             />
-            <div className="flex flex-col sm:flex-row gap-5">
-              <SelectInput label="Tipo" name="type" className="mt-6 w-full">
+            <div className="flex flex-col gap-5 sm:flex-row">
+              <SelectInput label="Tipo" name="type" className="w-full mt-6">
                 <option value="" disabled>
                   Tipo
                 </option>
@@ -147,7 +150,7 @@ export default function TwoStepsForm({
               <SelectInput
                 label="Categoria"
                 name="category"
-                className="mt-6 w-full"
+                className="w-full mt-6"
               >
                 <option value="" disabled>
                   Categoria

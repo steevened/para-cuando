@@ -1,7 +1,8 @@
-import useLogin from '@/lib/services/auth/login.services';
+import useAuthStore from '@/store/auth';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { login } from '../../lib/services/auth/auth.services';
 import { Input } from './InputAuth';
 import Label from './Label';
 import ModalContent from './ModalContent';
@@ -12,7 +13,9 @@ export default function LoginModal() {
   const [password, setPassword] = useState<string>('');
   const router = useRouter();
 
-  const { login } = useLogin();
+  // const { login } = useLogin();
+
+  const { login: logIn } = useAuthStore();
 
   const handleSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -20,8 +23,9 @@ export default function LoginModal() {
     login({ email, password })
       .then((res) => {
         console.log(res);
-        Cookies.set('token', res.token);
+        Cookies.set('token', res.data.token);
         router.push('/');
+        logIn();
       })
       .catch((err) => {
         console.log(err);

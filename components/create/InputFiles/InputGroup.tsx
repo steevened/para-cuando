@@ -76,7 +76,7 @@ const Label = ({ inputFile, setFieldValue }: LabelProps) => {
         }}
       />
       {!imagePreview && <AddIcon />}
-      {meta.touched && meta.error ? <div>{meta.error}</div> : null}
+      {/* {meta.touched && meta.error ? <div>{meta.error}</div> : null} */}
     </label>
   );
 };
