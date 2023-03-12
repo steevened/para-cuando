@@ -1,7 +1,6 @@
 import { ClassName } from '@/lib/interfaces';
 import { usePublications } from '@/lib/services/publications/publications.services';
 import { Ring } from '@uiball/loaders';
-
 import 'swiper/css';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import CardItem from './CardItem';
@@ -25,34 +24,53 @@ export default function HomeSlider({ className }: ClassName) {
   }
 
   return (
-    <div className="relative">
+    <div className={`relative ${className}`}>
       {isLoading ? (
         <div className="flex items-center justify-center h-32 mt-28">
           <Ring size={120} lineWeight={5} speed={2} color="black" />
         </div>
       ) : (
         <Swiper
-          className={className}
+          className="mySwiper"
           spaceBetween={11}
           slidesPerView={'auto'}
           style={{ position: 'unset' }}
           loop
           breakpoints={{
-            0: {
-              slidesPerView: 1,
-            },
             375: {
               slidesPerView: 1.2,
             },
-            600: {
-              slidesPerView: 1.8,
+            415: {
+              slidesPerView: 1.3,
             },
-            800: {
+            450: {
+              slidesPerView: 1.4,
+            },
+            475: {
+              slidesPerView: 1.5,
+            },
+            520: {
+              slidesPerView: 1.6,
+            },
+            570: {
+              slidesPerView: 1.7,
+            },
+            620: {
+              slidesPerView: 1.9,
+            },
+            680: {
+              slidesPerView: 2.2,
+            },
+            750: {
               slidesPerView: 2.5,
             },
-            1200: {
-              slidesPerView: 3.05,
+            900: {
+              slidesPerView: 3,
             },
+            // 1200: {
+            //   slidesPerView: 3,
+            //   spaceBetween: 11,
+            // },
           }}
         >
           {publications?.rows.map((publication) => (
@@ -67,12 +85,12 @@ export default function HomeSlider({ className }: ClassName) {
             </SwiperSlide>
           ))}
 
-          <Arrow
+          {/* <Arrow
             className="absolute z-50 -left-14 top-1/2"
             orientation="left"
-          />
+          /> */}
           <Arrow
-            className="absolute z-50 -right-14 top-1/2"
+            className="absolute z-50 -right-16 top-1/2"
             orientation="right"
           />
         </Swiper>
@@ -84,7 +102,7 @@ export default function HomeSlider({ className }: ClassName) {
 function Arrow({ orientation, className }: ArrowProps) {
   const swiper = useSwiper();
   return (
-    <div className={`${className} hidden sm:block`}>
+    <div className={`${className} hidden md:block`}>
       <button
         onClick={() =>
           orientation === 'right' ? swiper.slideNext() : swiper.slidePrev()

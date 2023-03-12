@@ -48,13 +48,13 @@ const CardItem = ({
   return (
     <div
       onClick={handleCardClick}
-      className="shadow-shadow1 m-2 w-[300px] rounded-[20px] h-[454px] overflow-hidden text-black bg-white border cursor-pointer"
+      className="shadow-shadow1 m-1 w-[300px] rounded-[20px] h-[454px] overflow-hidden text-black bg-white border cursor-pointer"
     >
       <div className="w-[300px] h-[300px]">
         <Image className="w-full" src={lady} alt="picture" />
       </div>
 
-      <div className=" mx-[22px] mt-[15px] relative mb-10 h-full">
+      <div className="mx-[22px] mt-[15px] relative mb-10 h-full">
         <button onClick={handleClick} className="absolute right-0 -top-10">
           <HearthBtn
             aria-label="like-button"

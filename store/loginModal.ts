@@ -7,7 +7,7 @@ interface ModalState {
 }
 
 const useModalStore = create<ModalState>((set) => ({
-  isLoginModalOpen: true,
+  isLoginModalOpen: false,
   openLoginModal: () => set({ isLoginModalOpen: true }),
   closeLoginModal: () => set({ isLoginModalOpen: false }),
 }));
