@@ -1,5 +1,6 @@
 import { ClassName } from '@/lib/interfaces';
 import { usePublications } from '@/lib/services/publications/publications.services';
+import { Ring } from '@uiball/loaders';
 
 import 'swiper/css';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
@@ -13,15 +14,7 @@ interface ArrowProps {
 export default function HomeSlider({ className }: ClassName) {
   const { data: publications, error, isLoading } = usePublications();
 
-  console.log(publications);
-
-  if (isLoading) {
-    return (
-      <div className="absolute inset-0 flex items-center justify-center text-3xl bg-white">
-        LOADING
-      </div>
-    );
-  }
+  // console.log(publications);
 
   if (error) {
     return (
@@ -33,48 +26,57 @@ export default function HomeSlider({ className }: ClassName) {
 
   return (
     <div className="relative">
-      <Swiper
-        className={className}
-        spaceBetween={11}
-        slidesPerView={'auto'}
-        style={{ position: 'unset' }}
-        loop
-        breakpoints={{
-          0: {
-            slidesPerView: 1,
-          },
-          375: {
-            slidesPerView: 1.2,
-          },
-          600: {
-            slidesPerView: 1.8,
-          },
-          800: {
-            slidesPerView: 2.5,
-          },
-          1200: {
-            slidesPerView: 3,
-          },
-        }}
-      >
-        {publications?.rows.map((publication) => (
-          <SwiperSlide key={publication.id}>
-            <CardItem
-              content={publication.content}
-              description={publication.description}
-              title={publication.title}
-              votes_count={publication.votes_count}
-              id={publication.id}
-            />
-          </SwiperSlide>
-        ))}
+      {isLoading ? (
+        <div className="flex items-center justify-center h-32 mt-28">
+          <Ring size={120} lineWeight={5} speed={2} color="black" />
+        </div>
+      ) : (
+        <Swiper
+          className={className}
+          spaceBetween={11}
+          slidesPerView={'auto'}
+          style={{ position: 'unset' }}
+          loop
+          breakpoints={{
+            0: {
+              slidesPerView: 1,
+            },
+            375: {
+              slidesPerView: 1.2,
+            },
+            600: {
+              slidesPerView: 1.8,
+            },
+            800: {
+              slidesPerView: 2.5,
+            },
+            1200: {
+              slidesPerView: 3.05,
+            },
+          }}
+        >
+          {publications?.rows.map((publication) => (
+            <SwiperSlide key={publication.id}>
+              <CardItem
+                content={publication.content}
+                description={publication.description}
+                title={publication.title}
+                votes_count={publication.votes_count}
+                id={publication.id}
+              />
+            </SwiperSlide>
+          ))}
 
-        <Arrow className="absolute z-50 -left-14 top-1/2" orientation="left" />
-        <Arrow
-          className="absolute z-50 -right-14 top-1/2"
-          orientation="right"
-        />
-      </Swiper>
+          <Arrow
+            className="absolute z-50 -left-14 top-1/2"
+            orientation="left"
+          />
+          <Arrow
+            className="absolute z-50 -right-14 top-1/2"
+            orientation="right"
+          />
+        </Swiper>
+      )}
     </div>
   );
 }

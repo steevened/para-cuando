@@ -46,9 +46,13 @@ const categories: ICategorie[] = [
 ];
 
 export default function Categories() {
+  // const { data, isLoading, error } = usePublicationTypes();
+
+  // console.log({ categories: data });
+
   return (
-    <div className="w-full pl-6 md:px-16 mt-12 bg-app-grayLighter  pb-11">
-      <div className=" mx-auto">
+    <div className="w-full pl-6 mt-12 md:px-16 bg-app-grayLighter pb-11">
+      <div className="mx-auto ">
         <h2 className="pt-7 title-2 text-app-grayDark">
           ¡Hagámoslo más personal!
         </h2>

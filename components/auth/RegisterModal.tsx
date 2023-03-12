@@ -1,5 +1,4 @@
 import { signUp } from '@/lib/services/auth/auth.services';
-import { useAuthRegister } from '@/lib/services/auth/register.services';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { Input } from './InputAuth';
@@ -8,8 +7,6 @@ import ModalContent from './ModalContent';
 import PasswordInput from './PasswordInput';
 
 export default function RegisterModal() {
-  const { mutate } = useAuthRegister();
-
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [firstName, setFirstName] = useState<string>('');

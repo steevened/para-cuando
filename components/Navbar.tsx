@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import addLogo from '../public/add.svg';
 import votesLogo from '../public/authRegister/votesLogo.svg';
 import closeSession from '../public/closeSession.svg';
@@ -14,7 +15,17 @@ import UserOutlined from './atoms/UserOutlined';
 
 export default function Navbar() {
   const router = useRouter();
-  const { logout, isLoggedIn } = useAuthStore();
+  const { logout } = useAuthStore();
+  const [isLogged, setIsLogged] = useState<boolean>(false);
+
+  useEffect(() => {
+    const token = Cookies.get('token');
+    if (token) {
+      setIsLogged(true);
+    } else {
+      setIsLogged(false);
+    }
+  }, []);
 
   const { data, error, isLoading } = useProfile();
 
@@ -24,7 +35,7 @@ export default function Navbar() {
     router.push('/auth/login');
   };
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <div className="w-full h-[71px] text-center bg-black flex items-center justify-between px-5 sm:px-[52px]">
@@ -34,7 +45,7 @@ export default function Navbar() {
       <Link
         href="/posts/create"
         className={`mr-4 sm:mr-9 gap-2 ${
-          isLoggedIn ? 'hidden sm:flex' : 'flex items-center '
+          isLogged ? 'hidden sm:flex' : 'flex items-center '
         }`}
       >
         <Image src={addLogo} alt="add logo" className="" />
@@ -42,7 +53,7 @@ export default function Navbar() {
           Crear Publicación
         </span>
       </Link>
-      {!isLoggedIn ? (
+      {!isLogged ? (
         <div className="flex gap-5 text-xs text-white sm:subtitle-2">
           <Link href="/auth/login">Log in</Link>
           <Link href="/auth/register">Sign Up</Link>

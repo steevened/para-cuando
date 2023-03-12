@@ -1,5 +1,9 @@
+import { votePublication } from '@/lib/services/publications/publicationVote.services';
+import { usePublicationsVoted } from '@/lib/services/votes/userVotes.services';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import lady from '../../public/cardImgs/lady.png';
 import UserLogo from '../atoms/UserLogo';
 import { HearthBtn } from '../buttons/HearthBtn';
 
@@ -21,9 +25,20 @@ const CardItem = ({
   const [isActive, setIsActive] = useState<boolean>(false);
   const router = useRouter();
 
+  const { publicationsId } = usePublicationsVoted();
+
+  useEffect(() => {
+    if (publicationsId?.includes(id)) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
+  }, [publicationsId, id]);
+
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     setIsActive(!isActive);
+    votePublication(id).then((res) => console.log(res));
   };
 
   const handleCardClick = () => {
@@ -32,11 +47,11 @@ const CardItem = ({
 
   return (
     <div
-      className="shadow-shadow1 m-2 w-[300px] rounded-[20px] h-[454px] overflow-hidden text-black bg-white border cursor-pointer"
       onClick={handleCardClick}
+      className="shadow-shadow1 m-2 w-[300px] rounded-[20px] h-[454px] overflow-hidden text-black bg-white border cursor-pointer"
     >
       <div className="w-[300px] h-[300px]">
-        {/* <Image className="w-full" src={''} alt="picture" /> */}
+        <Image className="w-full" src={lady} alt="picture" />
       </div>
 
       <div className=" mx-[22px] mt-[15px] relative mb-10 h-full">

@@ -9,6 +9,10 @@ const styles = {
 };
 
 export default function Hero() {
+  // const { data, error, isLoading } = useTags();
+
+  // console.log({ tags: data });
+
   return (
     <section
       style={styles}
