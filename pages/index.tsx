@@ -18,11 +18,7 @@ const Home: NextPageWithLayout = () => {
       </Head>
       <Hero />
       <Main />
-      {isLoginModalOpen && (
-        <div className="fixed top-24 inset-x-0  z-50 mx-5 h-[530px]">
-          <ModalForm />
-        </div>
-      )}
+      {isLoginModalOpen && <ModalForm />}
     </>
   );
 };

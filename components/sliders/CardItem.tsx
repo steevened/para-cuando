@@ -1,8 +1,9 @@
 import { votePublication } from '@/lib/services/publications/publicationVote.services';
-import { usePublicationsVoted } from '@/lib/services/votes/userVotes.services';
+import { useUserVotes } from '@/lib/services/votes/userVotes.services';
+import useModalStore from '@/store/loginModal';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import lady from '../../public/cardImgs/lady.png';
 import UserLogo from '../atoms/UserLogo';
 import { HearthBtn } from '../buttons/HearthBtn';
@@ -13,6 +14,7 @@ interface PublicationProps {
   content: string;
   description: string;
   votes_count: number;
+  mutate: any;
 }
 
 const CardItem = ({
@@ -21,24 +23,46 @@ const CardItem = ({
   content,
   description,
   votes_count,
+  mutate,
 }: PublicationProps) => {
   const [isActive, setIsActive] = useState<boolean>(false);
   const router = useRouter();
+  const { data, mutate: mutateVotes } = useUserVotes();
+  const { openLoginModal } = useModalStore();
 
-  const { publicationsId } = usePublicationsVoted();
+  console.log(data);
 
-  useEffect(() => {
-    if (publicationsId?.includes(id)) {
-      setIsActive(true);
-    } else {
-      setIsActive(false);
-    }
-  }, [publicationsId, id]);
+  // useEffect(() => {
+  //   if (publicationsId?.includes(id)) {
+  //     setIsActive(true);
+  //   } else {
+  //     setIsActive(false);
+  //   }
+  // }, [publicationsId, id]);
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    setIsActive(!isActive);
-    votePublication(id).then((res) => console.log(res));
+    try {
+      const response = await votePublication(id);
+      console.log(response);
+      openLoginModal();
+      mutate();
+      mutateVotes();
+    } catch (error) {
+      console.log('--------------error--------------------');
+      console.log(error);
+      openLoginModal();
+    }
+
+    // votePublication(id).then((res) => {
+    //   console.log(res);
+    //   if (res.status !== 200) {
+    //     openLoginModal();
+    //   } else {
+
+    //   }
+
+    // setIsActive(!isActive);
   };
 
   const handleCardClick = () => {

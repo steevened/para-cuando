@@ -11,7 +11,7 @@ interface ArrowProps {
 }
 
 export default function HomeSlider({ className }: ClassName) {
-  const { data: publications, error, isLoading } = usePublications();
+  const { data: publications, error, isLoading, mutate } = usePublications();
 
   // console.log(publications);
 
@@ -34,6 +34,7 @@ export default function HomeSlider({ className }: ClassName) {
           className="mySwiper"
           spaceBetween={11}
           slidesPerView={'auto'}
+          grabCursor={true}
           style={{ position: 'unset' }}
           loop
           breakpoints={{
@@ -67,13 +68,9 @@ export default function HomeSlider({ className }: ClassName) {
             900: {
               slidesPerView: 3,
             },
-            // 1200: {
-            //   slidesPerView: 3,
-            //   spaceBetween: 11,
-            // },
           }}
         >
-          {publications?.rows.map((publication) => (
+          {publications?.map((publication) => (
             <SwiperSlide key={publication.id}>
               <CardItem
                 content={publication.content}
@@ -81,6 +78,7 @@ export default function HomeSlider({ className }: ClassName) {
                 title={publication.title}
                 votes_count={publication.votes_count}
                 id={publication.id}
+                mutate={mutate}
               />
             </SwiperSlide>
           ))}

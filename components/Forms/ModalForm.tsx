@@ -10,7 +10,7 @@ function ModalForm() {
   const { closeLoginModal } = useModalStore();
   const [isLoginFormShowed, setIsLoginFormShowed] = useState<boolean>(false);
   return (
-    <>
+    <div className="fixed top-24 right-0 z-50 mx-5 h-[530px] max-w-[380px]">
       {isLoginFormShowed ? (
         <LoginModal />
       ) : (
@@ -32,7 +32,10 @@ function ModalForm() {
             </BtnSumbit>
             <div className="flex justify-center">
               <button
-                onClick={() => setIsLoginFormShowed(true)}
+                onClick={() => {
+                  setIsLoginFormShowed(true);
+                  // closeLoginModal();
+                }}
                 className="text-app-yellow border-b border-app-yellow text-center"
               >
                 O inicia sesión
@@ -41,7 +44,7 @@ function ModalForm() {
           </div>
         </ModalContainer>
       )}
-    </>
+    </div>
   );
 }
 
