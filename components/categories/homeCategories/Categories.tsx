@@ -46,9 +46,13 @@ const categories: ICategorie[] = [
 ];
 
 export default function Categories() {
+  // const { data, isLoading, error } = usePublicationTypes();
+
+  // console.log({ categories: data });
+
   return (
-    <div className="w-full pl-6 md:px-16 mt-12 bg-app-grayLighter  pb-11">
-      <div className=" mx-auto">
+    <div className="w-full pl-6 mt-12 md:px-16 bg-app-grayLighter pb-11">
+      <div className="mx-auto ">
         <h2 className="pt-7 title-2 text-app-grayDark">
           ¡Hagámoslo más personal!
         </h2>
@@ -66,17 +70,17 @@ export default function Categories() {
               slidesPerView: 2,
             },
             375: {
-              slidesPerView: 2.5,
+              slidesPerView: 2.2,
             },
             415: {
-              slidesPerView: 3.2,
+              slidesPerView: 2.5,
             },
             500: {
-              slidesPerView: 4.5,
+              slidesPerView: 3.4,
             },
             720: {
-              slidesPerView: 5,
-              spaceBetween: 14,
+              slidesPerView: 4.4,
+              // spaceBetween: 14,
             },
           }}
           className="mt-6"

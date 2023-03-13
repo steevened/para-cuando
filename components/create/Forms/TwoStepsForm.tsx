@@ -5,56 +5,56 @@ import InputGroup from '../InputFiles/InputGroup';
 
 interface ITipos {
   name: string;
-  id: number;
+  id: string;
 }
 
 const tipos: ITipos[] = [
-  { name: 'Marcas y tiendas', id: 1 },
-  { name: 'Artistas y conciertos', id: 2 },
-  { name: 'Torneos', id: 3 },
+  { name: 'Marcas y tiendas', id: '1' },
+  { name: 'Artistas y conciertos', id: '2' },
+  { name: 'Torneos', id: '3' },
 ];
 
 interface ICategorie {
   name: string;
-  id: number;
+  id: string;
 }
 
 const categories: ICategorie[] = [
   {
     name: 'Ropa y accesorios',
-    id: 1,
+    id: '1',
   },
   {
     name: 'Deportes',
-    id: 2,
+    id: '2',
   },
   {
     name: 'Conciertos',
-    id: 3,
+    id: '3',
   },
   {
     name: 'Meet & Greet',
-    id: 4,
+    id: '4',
   },
   {
     name: 'E-Sports',
-    id: 5,
+    id: '5',
   },
   {
     name: 'Pop - Rock',
-    id: 6,
+    id: '6',
   },
   {
     name: 'Tecnología',
-    id: 7,
+    id: '7',
   },
   {
     name: 'Hogar - Decoración',
-    id: 8,
+    id: '8',
   },
   {
     name: 'Abastecimiento',
-    id: 9,
+    id: '9',
   },
 ];
 
@@ -78,18 +78,18 @@ export default function TwoStepsForm({
 }) {
   const firstValidationSchema = Yup.object({
     title: Yup.string().max(15, 'Máximo 15 carácteres').required('Required'),
-    type: Yup.string().required('Required'),
-    category: Yup.string().required('Required'),
-    recomendation: Yup.string().required('Required'),
-    reference: Yup.string().required('Required'),
+    publications_types_id: Yup.number().required('Required'),
+    tags: Yup.number().required('Required'),
+    description: Yup.string().required('Required'),
+    reference_link: Yup.string().required('Required'),
   });
 
   const lastValidationSchema = Yup.object({
     title: Yup.string().required('Required'),
-    type: Yup.string().required('Required'),
-    category: Yup.string().required('Required'),
-    recomendation: Yup.string().required('Required'),
-    reference: Yup.string().required('Required'),
+    publications_types_id: Yup.number().required('Required'),
+    tags: Yup.number().required('Required'),
+    description: Yup.string().required('Required'),
+    reference_link: Yup.string().required('Required'),
     images: Yup.array().test(
       'at least one image',
       'At least one image is required',
@@ -103,10 +103,10 @@ export default function TwoStepsForm({
     <Formik
       initialValues={{
         title: '',
-        type: '',
-        category: '',
-        recomendation: '',
-        reference: '',
+        publications_types_id: null,
+        tags: null,
+        description: '',
+        reference_link: '',
         images: [null, null, null],
       }}
       validationSchema={
@@ -118,8 +118,23 @@ export default function TwoStepsForm({
           setSteps(2);
           setSubmitting(false);
         } else {
+          let { tags, images, ...resValues } = values;
+          // tags = [Number(tags)];
+
           // alert(JSON.stringify(values, null, 2));
-          console.log(values);
+          console.log({ ...resValues, tags });
+          // useCreatePublication({
+          //   ...resValues,
+          //   tags,
+          //   cities_id: 1,
+          //   content: 'si',
+          // })
+          // .then((res) => console.log(res.data))
+          // .catch((err) => console.log(err));
+          //services -> send values{..image}
+          // const {image, ...restValues} = values
+          // axios.post(publications).then(axios.post(images(imageID)).then(error))
+          setSubmitting(false);
         }
       }}
     >
@@ -131,13 +146,17 @@ export default function TwoStepsForm({
               name="title"
               type="text"
             />
-            <div className="flex flex-col sm:flex-row gap-5">
-              <SelectInput label="Tipo" name="type" className="mt-6 w-full">
+            <div className="flex flex-col gap-5 sm:flex-row">
+              <SelectInput
+                label="Tipo"
+                name="publications_types_id"
+                className="w-full mt-6"
+              >
                 <option value="" disabled>
                   Tipo
                 </option>
                 {tipos.map((tipo) => (
-                  <option key={tipo.id} value={tipo.name}>
+                  <option key={tipo.id} value={tipo.id}>
                     {tipo.name}
                   </option>
                 ))}
@@ -145,14 +164,14 @@ export default function TwoStepsForm({
 
               <SelectInput
                 label="Categoria"
-                name="category"
-                className="mt-6 w-full"
+                name="tags"
+                className="w-full mt-6"
               >
                 <option value="" disabled>
                   Categoria
                 </option>
                 {categories.map((categorie) => (
-                  <option key={categorie.id} value={categorie.name}>
+                  <option key={categorie.id} value={categorie.id}>
                     {categorie.name}
                   </option>
                 ))}
@@ -160,14 +179,14 @@ export default function TwoStepsForm({
             </div>
             <TextArea
               label="¿Por qué lo recomiendas?"
-              name="recomendation"
+              name="description"
               type="text"
               className="mt-6"
             />
             <div className="mt-4">
               <TextInput
                 label="Link de referencia"
-                name="reference"
+                name="reference_link"
                 type="text"
               />
             </div>
@@ -228,6 +247,8 @@ function TextInput({ label, className, ...props }: any) {
 
 function SelectInput({ className, ...props }: any) {
   const [field, meta] = useField(props);
+
+  // console.log({ field, meta });
 
   return (
     <div className={`relative ${className}`}>

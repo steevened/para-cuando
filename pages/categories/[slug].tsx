@@ -8,6 +8,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Fragment, ReactElement, useEffect, useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 import artistas from '../../public/categories/artistas.png';
 import marcas from '../../public/categories/marcas.png';
 import torneos from '../../public/categories/torneos.png';
@@ -54,6 +55,7 @@ const CategoryPage: NextPageWithLayout = () => {
         <meta name="description" content="description" />
       </Head>
       <section className="relative">
+        <Toaster />
         <div style={styles} className="h-52 bg-cover bg-none bg-center" />
 
         <div className="absolute inset-0 px-4 max-w-[940px] mx-auto flex flex-col justify-evenly md:justify-center py-3">
