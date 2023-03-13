@@ -1,6 +1,5 @@
 import { usePublicationId } from '@/lib/services/publications/publicationId.services';
-import { usePublicationsVoted } from '@/lib/services/votes/userVotes.services';
-import 'swiper/css';
+import { useUserVotes } from '@/lib/services/votes/userVotes.services';
 import CardItem from './CardItem';
 
 interface CardsContainerProps extends React.HTMLAttributes<HTMLDivElement> {}
@@ -18,19 +17,27 @@ const CardsContainer = ({ children }: CardsContainerProps) => {
 };
 
 function VotedPublicationsPage() {
-  const { publicationsId } = usePublicationsVoted();
+  const { data, isLoading, error, mutate } = useUserVotes();
+
+  // console.log(data);
 
   return (
     <div>
-      {publicationsId?.map((publicationId: string) => (
-        <PublicationCard key={publicationId} publicationId={publicationId} />
+      {data?.map((publication: any) => (
+        <PublicationCard
+          key={publication.publication_id}
+          publication={publication}
+          mutate={mutate}
+        />
       ))}
     </div>
   );
 }
 
-function PublicationCard({ publicationId }: PublicationCardProps) {
-  const { data, error, isLoading } = usePublicationId(publicationId);
+function PublicationCard({ publication, mutate }: any) {
+  const { data, error, isLoading } = usePublicationId(
+    publication.publications_id
+  );
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -38,9 +45,10 @@ function PublicationCard({ publicationId }: PublicationCardProps) {
 
   return (
     <CardItem
+      mutate={mutate}
+      reference_link={data.reference_link}
       id={data?.id}
       title={data?.title}
-      content={data?.content}
       description={data?.description}
       votes_count={data?.votes_count}
     />

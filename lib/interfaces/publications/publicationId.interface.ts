@@ -5,6 +5,7 @@ export interface PublicationID {
   title: string;
   description: string;
   content: string;
+  reference_link: string;
   cities_id: string;
   user_id: string;
   publications_types_id: string;
@@ -30,6 +31,6 @@ export interface User {
   id: string;
   first_name: string;
   last_name: string;
-  country_id: null;
-  image_url: null;
+  country_id: number;
+  image_url: string;
 }

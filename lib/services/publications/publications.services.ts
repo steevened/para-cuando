@@ -10,6 +10,7 @@ function usePublications() {
     '/publications',
     fetcher
   );
+
   return {
     data: data?.results.results,
     error,

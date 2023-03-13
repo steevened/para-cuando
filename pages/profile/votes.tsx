@@ -1,11 +1,11 @@
 import Button from '@/components/buttons/Button';
 import ProfileLayout from '@/components/layouts/ProfileLayout';
 import ProfileSlider from '@/components/sliders/ProfileSlider';
-import Image from 'next/image';
+import { useProfile } from '@/lib/services/profile/ProfileInfo.services';
 import Link from 'next/link';
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 import 'swiper/css';
-import photoProfile from '../../public/profile/Ellipse 5.svg';
 import { NextPageWithLayout } from '../_app';
 
 interface Category {
@@ -19,17 +19,28 @@ const categories: Array<Category> = [
 ];
 
 const VotesPage: NextPageWithLayout = () => {
+  const { profileDetails } = useProfile();
+  const [toggleSection, setToggleSection] = useState<number>(1);
+
+  console.log(profileDetails);
+
   const pages = [1, 2, 3];
   return (
-    <div className="w-full ">
-      <div className="w-full h-[129px] bg-app-blue">
-        <div className="flex justify-center items-center">
-          <Image
-            className="left-145 pt-16"
-            src={photoProfile}
-            alt="photo profile"
-          />
-        </div>
+    <div className="w-full">
+      <Toaster />
+      <div className="w-full h-[129px] bg-app-blue relative">
+        <div
+          className="w-[120px] h-[120px]  absolute -translate-x-1/2 left-1/2 translate-y-1/2 bottom-0 rounded-full"
+          style={
+            profileDetails
+              ? {
+                  backgroundImage: `url(${profileDetails?.result.image_url})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }
+              : {}
+          }
+        />
       </div>
       <div className="flex justify-center pt-20 pb-19">
         <ul className=" flex gap-[11px] h-[30px] ">
@@ -47,7 +58,7 @@ const VotesPage: NextPageWithLayout = () => {
       </div>
       <div className="flex justify-center">
         <nav aria-label="Page navigation example">
-          <ul className="list-style-none flex">
+          <ul className="flex list-style-none">
             <li>
               <a
                 className="relative block rounded bg-transparent py-1.5 px-3 text-sm  transition-all duration-300  text-[#988989]  hover:text-black"
