@@ -120,7 +120,6 @@ export default function TwoStepsForm({
         } else {
           // alert(JSON.stringify(values, null, 2));
           console.log(values);
-          setSubmitting(false);
         }
       }}
     >
