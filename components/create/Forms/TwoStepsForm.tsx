@@ -1,7 +1,6 @@
 import BtnNext from '@/components/buttons/BtnNext';
 import { Form, Formik, useField } from 'formik';
 import * as Yup from 'yup';
-import { useCreatePublication } from '../../../lib/services/publications/publications.services';
 import InputGroup from '../InputFiles/InputGroup';
 
 interface ITipos {
@@ -120,18 +119,18 @@ export default function TwoStepsForm({
           setSubmitting(false);
         } else {
           let { tags, images, ...resValues } = values;
-          tags = [Number(tags)];
+          // tags = [Number(tags)];
 
           // alert(JSON.stringify(values, null, 2));
           console.log({ ...resValues, tags });
-          useCreatePublication({
-            ...resValues,
-            tags,
-            cities_id: 1,
-            content: 'si',
-          })
-            .then((res) => console.log(res.data))
-            .catch((err) => console.log(err));
+          // useCreatePublication({
+          //   ...resValues,
+          //   tags,
+          //   cities_id: 1,
+          //   content: 'si',
+          // })
+          // .then((res) => console.log(res.data))
+          // .catch((err) => console.log(err));
           //services -> send values{..image}
           // const {image, ...restValues} = values
           // axios.post(publications).then(axios.post(images(imageID)).then(error))

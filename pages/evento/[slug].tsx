@@ -8,6 +8,7 @@ import { usePublicationId } from '@/lib/services/publications/publicationId.serv
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ReactElement } from 'react';
+import { Toaster } from 'react-hot-toast';
 
 import { NextPageWithLayout } from '../_app';
 const EventoPage: NextPageWithLayout = () => {
@@ -31,6 +32,7 @@ const EventoPage: NextPageWithLayout = () => {
       </Head>
       <CategorieNavbar />
       <div className="app-container">
+        <Toaster />
         <section className="w-full grid items-start md:grid-cols-2 mt-[102px] gap-x-5">
           <div className="md:row-span-2">
             <p>

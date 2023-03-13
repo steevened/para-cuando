@@ -1,4 +1,5 @@
 import useAuthStore from '@/store/auth';
+import useModalStore from '@/store/loginModal';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -17,8 +18,21 @@ export default function LoginModal() {
 
   const { login: logIn } = useAuthStore();
 
+  const { closeLoginModal } = useModalStore();
+
   const handleSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
+
+    try {
+      const response = await login({ email, password });
+      console.log(response);
+      Cookies.set('token', response.data.token);
+      router.push('/');
+      logIn();
+      closeLoginModal();
+    } catch (error) {
+      console.log(error);
+    }
 
     login({ email, password })
       .then((res) => {

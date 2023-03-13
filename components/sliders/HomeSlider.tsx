@@ -39,7 +39,7 @@ export default function HomeSlider({ className }: ClassName) {
           loop
           breakpoints={{
             375: {
-              slidesPerView: 1.2,
+              slidesPerView: 1.1,
             },
             415: {
               slidesPerView: 1.3,

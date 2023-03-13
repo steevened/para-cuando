@@ -1,9 +1,11 @@
 import { votePublication } from '@/lib/services/publications/publicationVote.services';
 import { useUserVotes } from '@/lib/services/votes/userVotes.services';
 import useModalStore from '@/store/loginModal';
+import Cookies from 'js-cookie';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import lady from '../../public/cardImgs/lady.png';
 import UserLogo from '../atoms/UserLogo';
 import { HearthBtn } from '../buttons/HearthBtn';
@@ -30,22 +32,44 @@ const CardItem = ({
   const { data, mutate: mutateVotes } = useUserVotes();
   const { openLoginModal } = useModalStore();
 
+  const [userLogged, setUserLogged] = useState<boolean>(false);
+
+  useEffect(() => {
+    const token = Cookies.get('token');
+    if (token) {
+      setUserLogged(true);
+    } else {
+      setUserLogged(false);
+    }
+  }, []);
+
   console.log(data);
 
-  // useEffect(() => {
-  //   if (publicationsId?.includes(id)) {
-  //     setIsActive(true);
-  //   } else {
-  //     setIsActive(false);
-  //   }
-  // }, [publicationsId, id]);
+  useEffect(() => {
+    if (data) {
+      const isVoted = data.find((vote) => vote.publications_id === id);
+      if (isVoted) {
+        setIsActive(true);
+      } else {
+        setIsActive(false);
+      }
+    }
+  }, [data, id]);
 
-  const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleVote = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
+
+    const toastId = toast.promise(votePublication(id), {
+      loading: 'Espere...',
+      success: `${isActive ? 'Voto eliminado' : 'Voto agregado'}`,
+      error: `${
+        userLogged ? 'Error al votar' : 'Inicie sesión para continuar'
+      }`,
+    });
+
     try {
-      const response = await votePublication(id);
+      const response = await toastId;
       console.log(response);
-      openLoginModal();
       mutate();
       mutateVotes();
     } catch (error) {
@@ -53,16 +77,6 @@ const CardItem = ({
       console.log(error);
       openLoginModal();
     }
-
-    // votePublication(id).then((res) => {
-    //   console.log(res);
-    //   if (res.status !== 200) {
-    //     openLoginModal();
-    //   } else {
-
-    //   }
-
-    // setIsActive(!isActive);
   };
 
   const handleCardClick = () => {
@@ -79,7 +93,7 @@ const CardItem = ({
       </div>
 
       <div className="mx-[22px] mt-[15px] relative mb-10 h-full">
-        <button onClick={handleClick} className="absolute right-0 -top-10">
+        <button onClick={handleVote} className="absolute right-0 -top-10">
           <HearthBtn
             aria-label="like-button"
             isActive={isActive}
@@ -93,7 +107,9 @@ const CardItem = ({
           <span>
             <UserLogo />
           </span>
-          <p>{votes_count} votos</p>
+          <p>
+            {votes_count} {votes_count !== 1 ? 'votos' : 'voto'}
+          </p>
         </div>
       </div>
     </div>
