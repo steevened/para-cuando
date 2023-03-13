@@ -70,17 +70,17 @@ export default function Categories() {
               slidesPerView: 2,
             },
             375: {
-              slidesPerView: 2.5,
+              slidesPerView: 2.2,
             },
             415: {
-              slidesPerView: 3.2,
+              slidesPerView: 2.5,
             },
             500: {
-              slidesPerView: 4.5,
+              slidesPerView: 3.4,
             },
             720: {
-              slidesPerView: 5,
-              spaceBetween: 14,
+              slidesPerView: 4.4,
+              // spaceBetween: 14,
             },
           }}
           className="mt-6"

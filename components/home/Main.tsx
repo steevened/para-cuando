@@ -3,7 +3,7 @@ import SectionSlider from '../sliders/SectionSlider';
 
 export default function Main() {
   return (
-    <div className="mt-5 pl-5 sm:pl-auto app-container max-w-[975px] mx-auto ">
+    <div className="mt-5 app-container max-w-[975px] mx-auto">
       <SectionSlider
         title="Populares en Querétaro"
         subtitle="Lo que las personas piden más"

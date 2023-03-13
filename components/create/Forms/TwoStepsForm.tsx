@@ -122,7 +122,6 @@ export default function TwoStepsForm({
           // tags = [Number(tags)];
 
           // alert(JSON.stringify(values, null, 2));
-<<<<<<< HEAD
           console.log({ ...resValues, tags });
           // useCreatePublication({
           //   ...resValues,
@@ -136,9 +135,6 @@ export default function TwoStepsForm({
           // const {image, ...restValues} = values
           // axios.post(publications).then(axios.post(images(imageID)).then(error))
           setSubmitting(false);
-=======
-          console.log(values);
->>>>>>> main
         }
       }}
     >

@@ -11,7 +11,7 @@ function usePublications() {
     fetcher
   );
   return {
-    data: data?.rows,
+    data: data?.results.results,
     error,
     isLoading,
     mutate,

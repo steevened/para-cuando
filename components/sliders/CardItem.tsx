@@ -13,19 +13,21 @@ import { HearthBtn } from '../buttons/HearthBtn';
 interface PublicationProps {
   id: string;
   title: string;
-  content: string;
   description: string;
   votes_count: number;
   mutate: any;
+  reference_link: string;
+  // img: string[];
 }
 
 const CardItem = ({
   title,
   id,
-  content,
+
   description,
   votes_count,
   mutate,
+  reference_link,
 }: PublicationProps) => {
   const [isActive, setIsActive] = useState<boolean>(false);
   const router = useRouter();
@@ -43,7 +45,7 @@ const CardItem = ({
     }
   }, []);
 
-  console.log(data);
+  // console.log(data);
 
   useEffect(() => {
     if (data) {
@@ -102,7 +104,7 @@ const CardItem = ({
         </button>
         <h2 className="title-3 text-start">{title}</h2>
         <p className="mt-[5px] text-1 text-app-grayDark">{description}</p>
-        <p className="mt-3 text-app-blue text-2">{content}</p>
+        <p className="mt-3 text-app-blue text-2 ">{reference_link}</p>
         <div className="flex items-center gap-2 mt-4 text-2">
           <span>
             <UserLogo />

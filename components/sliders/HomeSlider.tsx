@@ -13,8 +13,6 @@ interface ArrowProps {
 export default function HomeSlider({ className }: ClassName) {
   const { data: publications, error, isLoading, mutate } = usePublications();
 
-  // console.log(publications);
-
   if (error) {
     return (
       <div className="absolute inset-0 flex items-center justify-center text-3xl bg-white">
@@ -73,12 +71,13 @@ export default function HomeSlider({ className }: ClassName) {
           {publications?.map((publication) => (
             <SwiperSlide key={publication.id}>
               <CardItem
-                content={publication.content}
                 description={publication.description}
                 title={publication.title}
                 votes_count={publication.votes_count}
                 id={publication.id}
                 mutate={mutate}
+                reference_link={publication.reference_link}
+                // img={publication.images}
               />
             </SwiperSlide>
           ))}
@@ -100,7 +99,7 @@ export default function HomeSlider({ className }: ClassName) {
 function Arrow({ orientation, className }: ArrowProps) {
   const swiper = useSwiper();
   return (
-    <div className={`${className} hidden md:block`}>
+    <div className={`${className} hidden lg:block`}>
       <button
         onClick={() =>
           orientation === 'right' ? swiper.slideNext() : swiper.slidePrev()
