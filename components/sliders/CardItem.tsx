@@ -23,7 +23,6 @@ interface PublicationProps {
 const CardItem = ({
   title,
   id,
-
   description,
   votes_count,
   mutate,

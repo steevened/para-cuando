@@ -2,7 +2,6 @@ import Button from '@/components/buttons/Button';
 import ProfileLayout from '@/components/layouts/ProfileLayout';
 import ProfileSlider from '@/components/sliders/ProfileSlider';
 import { useProfile } from '@/lib/services/profile/ProfileInfo.services';
-import Link from 'next/link';
 import { ReactElement, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import 'swiper/css';
@@ -43,20 +42,35 @@ const VotesPage: NextPageWithLayout = () => {
         />
       </div>
       <div className="flex justify-center pt-20 pb-19">
-        <ul className=" flex gap-[11px] h-[30px] ">
-          {categories.map((categorie) => (
-            <li key={categorie.id}>
-              <Link href={`/categories/${encodeURIComponent(categorie.title)}`}>
-                <Button>{categorie.title}</Button>
-              </Link>
-            </li>
-          ))}
+        <ul className="flex gap-[11px] h-[30px]">
+          <li>
+            <Button
+              toggleSection={toggleSection}
+              onClick={() => setToggleSection(1)}
+              className={`${
+                toggleSection === 1 ? 'bg-app-gray text-white' : 'bg-white'
+              }`}
+            >
+              Mis votos
+            </Button>
+          </li>
+          <li>
+            <Button
+              toggleSection={toggleSection}
+              onClick={() => setToggleSection(2)}
+              className={`${
+                toggleSection === 2 ? 'bg-app-gray text-white' : 'bg-white'
+              }`}
+            >
+              Mis publicaciones
+            </Button>
+          </li>
         </ul>
       </div>
-      <div className="">
+      <div className=" app-container">
         <ProfileSlider />
       </div>
-      <div className="flex justify-center">
+      {/* <div className="flex justify-center">
         <nav aria-label="Page navigation example">
           <ul className="flex list-style-none">
             <li>
@@ -90,7 +104,7 @@ const VotesPage: NextPageWithLayout = () => {
             </li>
           </ul>
         </nav>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -2,6 +2,7 @@ interface InInput extends React.ComponentPropsWithoutRef<'input'> {
   id: string;
   type: string;
   placeholder?: string;
+  isError?: boolean;
 }
 
 export function Input({
@@ -9,6 +10,7 @@ export function Input({
   type,
   placeholder,
   className,
+  isError,
   ...inputProps
 }: InInput) {
   return (

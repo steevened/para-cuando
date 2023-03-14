@@ -77,7 +77,7 @@ export default function TwoStepsForm({
   setSteps: any;
 }) {
   const firstValidationSchema = Yup.object({
-    title: Yup.string().max(15, 'Máximo 15 carácteres').required('Required'),
+    title: Yup.string().required('Required'),
     publications_types_id: Yup.number().required('Required'),
     tags: Yup.number().required('Required'),
     description: Yup.string().required('Required'),

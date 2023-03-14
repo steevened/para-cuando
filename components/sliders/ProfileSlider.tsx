@@ -10,7 +10,7 @@ interface PublicationCardProps {
 
 const CardsContainer = ({ children }: CardsContainerProps) => {
   return (
-    <div className="relative flex flex-col flex-wrap items-center justify-center pt-20 500 md:flex-row app-container">
+    <div className="relative flex flex-wrap items-center justify-center gap-6 mt-16 app-container">
       {children}
     </div>
   );
@@ -22,7 +22,7 @@ function VotedPublicationsPage() {
   // console.log(data);
 
   return (
-    <div>
+    <>
       {data?.map((publication: any) => (
         <PublicationCard
           key={publication.publication_id}
@@ -30,7 +30,7 @@ function VotedPublicationsPage() {
           mutate={mutate}
         />
       ))}
-    </div>
+    </>
   );
 }
 

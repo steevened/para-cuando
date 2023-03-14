@@ -1,6 +1,7 @@
 import Background from '@/components/auth/Background';
 import RegisterModal from '@/components/auth/RegisterModal';
 import Head from 'next/head';
+import { Toaster } from 'react-hot-toast';
 
 export default function register() {
   // const {data} = useSWR
@@ -12,6 +13,7 @@ export default function register() {
       </Head>
 
       <Background>
+        <Toaster />
         <RegisterModal />
       </Background>
     </>
