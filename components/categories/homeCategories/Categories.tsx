@@ -1,6 +1,7 @@
 import Button from '@/components/buttons/Button';
 import { Scrollbar } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import Link from 'next/link';
 interface ICategorie {
   name: string;
   id: number;
@@ -64,6 +65,7 @@ export default function Categories() {
           modules={[Scrollbar]}
           slidesPerView={'auto'}
           spaceBetween={11}
+          grabCursor={true}
           scrollbar={{ draggable: true }}
           breakpoints={{
             0: {
@@ -92,7 +94,8 @@ export default function Categories() {
           ))}
         </Swiper>
         <p className="mt-[60px] subtitle-2 text-app-blue">
-          Ver todos los intereses
+          <Link  href='/profile'>Ver todos los intereses</Link>
+          
         </p>
       </div>
     </div>

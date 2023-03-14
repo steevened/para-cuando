@@ -1,6 +1,7 @@
 import { signUp } from '@/lib/services/auth/auth.services';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { Input } from './InputAuth';
 import Label from './Label';
 import ModalContent from './ModalContent';
@@ -16,14 +17,26 @@ export default function RegisterModal() {
 
   const handleSubmit = async (e: React.ChangeEvent) => {
     e.preventDefault();
-    signUp({
-      email,
-      password,
-      first_name: firstName,
-      last_name: lastName,
-    }).then(() => {
+    const toastPromise = toast.promise(
+      signUp({
+        email,
+        password,
+        first_name: firstName,
+        last_name: lastName,
+      }),
+      {
+        loading: 'Espere...',
+        success: `Regristro exitoso`,
+        error: `Intente nuevamente`,
+      }
+    );
+    try {
+      const response = await toastPromise;
+      console.log(response);
       router.push('/auth/login');
-    });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

@@ -13,6 +13,7 @@ export default function LoginModal() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const router = useRouter();
+  const [isError, setIsError] = useState<boolean>(false);
 
   // const { login } = useLogin();
 
@@ -32,6 +33,9 @@ export default function LoginModal() {
       closeLoginModal();
     } catch (error) {
       console.log(error);
+      // if (error?.response.message === 401) {
+      //   setIsError(true);
+      // }
     }
 
     login({ email, password })
@@ -62,6 +66,7 @@ export default function LoginModal() {
           id="email"
           type="email"
           placeholder="ejemplo@mail.com"
+          // isError={isError}
         />
       </Label>
       <PasswordInput setPassword={setPassword} />
