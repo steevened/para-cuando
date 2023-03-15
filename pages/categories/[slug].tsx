@@ -40,9 +40,9 @@ const CategoryPage: NextPageWithLayout = () => {
 
   const styles = {
     backgroundImage: `url(${
-      slug === 'Marcas y tiendas'
+      slug === 'Marcas y Tiendas'
         ? marcas.src
-        : slug === 'Artistas y conciertos'
+        : slug === 'Artistas y Conciertos'
         ? artistas.src
         : torneos.src
     })`,

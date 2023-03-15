@@ -13,6 +13,8 @@ interface ArrowProps {
 export default function HomeSlider({ className }: ClassName) {
   const { data: publications, error, isLoading, mutate } = usePublications();
 
+  // console.log(publications);
+
   if (error) {
     return (
       <div className="absolute inset-0 flex items-center justify-center text-3xl bg-white">

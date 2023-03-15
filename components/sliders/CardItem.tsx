@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import lady from '../../public/cardImgs/lady.png';
+import useAuthStore from '../../store/auth';
 import UserLogo from '../atoms/UserLogo';
 import { HearthBtn } from '../buttons/HearthBtn';
 
@@ -33,6 +34,8 @@ const CardItem = ({
   const { data, mutate: mutateVotes } = useUserVotes();
   const { openLoginModal } = useModalStore();
 
+  const { isLogedIn } = useAuthStore();
+
   const [userLogged, setUserLogged] = useState<boolean>(false);
 
   useEffect(() => {
@@ -42,7 +45,7 @@ const CardItem = ({
     } else {
       setUserLogged(false);
     }
-  }, []);
+  }, [isLogedIn]);
 
   // console.log(data);
 
@@ -55,7 +58,7 @@ const CardItem = ({
         setIsActive(false);
       }
     }
-  }, [data, id]);
+  }, [data, id, isLogedIn]);
 
   const handleVote = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -89,8 +92,8 @@ const CardItem = ({
       onClick={handleCardClick}
       className="shadow-shadow1 m-1 w-[300px] rounded-[20px] h-[454px] overflow-hidden text-black bg-white border cursor-pointer"
     >
-      <div className="w-[300px] h-[300px]">
-        <Image className="w-full" src={lady} alt="picture" />
+      <div className="w-[300px] h-[239px]">
+        <Image className="w-full h-full" src={lady} alt="picture" />
       </div>
 
       <div className="mx-[22px] mt-[15px] relative mb-10 h-full">
@@ -102,13 +105,15 @@ const CardItem = ({
           />
         </button>
         <h2 className="title-3 text-start">{title}</h2>
-        <p className="mt-[5px] text-1 text-app-grayDark">{description}</p>
+        <div className="h-[70px] overflow-hidden">
+          <p className="mt-[5px] text-1 text-app-grayDark">{description}</p>
+        </div>
         <p className="mt-3 text-app-blue text-2 ">{reference_link}</p>
         <div className="flex items-center gap-2 mt-4 text-2">
           <span>
             <UserLogo />
           </span>
-          <p>
+          <p className="text-sm font-medium text-app-blackLight">
             {votes_count} {votes_count !== 1 ? 'votos' : 'voto'}
           </p>
         </div>

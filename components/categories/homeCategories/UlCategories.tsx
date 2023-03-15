@@ -1,24 +1,17 @@
 import Button from '@/components/buttons/Button';
+import { Type } from '@/lib/interfaces/publicationTypes/publicationTypes.interface';
+import { usePublicationTypes } from '@/lib/services/publicationTypes/publicationTypes.services';
 import Link from 'next/link';
 
-interface Category {
-  title: string;
-  id: number;
-}
-
-const categories: Array<Category> = [
-  { title: 'Marcas y tiendas', id: 1 },
-  { title: 'Artistas y conciertos', id: 2 },
-  { title: 'Torneos', id: 3 },
-];
-
 export default function UlCategories() {
+  const { data: categories, error, isLoading } = usePublicationTypes();
+
   return (
     <ul className="flex justify-between items-center w-full ">
-      {categories.map((categorie) => (
+      {categories?.map((categorie: Type) => (
         <li key={categorie.id}>
-          <Link href={`/categories/${encodeURIComponent(categorie.title)}`}>
-            <Button>{categorie.title}</Button>
+          <Link href={`/categories/${encodeURIComponent(categorie.name)}`}>
+            <Button>{categorie.name}</Button>
           </Link>
         </li>
       ))}
