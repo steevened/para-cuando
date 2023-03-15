@@ -10,7 +10,7 @@ export default function BtnNext({ className, ...BtnProps }: Props) {
 
   const handleFinalSubmit = () => {
     setTouched({});
-    handleSubmit();
+    // handleSubmit();
   };
 
   return (

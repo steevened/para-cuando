@@ -37,7 +37,7 @@ const Label = ({ inputFile, setFieldValue }: LabelProps) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [field, meta] = useField(inputFile.name);
 
-  console.log(imagePreview);
+  // console.log(imagePreview);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

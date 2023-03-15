@@ -73,12 +73,12 @@ const CardItem = ({
 
     try {
       const response = await toastId;
-      console.log(response);
+      // console.log(response);
       mutate();
       mutateVotes();
     } catch (error) {
-      console.log('--------------error--------------------');
-      console.log(error);
+      // console.log('--------------error--------------------');
+      // console.log(error);
       openLoginModal();
     }
   };
