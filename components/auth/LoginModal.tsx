@@ -37,6 +37,10 @@ export default function LoginModal() {
       setIsError(false);
     } catch (error) {
       setIsError(true);
+      // setEmail('');
+      setPassword('');
+
+      // console.log(error);
     }
   };
 
@@ -56,10 +60,11 @@ export default function LoginModal() {
           id="email"
           type="email"
           placeholder="ejemplo@mail.com"
-          // isError={isError}
+          isError={isError}
+          value={email}
         />
       </Label>
-      <PasswordInput setPassword={setPassword} />
+      <PasswordInput value={password} setPassword={setPassword} />
     </ModalContent>
   );
 }

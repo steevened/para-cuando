@@ -24,7 +24,8 @@ export default function Navbar() {
     const tokenFounded = Cookies.get('token');
     if (!tokenFounded) return;
     setIsLogged(true);
-  }, [isLogedIn]);
+    mutate();
+  }, [isLogedIn, mutate]);
 
   // console.log(data);
 
