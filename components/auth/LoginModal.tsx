@@ -3,6 +3,7 @@ import useModalStore from '@/store/loginModal';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { login } from '../../lib/services/auth/auth.services';
 import { Input } from './InputAuth';
 import Label from './Label';
@@ -15,39 +16,28 @@ export default function LoginModal() {
   const router = useRouter();
   const [isError, setIsError] = useState<boolean>(false);
 
-  // const { login } = useLogin();
-
-  const { login: logIn } = useAuthStore();
+  const logIn = useAuthStore((state) => state.logIn);
 
   const { closeLoginModal } = useModalStore();
 
   const handleSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-
+    const toastPromise = toast.promise(login({ email, password }), {
+      loading: 'Espere...',
+      success: 'Iniciado correctamente',
+      error: 'Intente nuevamente',
+    });
     try {
-      const response = await login({ email, password });
+      const response = await toastPromise;
       console.log(response);
       Cookies.set('token', response.data.token);
       router.push('/');
       logIn();
       closeLoginModal();
+      setIsError(false);
     } catch (error) {
-      console.log(error);
-      // if (error?.response.message === 401) {
-      //   setIsError(true);
-      // }
+      setIsError(true);
     }
-
-    login({ email, password })
-      .then((res) => {
-        console.log(res);
-        Cookies.set('token', res.data.token);
-        router.push('/');
-        logIn();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   };
 
   return (

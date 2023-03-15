@@ -14,28 +14,26 @@ import logo from '../public/icon-logo.svg';
 import UserOutlined from './atoms/UserOutlined';
 
 export default function Navbar() {
-  const router = useRouter();
-  const { logout } = useAuthStore();
   const [isLogged, setIsLogged] = useState<boolean>(false);
 
-  useEffect(() => {
-    const token = Cookies.get('token');
-    if (token) {
-      setIsLogged(true);
-    } else {
-      setIsLogged(false);
-    }
-  }, []);
+  const { logOut, isLogedIn } = useAuthStore();
+  const router = useRouter();
+  const { data, mutate } = useProfile();
 
-  const { data, error, isLoading } = useProfile();
+  useEffect(() => {
+    const tokenFounded = Cookies.get('token');
+    if (!tokenFounded) return;
+    setIsLogged(true);
+  }, [isLogedIn]);
+
+  // console.log(data);
 
   const handleLogOut = () => {
     Cookies.remove('token');
-    logout();
+    logOut();
     router.push('/auth/login');
+    mutate();
   };
-
-  // console.log(data);
 
   return (
     <div className="w-full h-[71px] text-center bg-black flex items-center justify-between px-5 sm:px-[52px]">
@@ -66,7 +64,9 @@ export default function Navbar() {
           </Link>
           <div className="flex items-center gap-3">
             <UserOutlined />
-            <p className="text-white">{data?.results.email}</p>
+            <p className="text-white text-sm sm:text-base">
+              {data?.results.email}
+            </p>
             <Menu as="div" className="relative flex ">
               <Menu.Button>
                 <span className="text-white">
