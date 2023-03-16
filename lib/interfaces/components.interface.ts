@@ -12,7 +12,7 @@ export interface ItemSlider {
   description: string;
   reference_link: string;
   votes_count: number;
-  images: Images[];
+  images: any;
 }
 
 export interface ClassName {

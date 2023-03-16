@@ -2,7 +2,6 @@ import { ClassName } from '@/lib/interfaces';
 import { usePublications } from '@/lib/services/publications.services';
 import 'swiper/css';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
-import db from '../../db.json';
 import CardItem from './CardItem';
 
 interface ArrowProps {
@@ -13,6 +12,7 @@ interface ArrowProps {
 export default function HomeSlider({ className }: ClassName) {
   const { data: publications, error, isLoading } = usePublications();
 
+  console.log(publications);
   if (isLoading) {
     return (
       <div className="absolute inset-0 text-3xl bg-white flex items-center justify-center">
@@ -55,15 +55,15 @@ export default function HomeSlider({ className }: ClassName) {
           },
         }}
       >
-        {db.map((item) => (
+        {publications?.results.results.map((item: any) => (
           <SwiperSlide key={item.id}>
             <CardItem
               id={item.id}
               title={item.title}
               description={item.description}
-              web={item.web}
-              votes={item.votes}
-              img={item.img}
+              reference_link={item.reference_link}
+              votes_count={item.votes_count}
+              images={item.images}
             />
           </SwiperSlide>
         ))}
