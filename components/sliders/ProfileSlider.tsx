@@ -4,7 +4,6 @@ import bts from '../../public/cardImgs/bts.png';
 import hotel from '../../public/cardImgs/hotel.png';
 import lady from '../../public/cardImgs/lady.png';
 import shop from '../../public/cardImgs/shop.png';
-import CardItem from './CardItem';
 
 const items = [
   {
@@ -93,17 +92,17 @@ const items = [
 export default function ProfileSlider() {
   return (
     <div className="justify-center 500 md:flex-row flex-wrap app-container flex flex-col items-center relative pt-20">
-      {items.map((item) => (
+      {/* {items.map((item) => (
         <CardItem
           key={item.id}
           id={item.id}
           title={item.title}
           description={item.description}
-          web={item.web}
+          refrences_url={item.web}
           img={item.img}
           votes={item.votes}
         />
-      ))}
+      ))} */}
     </div>
   );
 }
