@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import lady from '../../public/cardImgs/lady.png';
 import useAuthStore from '../../store/auth';
 import UserLogo from '../atoms/UserLogo';
 import { HearthBtn } from '../buttons/HearthBtn';
@@ -18,7 +17,7 @@ interface PublicationProps {
   votes_count: number;
   mutate: any;
   reference_link: string;
-  // img: string[];
+  images: any;
 }
 
 const CardItem = ({
@@ -27,6 +26,7 @@ const CardItem = ({
   description,
   votes_count,
   mutate,
+  images,
   reference_link,
 }: PublicationProps) => {
   const [isActive, setIsActive] = useState<boolean>(false);
@@ -37,6 +37,8 @@ const CardItem = ({
   const { isLogedIn } = useAuthStore();
 
   const [userLogged, setUserLogged] = useState<boolean>(false);
+
+  console.log(images);
 
   useEffect(() => {
     const token = Cookies.get('token');
@@ -93,9 +95,15 @@ const CardItem = ({
       className="shadow-shadow1 m-1 w-[300px] rounded-[20px] h-[454px] overflow-hidden text-black bg-white border cursor-pointer"
     >
       <div className="w-[300px] h-[239px]">
-        <Image className="w-full h-full" src={lady} alt="picture" />
+        <Image
+          width="300"
+          height="239"
+          // objectFit="fill"
+          className="w-full h-full"
+          src={images[0]?.image_url}
+          alt="picture"
+        />
       </div>
-
       <div className="mx-[22px] mt-[15px] relative mb-10 h-full">
         <button onClick={handleVote} className="absolute right-0 -top-10">
           <HearthBtn

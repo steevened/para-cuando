@@ -91,7 +91,7 @@ export default function HomeSlider({ className }: ClassName) {
                 id={publication.id}
                 mutate={mutate}
                 reference_link={publication.reference_link}
-                // img={publication.images}
+                images={publication.images}
               />
             </SwiperSlide>
           ))}
