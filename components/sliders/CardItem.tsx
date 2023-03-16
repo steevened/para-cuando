@@ -15,7 +15,7 @@ interface PublicationProps {
   title: string;
   description: string;
   votes_count: number;
-  mutate: any;
+  mutate?: any;
   reference_link: string;
   images: any;
 }
@@ -38,7 +38,7 @@ const CardItem = ({
 
   const [userLogged, setUserLogged] = useState<boolean>(false);
 
-  console.log(images);
+  // console.log(images);
 
   useEffect(() => {
     const token = Cookies.get('token');
@@ -94,7 +94,7 @@ const CardItem = ({
       onClick={handleCardClick}
       className="shadow-shadow1 m-1 w-[300px] rounded-[20px] h-[454px] overflow-hidden text-black bg-white border cursor-pointer"
     >
-      <div className="w-[300px] h-[239px]">
+      <div className="w-full h-[239px]">
         <Image
           width="300"
           height="239"

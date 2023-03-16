@@ -1,9 +1,8 @@
 import { fetcher } from '@/lib/helpers/fetcher.helper';
 import useSWR from 'swr';
-import { PublicationID } from '../../interfaces/publications/publicationId.interface';
 
 function usePublicationId(id: string) {
-  const { data, error, isLoading, mutate } = useSWR<PublicationID>(
+  const { data, error, isLoading, mutate } = useSWR<any>(
     `/publications/${id}`,
     fetcher
   );
