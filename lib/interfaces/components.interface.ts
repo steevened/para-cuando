@@ -2,13 +2,17 @@ export default interface Children {
   children: React.ReactNode;
 }
 
+interface Images {
+  image_url: string;
+}
+
 export interface ItemSlider {
   id: number;
   title: string;
   description: string;
-  web: string;
-  votes: number;
-  img: any;
+  reference_link: string;
+  votes_count: number;
+  images: Images[];
 }
 
 export interface ClassName {

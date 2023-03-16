@@ -1,11 +1,14 @@
 import useSWR from 'swr';
 import { fetcher } from '../helpers/fetcher.helper';
-import { PublicationsResponse } from '../interfaces/publications.interface';
 
 function usePublications() {
-  const { data, error, isLoading, mutate } = useSWR<PublicationsResponse>(
+  const { data, error, isLoading, mutate } = useSWR<any>(
     '/publications',
-    fetcher
+    fetcher,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+    }
   );
   return {
     data,
