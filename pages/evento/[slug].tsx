@@ -22,7 +22,7 @@ const EventoPage: NextPageWithLayout = () => {
     mutate,
   } = usePublicationId(String(slug));
 
-  console.log(publication);
+  // console.log(publication);
 
   return (
     <>

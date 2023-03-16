@@ -4,6 +4,7 @@ import {
   uploadImgPublication,
 } from '@/lib/services/publications/publications.services';
 import { Form, Formik, useField } from 'formik';
+import { useRouter } from 'next/router';
 import { toast } from 'react-hot-toast';
 import * as Yup from 'yup';
 import InputGroup from '../InputFiles/InputGroup';
@@ -81,6 +82,8 @@ export default function TwoStepsForm({
   steps: number;
   setSteps: any;
 }) {
+  const router = useRouter();
+
   const firstValidationSchema = Yup.object({
     title: Yup.string().required('Required'),
     publications_types_id: Yup.number().required('Required'),
@@ -129,7 +132,15 @@ export default function TwoStepsForm({
             tags: tagsArr,
             content: 'default',
           };
-          console.log(formValues);
+
+          //----------
+          // const imagesArr = images.filter((image) => image !== null);
+          // const image = imagesArr[0];
+          // const formData = new FormData();
+          // formData.append('image', image);
+          // console.log(formData);
+
+          // ------
           const toasterPromise = toast.promise(createPublication(formValues), {
             error: 'Intente nuevamente',
             loading: 'Cargando...',
@@ -142,10 +153,18 @@ export default function TwoStepsForm({
 
             try {
               const imagesArr = images.filter((image) => image !== null);
+              const image = imagesArr[0];
+              const formData = new FormData();
+              if (image !== null) {
+                formData.append('image', image);
+              } else {
+                console.log('no formData');
+              }
               await uploadImgPublication(
-                imagesArr,
+                formData,
                 response.data.publication_id
               );
+              // router.push('/');
             } catch (error) {
               console.log(error);
             }
@@ -153,7 +172,9 @@ export default function TwoStepsForm({
             console.log(error);
           }
 
-          // setSubmitting(false);
+          // -----
+
+          setSubmitting(false);
         }
       }}
     >
