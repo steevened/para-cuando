@@ -11,9 +11,8 @@ export default function register() {
         <title>Sign Up - Para Cuándo</title>
         <meta name="description" content="description" />
       </Head>
-
+      <Toaster />
       <Background>
-        <Toaster />
         <RegisterModal />
       </Background>
     </>

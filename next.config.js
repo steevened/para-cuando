@@ -7,6 +7,9 @@ const nextConfig = {
         : 'https://paracuando-gen19-team-9.academlo.tech/api/v1',
   },
   reactStrictMode: true,
+  images: {
+    domains: ['paracuando.s3.sa-east-1.amazonaws.com'],
+  },
 };
 
 module.exports = nextConfig;

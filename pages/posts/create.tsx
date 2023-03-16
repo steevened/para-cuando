@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 import logo from '../../public/create/logo.svg';
 
 export default function Create() {
@@ -18,6 +19,7 @@ export default function Create() {
       <Head>
         <title>Crear Publicación - Para Cuándo</title>
       </Head>
+      <Toaster />
       <div className="h-full min-h-screen flex flex-col sm:flex-row">
         <div className="pb-5 bg-app-blue w-full sm:max-w-[255px] ">
           <div className="app-container relative h-full ">

@@ -16,9 +16,9 @@ export default function Label({
     <label
       {...labelProps}
       htmlFor={htmlFor}
-      className={`text-sm not-italic font-semibold text-white ${className}}`}
+      className={`text-sm not-italic  font-semibold text-white relative ${className}}`}
     >
-      <p>{labelText}</p>
+      <p className="">{labelText}</p>
       {children}
     </label>
   );

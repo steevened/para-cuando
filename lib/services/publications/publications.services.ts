@@ -3,7 +3,6 @@ import useSWR from 'swr';
 import { fetcher } from '../../helpers/fetcher.helper';
 
 import axios from '../../helpers/axios.helper';
-import { CreatePublication } from '../../interfaces/publications/createPublication.interface';
 
 function usePublications() {
   const { data, error, isLoading, mutate } = useSWR<PublicationsResponse>(
@@ -19,8 +18,12 @@ function usePublications() {
   };
 }
 
-function useCreatePublication(data: CreatePublication) {
+function createPublication(data: any) {
   return axios.post('/publications', data);
 }
 
-export { usePublications, useCreatePublication };
+function uploadImgPublication(img: any, id: number) {
+  return axios.post(`/publications/${id}/add-image`, img);
+}
+
+export { usePublications, createPublication, uploadImgPublication };

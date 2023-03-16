@@ -8,7 +8,6 @@ const Button: React.FC<IButtons> = ({
   toggleSection,
   ...btnProps
 }) => {
-  console.log(toggleSection);
   return (
     <button
       {...btnProps}

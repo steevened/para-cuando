@@ -1,60 +1,66 @@
 import BtnNext from '@/components/buttons/BtnNext';
+import {
+  createPublication,
+  uploadImgPublication,
+} from '@/lib/services/publications/publications.services';
 import { Form, Formik, useField } from 'formik';
+import { useRouter } from 'next/router';
+import { toast } from 'react-hot-toast';
 import * as Yup from 'yup';
 import InputGroup from '../InputFiles/InputGroup';
 
 interface ITipos {
   name: string;
-  id: string;
+  id: number;
 }
 
 const tipos: ITipos[] = [
-  { name: 'Marcas y tiendas', id: '1' },
-  { name: 'Artistas y conciertos', id: '2' },
-  { name: 'Torneos', id: '3' },
+  { name: 'Marcas y tiendas', id: 1 },
+  { name: 'Artistas y conciertos', id: 2 },
+  { name: 'Torneos', id: 3 },
 ];
 
 interface ICategorie {
   name: string;
-  id: string;
+  id: number;
 }
 
 const categories: ICategorie[] = [
   {
     name: 'Ropa y accesorios',
-    id: '1',
+    id: 1,
   },
   {
     name: 'Deportes',
-    id: '2',
+    id: 2,
   },
   {
     name: 'Conciertos',
-    id: '3',
+    id: 3,
   },
   {
     name: 'Meet & Greet',
-    id: '4',
+    id: 4,
   },
   {
     name: 'E-Sports',
-    id: '5',
+    id: 5,
   },
   {
     name: 'Pop - Rock',
-    id: '6',
+    id: 6,
   },
   {
     name: 'Tecnología',
-    id: '7',
+    id: 7,
   },
   {
     name: 'Hogar - Decoración',
-    id: '8',
+    id: 8,
   },
   {
     name: 'Abastecimiento',
-    id: '9',
+    id: 9,
   },
 ];
 
@@ -76,6 +82,8 @@ export default function TwoStepsForm({
   steps: number;
   setSteps: any;
 }) {
+  const router = useRouter();
+
   const firstValidationSchema = Yup.object({
     title: Yup.string().required('Required'),
     publications_types_id: Yup.number().required('Required'),
@@ -114,26 +122,58 @@ export default function TwoStepsForm({
       }
       onSubmit={async (values, { setSubmitting }) => {
         if (steps === 1) {
-          // await firs
           setSteps(2);
           setSubmitting(false);
         } else {
-          let { tags, images, ...resValues } = values;
-          // tags = [Number(tags)];
+          const { tags, images, ...resValues } = values;
+          const tagsArr = [Number(tags)];
+          const formValues = {
+            ...resValues,
+            tags: tagsArr,
+            content: 'default',
+          };
 
-          // alert(JSON.stringify(values, null, 2));
-          console.log({ ...resValues, tags });
-          // useCreatePublication({
-          //   ...resValues,
-          //   tags,
-          //   cities_id: 1,
-          //   content: 'si',
-          // })
-          // .then((res) => console.log(res.data))
-          // .catch((err) => console.log(err));
-          //services -> send values{..image}
-          // const {image, ...restValues} = values
-          // axios.post(publications).then(axios.post(images(imageID)).then(error))
+          //----------
+          // const imagesArr = images.filter((image) => image !== null);
+          // const image = imagesArr[0];
+          // const formData = new FormData();
+          // formData.append('image', image);
+          // console.log(formData);
+
+          // ------
+          const toasterPromise = toast.promise(createPublication(formValues), {
+            error: 'Intente nuevamente',
+            loading: 'Cargando...',
+            success: 'Publicación creada!',
+          });
+
+          try {
+            const response = await toasterPromise;
+            // console.log(response);
+
+            try {
+              const imagesArr = images.filter((image) => image !== null);
+              const image = imagesArr[0];
+              const formData = new FormData();
+              if (image !== null) {
+                formData.append('image', image);
+              } else {
+                console.log('no formData');
+              }
+              await uploadImgPublication(
+                formData,
+                response.data.publication_id
+              );
+              // router.push('/');
+            } catch (error) {
+              console.log(error);
+            }
+          } catch (error) {
+            console.log(error);
+          }
+
+          // -----
+
           setSubmitting(false);
         }
       }}
@@ -253,6 +293,7 @@ function SelectInput({ className, ...props }: any) {
   return (
     <div className={`relative ${className}`}>
       <select
+        defaultValue=""
         className={`w-full px-5 py-2 duration-100 bg-transparent border appearance-none peer rounded-xl border-app-grayDark text-base text-app-grayDark ${
           meta.touched && meta.error
             ? 'border-red-500'
@@ -261,7 +302,9 @@ function SelectInput({ className, ...props }: any) {
         {...field}
         {...props}
       />
-      <span className={`absolute -translate-y-1/2 right-4 top-1/2 `}>
+      <span
+        className={`absolute -translate-y-1/2 right-2 top-1/2 peer-active:rotate-180 duration-200`}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

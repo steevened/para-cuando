@@ -13,6 +13,8 @@ interface ArrowProps {
 export default function HomeSlider({ className }: ClassName) {
   const { data: publications, error, isLoading, mutate } = usePublications();
 
+  // console.log(publications);
+
   if (error) {
     return (
       <div className="absolute inset-0 flex items-center justify-center text-3xl bg-white">
@@ -39,31 +41,43 @@ export default function HomeSlider({ className }: ClassName) {
             375: {
               slidesPerView: 1.1,
             },
-            415: {
+            430: {
+              slidesPerView: 1.2,
+            },
+            460: {
               slidesPerView: 1.3,
             },
-            450: {
+            500: {
               slidesPerView: 1.4,
             },
-            475: {
+            530: {
               slidesPerView: 1.5,
             },
-            520: {
+            575: {
               slidesPerView: 1.6,
             },
-            570: {
+            600: {
               slidesPerView: 1.7,
             },
-            620: {
-              slidesPerView: 1.9,
+            630: {
+              slidesPerView: 1.8,
             },
-            680: {
+            670: {
+              slidesPerView: 2,
+            },
+            725: {
               slidesPerView: 2.2,
             },
-            750: {
-              slidesPerView: 2.5,
+            780: {
+              slidesPerView: 2.4,
+            },
+            845: {
+              slidesPerView: 2.6,
             },
             900: {
+              slidesPerView: 2.8,
+            },
+            950: {
               slidesPerView: 3,
             },
           }}
@@ -77,7 +91,7 @@ export default function HomeSlider({ className }: ClassName) {
                 id={publication.id}
                 mutate={mutate}
                 reference_link={publication.reference_link}
-                // img={publication.images}
+                images={publication.images}
               />
             </SwiperSlide>
           ))}

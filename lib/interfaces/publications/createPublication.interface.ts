@@ -6,6 +6,6 @@ export interface CreatePublication {
   content: string;
   reference_link: string;
   cities_id: number;
-  publications_types_id: number;
-  tags: number[];
+  publications_types_id: number | string;
+  tags: number[] | string[];
 }

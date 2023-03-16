@@ -6,7 +6,15 @@ import Label from './Label';
 import eyeClosed from '../../public/eye/eyeclosed.svg';
 import eyeOpen from '../../public/eye/eyeopen.svg';
 
-export default function PasswordInput({ setPassword }: any) {
+interface PaswordInputProps {
+  setPassword: (e: any) => void;
+  value?: string;
+}
+
+export default function PasswordInput({
+  setPassword,
+  value,
+}: PaswordInputProps) {
   const [isPasswordShowed, setIsPasswordShowed] = useState<boolean>(false);
   return (
     <Label className="relative" htmlFor="password" labelText="Contraseña">
@@ -15,6 +23,7 @@ export default function PasswordInput({ setPassword }: any) {
           onChange={(e) => setPassword(e.target.value)}
           id="password"
           type={isPasswordShowed ? 'text' : 'password'}
+          value={value}
         />
         <Image
           src={isPasswordShowed ? eyeOpen : eyeClosed}

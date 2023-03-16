@@ -22,13 +22,18 @@ export interface Publication {
   publications_types_id: string;
   votes_count: number;
   user: User;
-  images: null[];
+  images: Array<Image | null>;
+}
+
+export interface Image {
+  image_url: string;
+  order: number;
 }
 
 export interface User {
   id: string;
   first_name: string;
   last_name: string;
-  country_id: number | null;
+  country_id: null;
   image_url: null | string;
 }
