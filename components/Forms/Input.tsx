@@ -4,9 +4,14 @@ import searchLogo from '../../public/search.svg';
 
 export default function Input() {
   const router = useRouter();
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    router.push('/search');
+  };
   return (
     <form
-      onSubmit={() => router.push('/search')}
+      onSubmit={handleSubmit}
       className="w-full max-w-[465px] h-12 relative flex items-center shadow-1 border-app-gray border rounded-full"
     >
       <input
@@ -14,11 +19,9 @@ export default function Input() {
         type="text"
         placeholder="¿Qué quieres ver en tu ciudad?"
       />
-      <Image
-        className="absolute hidden xs:block right-5"
-        src={searchLogo}
-        alt="search logo"
-      />
+      <button type="submit" className="absolute hidden xs:block right-5">
+        <Image src={searchLogo} alt="search logo" />
+      </button>
     </form>
   );
 }

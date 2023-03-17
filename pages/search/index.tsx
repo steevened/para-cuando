@@ -6,64 +6,20 @@ import CardSearch from '@/components/sliders/CardSearch';
 import SectionSlider from '@/components/sliders/SectionSlider';
 import { usePublications } from '@/lib/services/publications.services';
 import Link from 'next/link';
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { NextPageWithLayout } from '../_app';
 
-// const INFO_CARD = [
-//   {
-//     id: 1,
-//     title: 'Concierto de Lady Gaga',
-//     description:
-//       'El concierto con la temática de Lady Gaga en Las Vegas.El concierto con la temática de Lady Gaga en Las Vegas.',
-//     web: 'ladygaga.com',
-//     votes: 90800756,
-//     img: '../../public/imgSearch/card1.png',
-//   },
-//   {
-//     id: 2,
-//     title: 'Concierto de Lady Gaga',
-//     description:
-//       'El concierto con la temática de Lady Gaga en Las Vegas.El concierto con la temática de Lady Gaga en Las Vegas.',
-//     web: 'ladygaga.com',
-//     votes: 90800756,
-//     img: '../../public/imgSearch/card2.png',
-//   },
-//   {
-//     id: 3,
-//     title: 'Concierto de Lady Gaga',
-//     description:
-//       'El concierto con la temática de Lady Gaga en Las Vegas.El concierto con la temática de Lady Gaga en Las Vegas.',
-//     web: 'ladygaga.com',
-//     votes: 90800756,
-//     img: '../../public/imgSearch/card3.png',
-//   },
-//   {
-//     id: 4,
-//     title: 'Concierto de Lady Gaga',
-//     description:
-//       'El concierto con la temática de Lady Gaga en Las Vegas.El concierto con la temática de Lady Gaga en Las Vegas.',
-//     web: 'ladygaga.com',
-//     votes: 90800756,
-//     img: '../../public/imgSearch/card4.png',
-//   },
-//   {
-//     id: 5,
-//     title: 'Concierto de Lady Gaga',
-//     description:
-//       'El concierto con la temática de Lady Gaga en Las Vegas.El concierto con la temática de Lady Gaga en Las Vegas.',
-//     web: 'ladygaga.com',
-//     votes: 90800756,
-//     img: '../../public/imgSearch/card5.png',
-//   },
-// ];
-
 const Search: NextPageWithLayout = () => {
-  const { data: publications, error, isLoading } = usePublications();
+  const { data: publications, error, isLoading, mutate } = usePublications();
 
-  console.log(publications);
+  const [isActive, setIsActive] = useState<boolean>(false);
+
+  // console.log(publications);
 
   return (
     <div>
+      <Toaster />
       <div className="bg-[url('/hero.png')] h-[108px] bg-no-repeat bg-cover">
         <Link href={'/'}>
           <p className="pl-[21px] pt-[67px] relative text-base text-app-grayLighter font-medium leading-[18px]">
@@ -99,6 +55,7 @@ const Search: NextPageWithLayout = () => {
             reference_link={card.reference_link}
             votes_count={card.votes_count}
             images={card.images}
+            mutate={mutate}
           />
         ))}
       </div>
