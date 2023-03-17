@@ -63,7 +63,7 @@ export default function RegisterModal() {
             onChange={(e) => setFirstName(e.target.value)}
             id="name"
             type="text"
-            placeholder="Erk"
+            placeholder="Erik"
           />
         </Label>
         <Label htmlFor="apellido" labelText="Apellido">
@@ -71,6 +71,7 @@ export default function RegisterModal() {
             onChange={(e) => setLastName(e.target.value)}
             id="apellido"
             type="text"
+            placeholder="Perez"
           />
         </Label>
       </div>
