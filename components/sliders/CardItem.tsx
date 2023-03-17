@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import img404 from '../../public/notfound.png';
 import useAuthStore from '../../store/auth';
 import UserLogo from '../atoms/UserLogo';
 import { HearthBtn } from '../buttons/HearthBtn';
@@ -107,11 +108,7 @@ const CardItem = ({
               ? ' grayscale blur-2xl scale-110'
               : 'grayscale-0 blur-0 scale-100'
           }`}
-          src={
-            images && images[0]?.image_url
-              ? images[0]?.image_url
-              : images[0]?.image_url404
-          }
+          src={images && images[0]?.image_url ? images[0]?.image_url : img404}
           alt="picture"
           onLoadingComplete={() => setIsImageLoading(false)}
         />
