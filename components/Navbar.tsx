@@ -1,6 +1,6 @@
 import { useProfile } from '@/lib/services/profile/ProfileInfo.services';
 import useAuthStore from '@/store/auth';
-import { Menu } from '@headlessui/react';
+import { Menu, Transition } from '@headlessui/react';
 import Cookies from 'js-cookie';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -37,14 +37,17 @@ export default function Navbar() {
   };
 
   return (
-    <div className="w-full h-[71px] text-center bg-black flex items-center justify-between px-5 sm:px-[52px]">
-      <Link href="/" className="sm:flex-1">
-        <Image src={logo} alt="para cuando logo" />
-      </Link>
+    <div className="w-full h-[71px] bg-black flex items-center justify-between px-5 sm:px-[52px]">
+      <div className="flex items-center flex-1 md:flex-[2] ">
+        <Link href="/" className="">
+          <Image src={logo} alt="para cuando logo" />
+        </Link>
+      </div>
+
       <Link
         href="/posts/create"
-        className={`mr-4 sm:mr-9 gap-2 ${
-          isLogged ? 'hidden sm:flex' : 'flex items-center '
+        className={`flex items-center justify-center flex-1  md:flex-[0.5]  gap-2 ${
+          isLogged ? 'hidden md:flex' : ''
         }`}
       >
         <Image src={addLogo} alt="add logo" className="" />
@@ -53,19 +56,19 @@ export default function Navbar() {
         </span>
       </Link>
       {!isLogged ? (
-        <div className="flex gap-5 text-xs text-white sm:subtitle-2">
+        <div className="flex justify-end flex-1 md:flex-[0.5] gap-5 text-xs text-white  sm:subtitle-2">
           <Link href="/auth/login">Log in</Link>
           <Link href="/auth/register">Sign Up</Link>
         </div>
       ) : (
-        <div className="flex items-center gap-3 sm:gap-10">
-          <Link href="/profile/votes" className="hidden gap-2 sm:flex">
+        <div className="flex items-center gap-2 sm:gap-4 md:gap-10">
+          <Link href="/profile/votes" className="hidden gap-2 md:flex">
             <Image src={votesLogo} alt="votes logo" />
             <p className="text-white text-2">Mis votos</p>
           </Link>
           <div className="flex items-center gap-3">
             <UserOutlined />
-            <p className="text-white text-sm sm:text-base">
+            <p className="text-sm text-white sm:text-base">
               {data?.results.email}
             </p>
             <Menu as="div" className="relative flex ">
@@ -87,9 +90,16 @@ export default function Navbar() {
                   </svg>
                 </span>
               </Menu.Button>
-              <Menu.Items className="absolute right-0 bg-white origin-top-right mt-10 px-3 w-48 py-8 z-50 rounded-[20px] shadow-shadow1 text-2">
-                <Menu.Item>
-                  {({ active }) => (
+              <Transition
+                enter="transition duration-100 ease-out"
+                enterFrom="transform scale-95 opacity-0"
+                enterTo="transform scale-100 opacity-100"
+                leave="transition duration-75 ease-out"
+                leaveFrom="transform scale-100 opacity-100"
+                leaveTo="transform scale-95 opacity-0"
+              >
+                <Menu.Items className="absolute border  right-0 bg-white origin-top-right mt-10 px-3 w-48 py-8 z-[999] rounded-[20px] shadow-shadow1 text-2">
+                  <Menu.Item>
                     <Link
                       href="/profile"
                       className="flex items-center justify-center w-full gap-6 mb-5"
@@ -102,10 +112,26 @@ export default function Navbar() {
 
                       <p>Configuración</p>
                     </Link>
-                  )}
-                </Menu.Item>
-                <Menu.Item>
-                  {({ active }) => (
+                  </Menu.Item>
+                  <Menu.Item as="div" className="block mx-auto md:hidden">
+                    <Link
+                      className="flex items-center justify-center w-full gap-2 mb-5"
+                      href={'/posts/create'}
+                    >
+                      <Image src={addLogo} alt="add logo"></Image>
+                      <p>Crear publicación</p>
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item as="div" className="block mx-auto md:hidden">
+                    <Link
+                      className="flex items-center justify-center w-full gap-2 mb-5"
+                      href={'/profile/votes'}
+                    >
+                      <Image src={votesLogo} alt="add logo"></Image>
+                      <p>Crear publicación</p>
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item>
                     <Link
                       href="/auth/login"
                       onClick={handleLogOut}
@@ -119,20 +145,18 @@ export default function Navbar() {
 
                       <p>Cerrar sesión</p>
                     </Link>
-                  )}
-                </Menu.Item>
-                <Menu.Item>
-                  <div className="w-full bg-app-gray h-[2px] mb-4" />
-                </Menu.Item>
+                  </Menu.Item>
+                  <Menu.Item>
+                    <div className="w-full bg-app-gray h-[2px] mb-4" />
+                  </Menu.Item>
 
-                <Menu.Item>
-                  {({ active }) => (
-                    <Link href="/" className="text-start text-app-grayDark">
-                      <p className="ml-5">Ayuda y soporte</p>
-                    </Link>
-                  )}
-                </Menu.Item>
-              </Menu.Items>
+                  <Menu.Item>
+                    <p className="ml-5 text-start text-app-grayDark">
+                      Ayuda y soporte
+                    </p>
+                  </Menu.Item>
+                </Menu.Items>
+              </Transition>
             </Menu>
           </div>
         </div>

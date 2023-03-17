@@ -9,7 +9,11 @@ import axios from '../../helpers/axios.helper';
 function useProfile() {
   const { data, error, isLoading, mutate } = useSWR<ProfileResponse>(
     '/auth/me',
-    fetcher
+    fetcher,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+    }
   );
 
   const {
