@@ -1,11 +1,13 @@
 import { votePublication } from '@/lib/services/publications/publicationVote.services';
 import { useUserVotes } from '@/lib/services/votes/userVotes.services';
 import useModalStore from '@/store/loginModal';
+import { Ring } from '@uiball/loaders';
 import Cookies from 'js-cookie';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import img404 from '../../public/notfound.png';
 import useAuthStore from '../../store/auth';
 import UserLogo from '../atoms/UserLogo';
 import { HearthBtn } from '../buttons/HearthBtn';
@@ -15,7 +17,7 @@ interface PublicationProps {
   title: string;
   description: string;
   votes_count: number;
-  mutate: any;
+  mutate?: any;
   reference_link: string;
   images: any;
 }
@@ -33,6 +35,8 @@ const CardItem = ({
   const router = useRouter();
   const { data, mutate: mutateVotes } = useUserVotes();
   const { openLoginModal } = useModalStore();
+
+  const [isImageLoading, setIsImageLoading] = useState<boolean>(true);
 
   const { isLogedIn } = useAuthStore();
 
@@ -94,18 +98,28 @@ const CardItem = ({
       onClick={handleCardClick}
       className="shadow-shadow1 m-1 w-[300px] rounded-[20px] h-[454px] overflow-hidden text-black bg-white border cursor-pointer"
     >
-      <div className="w-[300px] h-[239px]">
+      <div className="w-full h-[239px] relative">
         <Image
           width="300"
           height="239"
           // objectFit="fill"
-          className="w-full h-full"
-          src={images[0]?.image_url}
+          className={`w-full h-full duration-700 ease-in-out ${
+            isImageLoading
+              ? ' grayscale blur-2xl scale-110'
+              : 'grayscale-0 blur-0 scale-100'
+          }`}
+          src={images && images[0]?.image_url ? images[0]?.image_url : img404}
           alt="picture"
+          onLoadingComplete={() => setIsImageLoading(false)}
         />
+        {isImageLoading && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Ring size={48} lineWeight={5} speed={2} color="gray" />
+          </div>
+        )}
       </div>
-      <div className="mx-[22px] mt-[15px] relative mb-10 h-full">
-        <button onClick={handleVote} className="absolute right-0 -top-10">
+      <div className="mx-[22px] mt-[25px] relative mb-10 h-full">
+        <button onClick={handleVote} className="absolute right-0 -top-12">
           <HearthBtn
             aria-label="like-button"
             isActive={isActive}

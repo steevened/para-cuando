@@ -19,7 +19,7 @@ const CardsContainer = ({ children }: CardsContainerProps) => {
 function VotedPublicationsPage() {
   const { data, isLoading, error, mutate } = useUserVotes();
 
-  // console.log(data);
+  console.log(data);
 
   return (
     <>
@@ -51,6 +51,7 @@ function PublicationCard({ publication, mutate }: any) {
       title={data?.title}
       description={data?.description}
       votes_count={data?.votes_count}
+      images={data?.images}
     />
   );
 }
