@@ -28,7 +28,7 @@ const CardSearch = ({
   return (
     <section className="relative border mx-[10px] flex flex-row h-[199px] shadow-shadow-1  rounded-[20px] mt-5 pr-[21px] overflow-hidden gap-6 w-full md:h-[240px] md:gap-[60px]">
       <div
-        style={{ backgroundImage: `url(${images[0].image_url})` }}
+        style={{ backgroundImage: `url(${images[0]?.image_url})` }}
         className="min-w-[121px] h-full bg-center bg-cover rounded-[20px] md:w-[300px]"
       />
       <header className="pt-[34px] pb-[13px]">

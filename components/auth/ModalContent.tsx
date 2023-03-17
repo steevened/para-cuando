@@ -31,9 +31,9 @@ export default function ModalContent({
       <p className="mt-3 text-sm text-app-grayLighter">{subtitle}</p>
       <form className="mt-6">
         {children}
-        <div className="mt-2.5 text-xs  text-app-grayLight">
+        <div className="mt-2.5 text-xs  text-app-grayLight relative">
           <p>
-            <span className="">.</span>
+            {/* <span className="">.</span> */}
             {passwordAction}
             <span>
               {contentFor === 'login' && (
@@ -49,8 +49,8 @@ export default function ModalContent({
         </div>
         <button
           type="submit"
-          onClick={contentFor === 'login' ? handleSubmit : null}
-          className=" w-full text-app-black font-semibold rounded-md text-base px-5 py-2.5 text-center bg-app-yellow mt-7"
+          onClick={handleSubmit}
+          className="w-full text-app-black font-semibold rounded-md text-base px-5 py-2.5 text-center bg-app-yellow mt-7"
         >
           {btnText}
         </button>

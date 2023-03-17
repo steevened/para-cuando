@@ -10,6 +10,9 @@ const nextConfig = {
     domains: ['paracuando.s3.sa-east-1.amazonaws.com'],
   },
   reactStrictMode: true,
+  images: {
+    domains: ['paracuando.s3.sa-east-1.amazonaws.com'],
+  },
 };
 
 module.exports = nextConfig;

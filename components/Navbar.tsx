@@ -1,6 +1,10 @@
+import { useProfile } from '@/lib/services/profile/ProfileInfo.services';
+import useAuthStore from '@/store/auth';
 import { Menu } from '@headlessui/react';
+import Cookies from 'js-cookie';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import addLogo from '../public/add.svg';
 import votesLogo from '../public/authRegister/votesLogo.svg';
@@ -10,14 +14,27 @@ import logo from '../public/icon-logo.svg';
 import UserOutlined from './atoms/UserOutlined';
 
 export default function Navbar() {
-  const [userLogged, setUserLogged] = useState<any>(null);
+  const [isLogged, setIsLogged] = useState<boolean>(false);
+
+  const { logOut, isLogedIn } = useAuthStore();
+  const router = useRouter();
+  const { data, mutate } = useProfile();
 
   useEffect(() => {
-    const email = localStorage.getItem('email');
-    if (email) {
-      setUserLogged(email);
-    }
-  }, []);
+    const tokenFounded = Cookies.get('token');
+    if (!tokenFounded) return;
+    setIsLogged(true);
+    mutate();
+  }, [isLogedIn, mutate]);
+
+  // console.log(data);
+
+  const handleLogOut = () => {
+    Cookies.remove('token');
+    logOut();
+    router.push('/auth/login');
+    mutate();
+  };
 
   return (
     <div className="w-full h-[71px] text-center bg-black flex items-center justify-between px-5 sm:px-[52px]">
@@ -27,7 +44,7 @@ export default function Navbar() {
       <Link
         href="/posts/create"
         className={`mr-4 sm:mr-9 gap-2 ${
-          userLogged ? 'hidden sm:flex' : 'flex items-center '
+          isLogged ? 'hidden sm:flex' : 'flex items-center '
         }`}
       >
         <Image src={addLogo} alt="add logo" className="" />
@@ -35,20 +52,22 @@ export default function Navbar() {
           Crear Publicación
         </span>
       </Link>
-      {!userLogged ? (
+      {!isLogged ? (
         <div className="flex gap-5 text-xs text-white sm:subtitle-2">
           <Link href="/auth/login">Log in</Link>
           <Link href="/auth/register">Sign Up</Link>
         </div>
       ) : (
-        <div className=" flex items-center gap-3 sm:gap-10">
-          <Link href="/profile/votes" className="sm:flex gap-2 hidden">
+        <div className="flex items-center gap-3 sm:gap-10">
+          <Link href="/profile/votes" className="hidden gap-2 sm:flex">
             <Image src={votesLogo} alt="votes logo" />
             <p className="text-white text-2">Mis votos</p>
           </Link>
-          <div className="flex gap-3 items-center">
+          <div className="flex items-center gap-3">
             <UserOutlined />
-            <p className="text-white">{localStorage.getItem('email')}</p>
+            <p className="text-white text-sm sm:text-base">
+              {data?.results.email}
+            </p>
             <Menu as="div" className="relative flex ">
               <Menu.Button>
                 <span className="text-white">
@@ -73,7 +92,7 @@ export default function Navbar() {
                   {({ active }) => (
                     <Link
                       href="/profile"
-                      className="flex w-full gap-6 items-center mb-5 justify-center"
+                      className="flex items-center justify-center w-full gap-6 mb-5"
                     >
                       <Image
                         src={configLogo}
@@ -89,8 +108,8 @@ export default function Navbar() {
                   {({ active }) => (
                     <Link
                       href="/auth/login"
-                      onClick={() => localStorage.removeItem('email')}
-                      className="flex w-full gap-6 items-center mb-5 justify-center"
+                      onClick={handleLogOut}
+                      className="flex items-center justify-center w-full gap-6 mb-5"
                     >
                       <Image
                         src={closeSession}

@@ -1,11 +1,19 @@
 interface IButtons extends React.ComponentPropsWithoutRef<'button'> {
-  size?: 'sm' | 'md';
+  toggleSection?: number;
 }
 
-const Button: React.FC<IButtons> = ({ children, className }) => {
+const Button: React.FC<IButtons> = ({
+  children,
+  className,
+  toggleSection,
+  ...btnProps
+}) => {
   return (
     <button
-      className={`px-2 h-[30px] bg-white border sm:px-5 rounded-3xl text-2 text-app-gray whitespace-nowrap border-app-gray w-full ${className}`}
+      {...btnProps}
+      className={`px-2 h-[30px] ${
+        !toggleSection ? 'bg-white' : ''
+      } border sm:px-5 rounded-3xl text-2 text-app-gray whitespace-nowrap border-app-gray min-w-full ${className} `}
     >
       {children}
     </button>
