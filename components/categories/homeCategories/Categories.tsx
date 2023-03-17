@@ -1,55 +1,26 @@
 import Button from '@/components/buttons/Button';
+import { useTags } from '@/lib/services/tags/tags.services';
+import useModalStore from '@/store/loginModal';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
 import { Scrollbar } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import Link from 'next/link';
-interface ICategorie {
-  name: string;
-  id: number;
-}
-
-const categories: ICategorie[] = [
-  {
-    name: 'Ropa y accesorios',
-    id: 1,
-  },
-  {
-    name: 'Deportes',
-    id: 2,
-  },
-  {
-    name: 'Conciertos',
-    id: 3,
-  },
-  {
-    name: 'Meet & Greet',
-    id: 4,
-  },
-  {
-    name: 'E-Sports',
-    id: 5,
-  },
-  {
-    name: 'Pop - Rock',
-    id: 6,
-  },
-  {
-    name: 'Tecnología',
-    id: 7,
-  },
-  {
-    name: 'Hogar - Decoración',
-    id: 8,
-  },
-  {
-    name: 'Abastecimiento',
-    id: 9,
-  },
-];
 
 export default function Categories() {
-  // const { data, isLoading, error } = usePublicationTypes();
+  const { tags } = useTags();
+  const router = useRouter();
+  const { openLoginModal } = useModalStore();
 
-  // console.log({ categories: data });
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    const isToken = Cookies.get('token');
+    if (isToken) {
+      router.push('/profile');
+    } else {
+      openLoginModal();
+    }
+  };
 
   return (
     <div className="w-full pl-6 mt-12 md:px-16 bg-app-grayLighter pb-11">
@@ -87,15 +58,14 @@ export default function Categories() {
           }}
           className="mt-6"
         >
-          {categories.map((categorie) => (
-            <SwiperSlide key={categorie.id} className="">
-              <Button>{categorie.name}</Button>
+          {tags?.map((categorie) => (
+            <SwiperSlide key={categorie.id}>
+              <Button onClick={handleClick}>{categorie.name}</Button>
             </SwiperSlide>
           ))}
         </Swiper>
         <p className="mt-[60px] subtitle-2 text-app-blue">
-          <Link  href='/profile'>Ver todos los intereses</Link>
-          
+          <button onClick={handleClick}>Ver todos los intereses</button>
         </p>
       </div>
     </div>

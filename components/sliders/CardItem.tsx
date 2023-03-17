@@ -42,7 +42,7 @@ const CardItem = ({
 
   const [userLogged, setUserLogged] = useState<boolean>(false);
 
-  console.log(images);
+  // console.log(images);
 
   useEffect(() => {
     const token = Cookies.get('token');
@@ -96,14 +96,16 @@ const CardItem = ({
   return (
     <div
       onClick={handleCardClick}
-      className="shadow-shadow1 m-1 w-[300px] rounded-[20px] h-[454px] overflow-hidden text-black bg-white border cursor-pointer"
+      className="shadow-shadow1 m-1 w-[300px] rounded-[20px] max-h-[454px] overflow-hidden text-black bg-white border cursor-pointer"
     >
-      <div className="w-full h-[239px] relative">
+      <div className="relative h-[225px] w-full">
         <Image
           width="300"
-          height="239"
+          height="240"
           // objectFit="fill"
-          className={`w-full h-full duration-700 ease-in-out ${
+          className={`${
+            images && images[0]?.image_url ? '' : 'w-full h-full'
+          } object-fill duration-700 ease-in-out ${
             isImageLoading
               ? ' grayscale blur-2xl scale-110'
               : 'grayscale-0 blur-0 scale-100'

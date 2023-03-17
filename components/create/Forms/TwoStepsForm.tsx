@@ -133,14 +133,6 @@ export default function TwoStepsForm({
             content: 'default',
           };
 
-          //----------
-          // const imagesArr = images.filter((image) => image !== null);
-          // const image = imagesArr[0];
-          // const formData = new FormData();
-          // formData.append('image', image);
-          // console.log(formData);
-
-          // ------
           const toasterPromise = toast.promise(createPublication(formValues), {
             error: 'Intente nuevamente',
             loading: 'Cargando...',
@@ -150,7 +142,6 @@ export default function TwoStepsForm({
           try {
             const response = await toasterPromise;
             // console.log(response);
-
             try {
               const imagesArr = images.filter((image) => image !== null);
               const image = imagesArr[0];
@@ -164,7 +155,6 @@ export default function TwoStepsForm({
                 formData,
                 response.data.publication_id
               );
-              // router.push('/');
             } catch (error) {
               console.log(error);
             }
@@ -173,7 +163,7 @@ export default function TwoStepsForm({
           }
 
           // -----
-
+          router.push('/');
           setSubmitting(false);
         }
       }}
