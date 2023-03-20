@@ -44,7 +44,7 @@ const Profile: NextPageWithLayout = () => {
     }
   };
 
-  // console.log(image);
+  console.log(profileDetails?.result.interests);
 
   useEffect(() => {
     if (profileDetails) {
@@ -154,13 +154,13 @@ const Profile: NextPageWithLayout = () => {
             <ul className="flex flex-col flex-wrap items-center justify-center gap-5 md:flex-row">
               {profileDetails?.result.interests.map((interest) => (
                 <li
-                  key={interest.tag_id}
+                  key={interest.id}
                   className="min-w-[300px] min-h-[152px] overflow-hidden rounded-2xl border relative"
                 >
                   <div className="absolute inset-0 bg-black/20" />
                   <Image src={interestImg} alt="event" />
                   <p className="absolute z-20 text-white -translate-x-1/2 bottom-3 left-1/2">
-                    {interest.tags.name}
+                    {interest?.name}
                   </p>
                 </li>
               ))}

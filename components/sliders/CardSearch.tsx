@@ -47,8 +47,6 @@ const CardSearch = ({
     }
   }, [isLogedIn]);
 
-  console.log(data);
-
   useEffect(() => {
     if (data) {
       const isVoted = data.find((vote) => vote.publications_id === id);

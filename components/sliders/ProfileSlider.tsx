@@ -19,8 +19,6 @@ const CardsContainer = ({ children }: CardsContainerProps) => {
 function VotedPublicationsPage() {
   const { data, isLoading, error, mutate } = useUserVotes();
 
-  console.log(data);
-
   return (
     <>
       {data?.map((publication: any) => (

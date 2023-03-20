@@ -1,4 +1,5 @@
 import { useProfile } from '@/lib/services/profile/ProfileInfo.services';
+import { useUserVotes } from '@/lib/services/votes/userVotes.services';
 import useAuthStore from '@/store/auth';
 import { Menu, Transition } from '@headlessui/react';
 import Cookies from 'js-cookie';
@@ -19,6 +20,7 @@ export default function Navbar() {
   const { logOut, isLogedIn } = useAuthStore();
   const router = useRouter();
   const { data, mutate } = useProfile();
+  const { data: votes, mutate: mutateVotes } = useUserVotes();
 
   useEffect(() => {
     const tokenFounded = Cookies.get('token');
@@ -33,6 +35,7 @@ export default function Navbar() {
     Cookies.remove('token');
     logOut();
     router.push('/auth/login');
+    mutateVotes();
     mutate();
   };
 
@@ -71,7 +74,7 @@ export default function Navbar() {
             <p className="text-sm text-white sm:text-base">
               {data?.results.email}
             </p>
-            <Menu as="div" className="relative flex ">
+            <Menu as="div" className="relative flex z-50">
               <Menu.Button>
                 <span className="text-white">
                   <svg
@@ -98,7 +101,7 @@ export default function Navbar() {
                 leaveFrom="transform scale-100 opacity-100"
                 leaveTo="transform scale-95 opacity-0"
               >
-                <Menu.Items className="absolute border  right-0 bg-white origin-top-right mt-10 px-3 w-48 py-8 z-[999] rounded-[20px] shadow-shadow1 text-2">
+                <Menu.Items className="absolute border  right-0 bg-white  mt-10 px-3 w-48 py-8  rounded-[20px] shadow-shadow1 text-2">
                   <Menu.Item>
                     <Link
                       href="/profile"
@@ -128,7 +131,7 @@ export default function Navbar() {
                       href={'/profile/votes'}
                     >
                       <Image src={votesLogo} alt="add logo"></Image>
-                      <p>Crear publicación</p>
+                      <p>Mis votos</p>
                     </Link>
                   </Menu.Item>
                   <Menu.Item>
