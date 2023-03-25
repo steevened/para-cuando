@@ -20,7 +20,7 @@ export default function PasswordInput({
   const [isPasswordShowed, setIsPasswordShowed] = useState<boolean>(false);
   return (
     <Label
-      className="relative"
+      className="relative "
       htmlFor="password"
       labelText={`${
         !order
