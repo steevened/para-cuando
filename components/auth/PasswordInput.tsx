@@ -9,15 +9,27 @@ import eyeOpen from '../../public/eye/eyeopen.svg';
 interface PaswordInputProps {
   setPassword: (e: any) => void;
   value?: string;
+  order?: number;
 }
 
 export default function PasswordInput({
   setPassword,
   value,
+  order,
 }: PaswordInputProps) {
   const [isPasswordShowed, setIsPasswordShowed] = useState<boolean>(false);
   return (
-    <Label className="relative" htmlFor="password" labelText="Contraseña">
+    <Label
+      className="relative "
+      htmlFor="password"
+      labelText={`${
+        !order
+          ? 'Contraseña'
+          : order === 1
+          ? 'Elige una nueva Contraseña'
+          : 'Escribela de nuevo'
+      }`}
+    >
       <div className="relative ">
         <Input
           onChange={(e) => setPassword(e.target.value)}
