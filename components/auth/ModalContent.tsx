@@ -6,9 +6,9 @@ interface ModalProps {
   title: string;
   subtitle: string;
   children: React.ReactNode;
-  passwordAction: string;
+  passwordAction?: string;
   btnText: string;
-  contentFor: 'login' | 'register';
+  contentFor: 'login' | 'register' | 'change';
   redirectTo: string;
   handleSubmit?: any;
 }
