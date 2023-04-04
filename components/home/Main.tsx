@@ -1,10 +1,7 @@
-import Categories from '../categories/homeCategories/Categories';
-import SectionSlider from '../sliders/SectionSlider';
-
 export default function Main() {
   return (
     <div className="mt-5 app-container max-w-[975px] mx-auto">
-      <SectionSlider
+      {/* <SectionSlider
         title="Populares en Querétaro"
         subtitle="Lo que las personas piden más"
       />
@@ -17,7 +14,7 @@ export default function Main() {
         className="mb-24"
         title="Recientes"
         subtitle="Las personas últimamente están hablando de esto"
-      />
+      /> */}
     </div>
   );
 }
