@@ -1,13 +1,12 @@
-import ButtonSave from '@/components/buttons/ButtonSave';
 import Input from '@/components/Forms/Input';
 import More from '@/components/Forms/More';
+import ButtonSave from '@/components/buttons/ButtonSave';
 import Layout from '@/components/layouts/Layout';
 import CardSearch from '@/components/sliders/CardSearch';
 import SectionSlider from '@/components/sliders/SectionSlider';
 import { usePublications } from '@/lib/services/publications.services';
 import Link from 'next/link';
 import { ReactElement, useState } from 'react';
-import { Toaster } from 'react-hot-toast';
 import { NextPageWithLayout } from '../_app';
 
 const Search: NextPageWithLayout = () => {
@@ -19,7 +18,6 @@ const Search: NextPageWithLayout = () => {
 
   return (
     <div>
-      <Toaster />
       <div className="bg-[url('/hero.png')] h-[108px] bg-no-repeat bg-cover">
         <Link href={'/'}>
           <p className="pl-[21px] pt-[67px] relative text-base text-app-grayLighter font-medium leading-[18px]">
@@ -38,7 +36,7 @@ const Search: NextPageWithLayout = () => {
             <h2 className="">Marcas y tiendas</h2>
             <h2 className="hidden md:block">Artistas y conciertos</h2>
             <h2 className="hidden md:block">Torneos</h2>
-            <div className=" block md:hidden">
+            <div className="block  md:hidden">
               <More />
             </div>
           </div>

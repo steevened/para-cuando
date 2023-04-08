@@ -1,9 +1,8 @@
-import ButtonSave from '@/components/buttons/ButtonSave';
 import AddIcon from '@/components/Forms/AddIcon';
+import ButtonSave from '@/components/buttons/ButtonSave';
 import { useProfile } from '@/lib/services/profile/ProfileInfo.services';
 import Image from 'next/image';
 import { ReactElement, useEffect, useState } from 'react';
-import { Toaster } from 'react-hot-toast';
 import ProfileLayout from '../../components/layouts/ProfileLayout';
 import InputProfile from '../../components/profile/InputProfile';
 import interestImg from '../../public/profile/interest.png';
@@ -73,7 +72,6 @@ const Profile: NextPageWithLayout = () => {
 
   return (
     <div className="">
-      <Toaster />
       <div className="py-9 bg-app-blue title-2">
         <div className="md:app-container">
           <h2 className="font-black text-app-grayLighter text-5xl leading-[56px] text-center md:text-left">

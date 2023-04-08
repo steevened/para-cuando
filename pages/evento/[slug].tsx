@@ -13,7 +13,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
-import { toast, Toaster } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 import img404 from '../../public/notfound.png';
 import { NextPageWithLayout } from '../_app';
 
@@ -82,7 +82,6 @@ const EventoPage: NextPageWithLayout = () => {
       </Head>
       <CategorieNavbar />
       <div className="max-w-[1100px] md:mx-auto mx-5">
-        <Toaster />
         <section className="w-full grid items-start md:grid-cols-2 mt-[60px] gap-x-5">
           <div className="md:row-span-2">
             <p>

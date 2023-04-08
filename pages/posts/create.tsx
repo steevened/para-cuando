@@ -3,7 +3,6 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { Toaster } from 'react-hot-toast';
 import logo from '../../public/create/logo.svg';
 
 export default function Create() {
@@ -19,14 +18,14 @@ export default function Create() {
       <Head>
         <title>Crear Publicación - Para Cuándo</title>
       </Head>
-      <Toaster />
-      <div className="h-full min-h-screen flex flex-col sm:flex-row">
+
+      <div className="flex flex-col h-full min-h-screen sm:flex-row">
         <div className="pb-5 bg-app-blue w-full sm:max-w-[255px] ">
-          <div className="app-container relative h-full ">
+          <div className="relative h-full app-container ">
             <Image
               src={logo}
               alt="para cuando logo"
-              className="pt-8 sm:pt-24 mx-auto "
+              className="pt-8 mx-auto sm:pt-24 "
             />
             <h1 className="mt-8 title-3 text-app-yellow sm:pt-10 sm:w-1/2">
               ¡Bienvenido, creador!
@@ -35,12 +34,12 @@ export default function Create() {
               A continuación puedes completar la info de la marca, artista o
               torneo que quieres cerca.
             </p>
-            <p className="absolute text-1 text-white bottom-6 hidden sm:block">
+            <p className="absolute hidden text-white text-1 bottom-6 sm:block">
               Ayuda
             </p>
           </div>
         </div>
-        <div className="mt-6 sm:mt-2 text-xl app-container ">
+        <div className="mt-6 text-xl sm:mt-2 app-container ">
           <button
             className="text-app-blue "
             onClick={() => {

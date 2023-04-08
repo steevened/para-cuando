@@ -1,6 +1,6 @@
 import Input from '@/components/Forms/Input';
 import { MenuDropDown } from './MenuDropdown';
-import UlCategories from './UlCategories';
+import PostCategories from './PostCategories';
 
 export default function CategorieNavbar() {
   return (
@@ -8,7 +8,7 @@ export default function CategorieNavbar() {
       <div className="flex px-5 max-w-[980px] mx-auto justify-between gap-2 items-center">
         <MenuDropDown />
         <div className="hidden md:block md:flex-[1] mr-10">
-          <UlCategories />
+          <PostCategories />
         </div>
         <div className="flex-1 ">
           <Input />
