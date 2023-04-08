@@ -2,9 +2,9 @@ import Input from '@/components/Forms/Input';
 import More from '@/components/Forms/More';
 import ButtonSave from '@/components/buttons/ButtonSave';
 import Layout from '@/components/layouts/Layout';
-import CardSearch from '@/components/sliders/CardSearch';
 import SectionSlider from '@/components/sliders/SectionSlider';
-import { usePublications } from '@/lib/services/publications.services';
+
+import { usePublications } from '@/lib/services/publications/publications.services';
 import Link from 'next/link';
 import { ReactElement, useState } from 'react';
 import { NextPageWithLayout } from '../_app';
@@ -36,7 +36,7 @@ const Search: NextPageWithLayout = () => {
             <h2 className="">Marcas y tiendas</h2>
             <h2 className="hidden md:block">Artistas y conciertos</h2>
             <h2 className="hidden md:block">Torneos</h2>
-            <div className="block  md:hidden">
+            <div className="block md:hidden">
               <More />
             </div>
           </div>
@@ -44,7 +44,7 @@ const Search: NextPageWithLayout = () => {
       </div>
 
       <div className="md:app-container mt-[44px] mb-5 mx-4">
-        {publications?.results.results.map((card: any) => (
+        {/* {publications?.results.results.map((card: any) => (
           <CardSearch
             key={card.id}
             id={card.id}
@@ -55,7 +55,7 @@ const Search: NextPageWithLayout = () => {
             images={card.images}
             mutate={mutate}
           />
-        ))}
+        ))} */}
       </div>
 
       <section className="px-[20px]">

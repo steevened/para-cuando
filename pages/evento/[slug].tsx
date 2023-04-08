@@ -4,11 +4,14 @@ import CategorieNavbar from '@/components/categories/homeCategories/CategorieNav
 import Categories from '@/components/categories/homeCategories/Categories';
 import Layout from '@/components/layouts/Layout';
 import SectionSlider from '@/components/sliders/SectionSlider';
+import { getPublicationTypesData } from '@/lib/helpers';
+import { Types } from '@/lib/interfaces/publicationTypes/publicationTypes.interface';
 import { usePublicationId } from '@/lib/services/publications/publicationId.services';
 import { votePublication } from '@/lib/services/publications/publicationVote.services';
 import { useUserVotes } from '@/lib/services/votes/userVotes.services';
 import useAuthStore from '@/store/auth';
 import Cookies from 'js-cookie';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -17,7 +20,11 @@ import { toast } from 'react-hot-toast';
 import img404 from '../../public/notfound.png';
 import { NextPageWithLayout } from '../_app';
 
-const EventoPage: NextPageWithLayout = () => {
+interface Props {
+  publicationTypes: Types;
+}
+
+const EventoPage: NextPageWithLayout<Props> = ({ publicationTypes }) => {
   const router = useRouter();
   const { slug } = router.query;
   const [isVoted, setIsVoted] = useState<boolean>(false);
@@ -80,7 +87,7 @@ const EventoPage: NextPageWithLayout = () => {
         <title>{publication?.title} - Para Cuándo</title>
         <meta name="description" content="description" />
       </Head>
-      <CategorieNavbar />
+      <CategorieNavbar publicationTypes={publicationTypes} />
       <div className="max-w-[1100px] md:mx-auto mx-5">
         <section className="w-full grid items-start md:grid-cols-2 mt-[60px] gap-x-5">
           <div className="md:row-span-2">
@@ -133,6 +140,13 @@ const EventoPage: NextPageWithLayout = () => {
       </div>
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  const publicationTypes: Types = await getPublicationTypesData();
+  return {
+    props: { publicationTypes },
+  };
 };
 
 EventoPage.getLayout = function getLayout(page: ReactElement) {

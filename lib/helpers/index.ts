@@ -1,1 +1,1 @@
-export * from './getPublications';
+export * as PublicationsData from './getPublications';

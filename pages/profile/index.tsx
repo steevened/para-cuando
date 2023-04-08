@@ -1,11 +1,9 @@
 import AddIcon from '@/components/Forms/AddIcon';
 import ButtonSave from '@/components/buttons/ButtonSave';
 import { useProfile } from '@/lib/services/profile/ProfileInfo.services';
-import Image from 'next/image';
 import { ReactElement, useEffect, useState } from 'react';
 import ProfileLayout from '../../components/layouts/ProfileLayout';
 import InputProfile from '../../components/profile/InputProfile';
-import interestImg from '../../public/profile/interest.png';
 import { NextPageWithLayout } from '../_app';
 
 const Profile: NextPageWithLayout = () => {
@@ -150,7 +148,7 @@ const Profile: NextPageWithLayout = () => {
             {/* interests */}
 
             <ul className="flex flex-col flex-wrap items-center justify-center gap-5 md:flex-row">
-              {profileDetails?.result.interests.map((interest) => (
+              {/* {profileDetails?.result.interests.map((interest) => (
                 <li
                   key={interest.id}
                   className="min-w-[300px] min-h-[152px] overflow-hidden rounded-2xl border relative"
@@ -161,7 +159,7 @@ const Profile: NextPageWithLayout = () => {
                     {interest?.name}
                   </p>
                 </li>
-              ))}
+              ))} */}
             </ul>
 
             <div className="flex justify-center w-full mt-10 mb-20">
