@@ -1,20 +1,21 @@
+import { AuthModalContext } from '@/context';
 import Children from '@/lib/interfaces/components.interface';
-import useModalStore from '@/store/loginModal';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useContext } from 'react';
 import closeBtn from '../../public/authLogin/cil_x-circle.svg';
 
 export default function ModalContainer({ children }: Children) {
-  const { closeLoginModal, isLoginModalOpen } = useModalStore();
+  const { closeLoginModal, isAuthModalShowed } = useContext(AuthModalContext);
 
   return (
     <div
       className={`w-full bg-app-black/80 rounded-[20px] border border-app-gray px-[38px] relative max-w-[557px] h-full ${
-        !isLoginModalOpen ? 'sm:px-[50px]' : ''
+        !isAuthModalShowed ? 'sm:px-[50px]' : ''
       }`}
     >
       <button onClick={() => closeLoginModal()}>
-        {isLoginModalOpen ? (
+        {isAuthModalShowed ? (
           <Image
             src={closeBtn}
             alt="eye"

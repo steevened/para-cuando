@@ -1,3 +1,4 @@
+import { AuthModalProvider } from '@/context';
 import { AuthProvider } from '@/context/auth';
 import '@/styles/globals.css';
 import type { NextPage } from 'next';
@@ -14,5 +15,11 @@ type AppPropsWithLayout = AppProps & {
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
-  return <AuthProvider>{getLayout(<Component {...pageProps} />)}</AuthProvider>;
+  return (
+    <AuthProvider>
+      <AuthModalProvider>
+        {getLayout(<Component {...pageProps} />)}
+      </AuthModalProvider>
+    </AuthProvider>
+  );
 }

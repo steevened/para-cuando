@@ -1,4 +1,4 @@
-import { AuthState } from './';
+import { AuthState } from '.';
 
 type AuthActionType = { type: 'LOGIN' } | { type: 'LOGOUT' };
 

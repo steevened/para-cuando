@@ -1,6 +1,6 @@
-import { Publications } from '@/lib/interfaces/publications/publications.interface';
+import { usePublications } from '@/lib/services/publications/publications.services';
 import { Ring } from '@uiball/loaders';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import 'swiper/css';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import CardItem from './CardItem';
@@ -11,13 +11,13 @@ interface ArrowProps {
 }
 
 interface Props {
-  publications: Publications;
   className?: string;
 }
 
-const PublicationsSlider: FC<Props> = ({ className, publications }) => {
-  // const { data: publications, error, isLoading, mutate } = usePublications();
-  const [isLoading, setIsLoading] = useState(false);
+const PublicationsSlider: FC<Props> = ({ className }) => {
+  const { data: publications, error, isLoading, mutate } = usePublications();
+
+  // const [isLoading, setIsLoading] = useState(false);
 
   // console.log(publications);
 
@@ -88,7 +88,7 @@ const PublicationsSlider: FC<Props> = ({ className, publications }) => {
             },
           }}
         >
-          {publications?.results.map((publication) => (
+          {publications?.map((publication) => (
             <SwiperSlide key={publication.id}>
               <CardItem
                 description={publication.description}

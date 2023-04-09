@@ -1,8 +1,7 @@
-import useAuthStore from '@/store/auth';
-import useModalStore from '@/store/loginModal';
+import { AuthContext, AuthModalContext } from '@/context';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { login } from '../../lib/services/auth/auth.services';
 import { Input } from './InputAuth';
@@ -16,9 +15,8 @@ export default function LoginModal() {
   const router = useRouter();
   const [isError, setIsError] = useState<boolean>(false);
 
-  const logIn = useAuthStore((state) => state.logIn);
-
-  const { closeLoginModal } = useModalStore();
+  const { logIn } = useContext(AuthContext);
+  const { closeLoginModal } = useContext(AuthModalContext);
 
   const handleSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -29,7 +27,6 @@ export default function LoginModal() {
     });
     try {
       const response = await toastPromise;
-      console.log(response);
       Cookies.set('token', response.data.token);
       router.push('/');
       logIn();

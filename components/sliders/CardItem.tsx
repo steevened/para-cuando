@@ -1,14 +1,13 @@
+import { AuthContext, AuthModalContext } from '@/context';
 import { votePublication } from '@/lib/services/publications/publicationVote.services';
 import { useUserVotes } from '@/lib/services/votes/userVotes.services';
-import useModalStore from '@/store/loginModal';
 import { Ring } from '@uiball/loaders';
 import Cookies from 'js-cookie';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import img404 from '../../public/notfound.png';
-import useAuthStore from '../../store/auth';
 import UserLogo from '../atoms/UserLogo';
 import { HearthBtn } from '../buttons/HearthBtn';
 
@@ -31,29 +30,26 @@ const CardItem = ({
   images,
   reference_link,
 }: PublicationProps) => {
+  // state
   const [isActive, setIsActive] = useState<boolean>(false);
-  const router = useRouter();
-  const { data, mutate: mutateVotes } = useUserVotes();
-  const { openLoginModal } = useModalStore();
-
   const [isImageLoading, setIsImageLoading] = useState<boolean>(true);
-
-  const { isLogedIn } = useAuthStore();
-
   const [userLogged, setUserLogged] = useState<boolean>(false);
 
-  // console.log(images);
+  const router = useRouter();
+  const { data, mutate: mutateVotes } = useUserVotes();
+  const { openLoginModal } = useContext(AuthModalContext);
+  const { isUserLoged, logIn, logOut } = useContext(AuthContext);
 
   useEffect(() => {
     const token = Cookies.get('token');
     if (token) {
-      setUserLogged(true);
+      logIn();
     } else {
-      setUserLogged(false);
+      logOut();
     }
-  }, [isLogedIn]);
+  }, [isUserLoged]);
 
-  // console.log(data);
+  console.log(data);
 
   useEffect(() => {
     if (data) {
@@ -64,7 +60,7 @@ const CardItem = ({
         setIsActive(false);
       }
     }
-  }, [data, id, isLogedIn]);
+  }, [data, id, isUserLoged]);
 
   const handleVote = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -78,8 +74,7 @@ const CardItem = ({
     });
 
     try {
-      const response = await toastId;
-      // console.log(response);
+      await toastId;
       mutate();
       mutateVotes();
     } catch (error) {
@@ -90,7 +85,7 @@ const CardItem = ({
   };
 
   const handleCardClick = () => {
-    router.push(`/evento/${encodeURIComponent(id)}`);
+    router.push(`/evento/${id}`);
   };
 
   return (
