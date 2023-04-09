@@ -42,6 +42,7 @@ const Page: NextPageWithLayout<Props> = ({
 export const getStaticProps: GetStaticProps = async () => {
   // all publications
   const publications = await PublicationsData.getAllPublications();
+  // publication by ID
 
   // publication types
   const publicationTypes = await PublicationsData.getPublicationTypesData();

@@ -2,7 +2,6 @@ import Input from '@/components/Forms/Input';
 import More from '@/components/Forms/More';
 import ButtonSave from '@/components/buttons/ButtonSave';
 import Layout from '@/components/layouts/Layout';
-import SectionSlider from '@/components/sliders/SectionSlider';
 
 import { usePublications } from '@/lib/services/publications/publications.services';
 import Link from 'next/link';
@@ -59,11 +58,11 @@ const Search: NextPageWithLayout = () => {
       </div>
 
       <section className="px-[20px]">
-        <SectionSlider
+        {/* <SectionSlider
           className="mb-24"
           title="Recientes"
           subtitle="Las personas últimamente están hablando de esto"
-        />
+        /> */}
       </section>
     </div>
   );

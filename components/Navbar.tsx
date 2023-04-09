@@ -1,9 +1,10 @@
 import { useProfile } from '@/lib/services/profile/ProfileInfo.services';
 
+import { AuthContext } from '@/context/auth';
 import useAuthStore from '@/store/auth';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { LoggedNavbar } from './navbar/LoggedNavbar';
 import { NoLoggedNavbar } from './navbar/NoLoggedNavbar';
 
@@ -13,12 +14,16 @@ export default function Navbar() {
   const { data, mutate } = useProfile();
   // const { data: votes, mutate: mutateVotes } = useUserVotes();
 
+  const { isUserLoged } = useContext(AuthContext);
+
+  console.log(isUserLoged);
+
   useEffect(() => {
     const tokenFounded = Cookies.get('token');
     if (!tokenFounded) return;
 
     mutate();
-  }, [isLogedIn]);
+  }, [isUserLoged, mutate]);
 
   // console.log(data);
 
