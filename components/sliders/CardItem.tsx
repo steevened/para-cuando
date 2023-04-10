@@ -34,12 +34,12 @@ const CardItem = ({
 
   const [isImageLoading, setIsImageLoading] = useState<boolean>(true);
 
-  const { isUserLoged, userId } = useContext(AuthContext);
+  const { isUserLoged, userData } = useContext(AuthContext);
 
   // console.log(profileInfo);
 
   const router = useRouter();
-  const { data, mutate: mutateVotes } = useUserVotes(userId!);
+  const { data, mutate: mutateVotes } = useUserVotes(userData.id);
   const { openLoginModal } = useContext(AuthModalContext);
 
   useEffect(() => {
@@ -59,7 +59,7 @@ const CardItem = ({
     e.stopPropagation();
 
     try {
-      if (isUserLoged && userId) {
+      if (isUserLoged && userData.id) {
         const promise = toast.promise(votePublication(id), {
           loading: 'Cargando...',
           success: `${isPublicationVoted ? 'Voto eliminado' : 'Voto agregado'}`,
@@ -74,7 +74,6 @@ const CardItem = ({
       } else {
         toast.error('Inicie sesión para continuar');
         openLoginModal();
-        console.log('please login');
       }
     } catch (error) {
       console.log(error);

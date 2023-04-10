@@ -3,8 +3,8 @@ import BtnVote from '@/components/buttons/BtnVote';
 import CategorieNavbar from '@/components/categories/homeCategories/CategorieNavbar';
 import Categories from '@/components/categories/homeCategories/Categories';
 import Layout from '@/components/layouts/Layout';
-
 import SectionSlider from '@/components/sliders/SectionSlider';
+import { AuthContext } from '@/context';
 import { PublicationsData } from '@/lib/helpers';
 import { Types } from '@/lib/interfaces/publicationTypes/publicationTypes.interface';
 import { PublicationbyID } from '@/lib/interfaces/publications/publicationId.interface';
@@ -12,12 +12,10 @@ import { Publications } from '@/lib/interfaces/publications/publications.interfa
 import { usePublicationId } from '@/lib/services/publications/publicationId.services';
 import { votePublication } from '@/lib/services/publications/publicationVote.services';
 import { useUserVotes } from '@/lib/services/votes/userVotes.services';
-import useAuthStore from '@/store/auth';
-import Cookies from 'js-cookie';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import img404 from '../../public/notfound.png';
 import { NextPageWithLayout } from '../_app';
@@ -46,23 +44,13 @@ const EventoPage: NextPageWithLayout<Props> = ({
   } = publicationById;
 
   const { mutate } = usePublicationId(id);
+  const { userData, isUserLoged } = useContext(AuthContext);
 
-  const { data: votes, mutate: mutateVotes } = useUserVotes();
-  const { isLogedIn } = useAuthStore();
-  const [userLogged, setUserLogged] = useState<boolean>(false);
-
-  useEffect(() => {
-    const token = Cookies.get('token');
-    if (token) {
-      setUserLogged(true);
-    } else {
-      setUserLogged(false);
-    }
-  }, [isLogedIn]);
+  const { data: votes, mutate: mutateVotes } = useUserVotes(userData.id);
 
   useEffect(() => {
     if (votes) {
-      const isVoted = votes.find((vote) => vote.publications_id === id);
+      const isVoted = votes.find((vote) => vote.id === id);
       if (isVoted) {
         setIsVoted(true);
       } else {
@@ -78,13 +66,12 @@ const EventoPage: NextPageWithLayout<Props> = ({
       loading: 'Espere...',
       success: `${isVoted ? 'Voto eliminado' : 'Voto agregado'}`,
       error: `${
-        userLogged ? 'Error al votar' : 'Inicie sesión para continuar'
+        isUserLoged ? 'Error al votar' : 'Inicie sesión para continuar'
       }`,
     });
 
     try {
-      const response = await toastId;
-      // console.log(response);
+      await toastId;
       mutate();
       mutateVotes();
     } catch (error) {
@@ -96,7 +83,7 @@ const EventoPage: NextPageWithLayout<Props> = ({
     <>
       <Head>
         <title>{title} - Para Cuándo</title>
-        <meta name="description" content="description" />
+        <meta name="description" content={description} />
       </Head>
       <CategorieNavbar publicationTypes={publicationTypes} />
       <div className="max-w-[1100px] md:mx-auto mx-5">
@@ -127,6 +114,7 @@ const EventoPage: NextPageWithLayout<Props> = ({
             alt={description}
             width={1000}
             height={1000}
+            priority={true}
           />
 
           <div className="w-full mt-7">
@@ -139,7 +127,7 @@ const EventoPage: NextPageWithLayout<Props> = ({
           className="mb-10"
           title="Recientes"
           subtitle="Las personas últimanete están hablando de esto"
-          publications={publications}
+          // publications={publications}
         />
       </div>
     </>

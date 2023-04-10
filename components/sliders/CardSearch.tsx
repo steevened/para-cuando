@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
+import { AuthContext } from '@/context';
 import { votePublication } from '@/lib/services/publications/publicationVote.services';
 import { useUserVotes } from '@/lib/services/votes/userVotes.services';
 import useAuthStore from '@/store/auth';
@@ -31,7 +32,8 @@ const CardSearch = ({
 }: PublicationProps) => {
   const [isActive, setIsActive] = useState<boolean>(false);
   const router = useRouter();
-  const { data, mutate: mutateVotes } = useUserVotes();
+  const { userData } = useContext(AuthContext);
+  const { data, mutate: mutateVotes } = useUserVotes(userData.email);
   const [userLogged, setUserLogged] = useState<boolean>(false);
   const { openLoginModal } = useModalStore();
 
@@ -49,7 +51,7 @@ const CardSearch = ({
 
   useEffect(() => {
     if (data) {
-      const isVoted = data.find((vote) => vote.publications_id === id);
+      const isVoted = data.find((vote) => vote.id === id);
       if (isVoted) {
         setIsActive(true);
       } else {
@@ -114,7 +116,7 @@ const CardSearch = ({
         <button onClick={handleVote} className="relative right-[13px] top-0">
           <HearthBtn
             aria-label="like-button"
-            isActive={isActive}
+            isPublicationVoted={isActive}
             className={'duration-200 focus:scale-105'}
           />
         </button>

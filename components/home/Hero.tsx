@@ -18,6 +18,7 @@ const Hero: FC<Props> = ({ publicationTypes }) => {
         alt="Image"
         className="absolute inset-0 object-cover w-full h-full"
         fill
+        priority={true}
       />
       <div className="absolute inset-0 flex flex-col items-center justify-center ">
         <Image src={logo} alt="para cuando logo" className="mb-12" />

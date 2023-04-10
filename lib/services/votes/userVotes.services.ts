@@ -1,10 +1,14 @@
+import { AuthContext } from '@/context';
 import { fetcher } from '@/lib/helpers/fetcher.helper';
 import { UserVotesResponse } from '@/lib/interfaces/votes/userVotes.interface';
+import { useContext } from 'react';
 import useSWR from 'swr';
 
 function useUserVotes(id: string) {
+  const { isUserLoged } = useContext(AuthContext);
+
   const { data, error, isLoading, mutate } = useSWR<UserVotesResponse>(
-    `/users/${id}/votes/`,
+    isUserLoged ? `/users/${id}/votes/` : null,
     fetcher,
     {
       revalidateIfStale: false,
