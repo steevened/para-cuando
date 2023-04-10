@@ -43,7 +43,7 @@ const CardItem = ({
   const { openLoginModal } = useContext(AuthModalContext);
 
   useEffect(() => {
-    if (isUserLoged && data?.length > 0) {
+    if (isUserLoged && data) {
       const isVoted = data.find((vote) => vote.id === id);
       if (isVoted) {
         setIsPublicationVoted(true);
