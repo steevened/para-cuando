@@ -1,12 +1,12 @@
 import { FC } from 'react';
 
 interface IHearthBtn extends React.ComponentPropsWithoutRef<'svg'> {
-  isActive: boolean;
+  isPublicationVoted: boolean;
   className?: string;
 }
 
 export const HearthBtn: FC<IHearthBtn> = ({
-  isActive = false,
+  isPublicationVoted = false,
   ...svgProps
 }) => {
   return (
@@ -23,7 +23,7 @@ export const HearthBtn: FC<IHearthBtn> = ({
         cx="24.5"
         cy="24.5"
         r="23.5"
-        fill={isActive ? '#FF64BC' : '#D9D9D9'}
+        fill={isPublicationVoted ? '#FF64BC' : '#D9D9D9'}
         stroke="white"
         strokeWidth="2"
       />

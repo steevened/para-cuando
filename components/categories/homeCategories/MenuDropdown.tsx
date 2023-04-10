@@ -1,20 +1,14 @@
 import Button from '@/components/buttons/Button';
+import { Types } from '@/lib/interfaces/publicationTypes/publicationTypes.interface';
 import { Menu, Transition } from '@headlessui/react';
 import Link from 'next/link';
-import { Fragment } from 'react';
+import { FC, Fragment } from 'react';
 
-interface Category {
-  title: string;
-  id: number;
+interface Props {
+  publicationTypes: Types;
 }
 
-const categories: Array<Category> = [
-  { title: 'Marcas y tiendas', id: 1 },
-  { title: 'Artistas y conciertos', id: 2 },
-  { title: 'Torneos', id: 3 },
-];
-
-export const MenuDropDown = () => {
+export const MenuDropDown: FC<Props> = ({ publicationTypes }) => {
   return (
     <Menu as="div" className="relative inline-block md:hidden">
       <Menu.Button className="p-3 border rounded-full border-app-gray">
@@ -42,17 +36,14 @@ export const MenuDropDown = () => {
       >
         <Menu.Items className="absolute w-56 mt-1 rounded-[20px] origin-top-right divide-y divide-gray-100  px-2 bg-white shadow-shadow1 ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="px-1 py-1 ">
-            {categories.map((categorie) => (
-              <Menu.Item key={categorie.id}>
+            {publicationTypes.results.map(({ name, id }) => (
+              <Menu.Item as={'div'} key={id}>
                 {() => (
-                  <Link
-                    className={`block py-1`}
-                    href={`/categories/${encodeURIComponent(categorie.title)}`}
-                  >
+                  <Link className={`block py-1`} href={`/categories/${id}`}>
                     <Button
                       className={`hover:bg-app-grayDark hover:text-white `}
                     >
-                      {categorie.title}
+                      {name}
                     </Button>
                   </Link>
                 )}

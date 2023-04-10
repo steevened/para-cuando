@@ -1,6 +1,6 @@
-import { ClassName } from '@/lib/interfaces';
 import { usePublications } from '@/lib/services/publications/publications.services';
 import { Ring } from '@uiball/loaders';
+import { FC } from 'react';
 import 'swiper/css';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import CardItem from './CardItem';
@@ -10,18 +10,24 @@ interface ArrowProps {
   className: string;
 }
 
-export default function HomeSlider({ className }: ClassName) {
+interface Props {
+  className?: string;
+}
+
+const PublicationsSlider: FC<Props> = ({ className }) => {
   const { data: publications, error, isLoading, mutate } = usePublications();
+
+  // const [isLoading, setIsLoading] = useState(false);
 
   // console.log(publications);
 
-  if (error) {
-    return (
-      <div className="absolute inset-0 flex items-center justify-center text-3xl bg-white">
-        Intente nuevamente
-      </div>
-    );
-  }
+  // if (error) {
+  //   return (
+  //     <div className="absolute inset-0 flex items-center justify-center text-3xl bg-white">
+  //       Intente nuevamente
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className={`relative ${className}`}>
@@ -89,9 +95,10 @@ export default function HomeSlider({ className }: ClassName) {
                 title={publication.title}
                 votes_count={publication.votes_count}
                 id={publication.id}
-                mutate={mutate}
+                // mutate={mutate}
                 reference_link={publication.reference_link}
                 images={publication.images}
+                mutate={mutate}
               />
             </SwiperSlide>
           ))}
@@ -108,7 +115,7 @@ export default function HomeSlider({ className }: ClassName) {
       )}
     </div>
   );
-}
+};
 
 function Arrow({ orientation, className }: ArrowProps) {
   const swiper = useSwiper();
@@ -142,3 +149,5 @@ function Arrow({ orientation, className }: ArrowProps) {
     </div>
   );
 }
+
+export default PublicationsSlider;

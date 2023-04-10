@@ -47,9 +47,7 @@ const VotesPage: NextPageWithLayout = () => {
             <Button
               toggleSection={toggleSection}
               onClick={() => setToggleSection(1)}
-              className={`${
-                toggleSection === 1 ? 'bg-app-gray text-white' : 'bg-white'
-              }`}
+              className={`${toggleSection === 1 ? 'border-app-blue' : ''}`}
             >
               Mis votos
             </Button>
@@ -58,9 +56,7 @@ const VotesPage: NextPageWithLayout = () => {
             <Button
               toggleSection={toggleSection}
               onClick={() => setToggleSection(2)}
-              className={`${
-                toggleSection === 2 ? 'bg-app-gray text-white' : 'bg-white'
-              }`}
+              className={`${toggleSection === 2 ? 'border-app-blue' : ''}`}
             >
               Mis publicaciones
             </Button>

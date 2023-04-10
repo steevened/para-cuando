@@ -5,7 +5,7 @@ function useTags() {
   const { data, error, isLoading } = useSWR<TagsResponse>('/tags', fetcher);
 
   return {
-    data,
+    tags: data?.results.results,
     error,
     isLoading,
   };

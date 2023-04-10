@@ -1,15 +1,23 @@
+import { AuthContext } from '@/context';
 import { fetcher } from '@/lib/helpers/fetcher.helper';
 import {
   ProfileDetailsResponse,
   ProfileResponse,
 } from '@/lib/interfaces/profile/profile.interface';
+import { useContext } from 'react';
 import useSWR from 'swr';
 import axios from '../../helpers/axios.helper';
 
 function useProfile() {
+  const { isUserLoged } = useContext(AuthContext);
+
   const { data, error, isLoading, mutate } = useSWR<ProfileResponse>(
-    '/auth/me',
-    fetcher
+    isUserLoged ? '/auth/me' : null,
+    fetcher,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+    }
   );
 
   const {
@@ -17,10 +25,14 @@ function useProfile() {
     isLoading: loadingDetails,
     error: errorDetails,
     mutate: mutateDetails,
-  } = useSWR<ProfileDetailsResponse>(`/users/${data?.results.id}`, fetcher, {
-    revalidateOnFocus: false,
-    revalidateIfStale: false,
-  });
+  } = useSWR<ProfileDetailsResponse>(
+    isUserLoged ? `/users/${data?.results.id}` : null,
+    fetcher,
+    {
+      revalidateOnFocus: false,
+      revalidateIfStale: false,
+    }
+  );
 
   const updateUser = (body: any) => {
     return axios.put(`/users/${data?.results.id}`, body);

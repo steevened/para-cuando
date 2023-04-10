@@ -43,4 +43,7 @@
   .disabled {
     @apply bg-app-gray;
   }
+  .test {
+    @apply border border-red-500;
+  }
 }

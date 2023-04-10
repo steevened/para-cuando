@@ -1,24 +1,34 @@
+import { Types } from '@/lib/interfaces/publicationTypes/publicationTypes.interface';
 import Image from 'next/image';
+import { FC } from 'react';
 import heroImg from '../../public/hero.png';
 import logo from '../../public/logo.png';
-import UlCategories from '../categories/homeCategories/UlCategories';
 import Input from '../Forms/Input';
+import PostCategories from '../categories/homeCategories/PostCategories';
 
-const styles = {
-  backgroundImage: `url('${heroImg.src}')`,
-};
+interface Props {
+  publicationTypes: Types;
+}
 
-export default function Hero() {
+const Hero: FC<Props> = ({ publicationTypes }) => {
   return (
-    <section
-      style={styles}
-      className="h-[488px] px-5 bg-cover bg-none bg-center flex items-center justify-center flex-col"
-    >
-      <Image src={logo} alt="para cuando logo" className="mb-12" />
-      <Input />
-      <div className="mt-4 max-w-[425px] w-full">
-        <UlCategories />
+    <section className="h-[450px] relative">
+      <Image
+        src={heroImg}
+        alt="Image"
+        className="absolute inset-0 object-cover w-full h-full"
+        fill
+        priority={true}
+      />
+      <div className="absolute inset-0 flex flex-col items-center justify-center ">
+        <Image src={logo} alt="para cuando logo" className="mb-12" />
+        <Input />
+        <div className="mt-4 max-w-[425px] w-full">
+          <PostCategories publicationTypes={publicationTypes} />
+        </div>
       </div>
     </section>
   );
-}
+};
+
+export default Hero;

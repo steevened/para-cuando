@@ -1,66 +1,19 @@
-import ButtonSave from '@/components/buttons/ButtonSave';
 import Input from '@/components/Forms/Input';
 import More from '@/components/Forms/More';
+import ButtonSave from '@/components/buttons/ButtonSave';
 import Layout from '@/components/layouts/Layout';
-import CardSearch from '@/components/sliders/CardSearch';
-import SectionSlider from '@/components/sliders/SectionSlider';
-import { usePublications } from '@/lib/services/publications.services';
+
+import { usePublications } from '@/lib/services/publications/publications.services';
 import Link from 'next/link';
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import { NextPageWithLayout } from '../_app';
 
-// const INFO_CARD = [
-//   {
-//     id: 1,
-//     title: 'Concierto de Lady Gaga',
-//     description:
-//       'El concierto con la temática de Lady Gaga en Las Vegas.El concierto con la temática de Lady Gaga en Las Vegas.',
-//     web: 'ladygaga.com',
-//     votes: 90800756,
-//     img: '../../public/imgSearch/card1.png',
-//   },
-//   {
-//     id: 2,
-//     title: 'Concierto de Lady Gaga',
-//     description:
-//       'El concierto con la temática de Lady Gaga en Las Vegas.El concierto con la temática de Lady Gaga en Las Vegas.',
-//     web: 'ladygaga.com',
-//     votes: 90800756,
-//     img: '../../public/imgSearch/card2.png',
-//   },
-//   {
-//     id: 3,
-//     title: 'Concierto de Lady Gaga',
-//     description:
-//       'El concierto con la temática de Lady Gaga en Las Vegas.El concierto con la temática de Lady Gaga en Las Vegas.',
-//     web: 'ladygaga.com',
-//     votes: 90800756,
-//     img: '../../public/imgSearch/card3.png',
-//   },
-//   {
-//     id: 4,
-//     title: 'Concierto de Lady Gaga',
-//     description:
-//       'El concierto con la temática de Lady Gaga en Las Vegas.El concierto con la temática de Lady Gaga en Las Vegas.',
-//     web: 'ladygaga.com',
-//     votes: 90800756,
-//     img: '../../public/imgSearch/card4.png',
-//   },
-//   {
-//     id: 5,
-//     title: 'Concierto de Lady Gaga',
-//     description:
-//       'El concierto con la temática de Lady Gaga en Las Vegas.El concierto con la temática de Lady Gaga en Las Vegas.',
-//     web: 'ladygaga.com',
-//     votes: 90800756,
-//     img: '../../public/imgSearch/card5.png',
-//   },
-// ];
-
 const Search: NextPageWithLayout = () => {
-  const { data: publications, error, isLoading } = usePublications();
+  const { data: publications, error, isLoading, mutate } = usePublications();
 
-  console.log(publications);
+  const [isActive, setIsActive] = useState<boolean>(false);
+
+  // console.log(publications);
 
   return (
     <div>
@@ -82,7 +35,7 @@ const Search: NextPageWithLayout = () => {
             <h2 className="">Marcas y tiendas</h2>
             <h2 className="hidden md:block">Artistas y conciertos</h2>
             <h2 className="hidden md:block">Torneos</h2>
-            <div className=" block md:hidden">
+            <div className="block md:hidden">
               <More />
             </div>
           </div>
@@ -90,7 +43,7 @@ const Search: NextPageWithLayout = () => {
       </div>
 
       <div className="md:app-container mt-[44px] mb-5 mx-4">
-        {publications?.results.results.map((card: any) => (
+        {/* {publications?.results.results.map((card: any) => (
           <CardSearch
             key={card.id}
             id={card.id}
@@ -99,16 +52,17 @@ const Search: NextPageWithLayout = () => {
             reference_link={card.reference_link}
             votes_count={card.votes_count}
             images={card.images}
+            mutate={mutate}
           />
-        ))}
+        ))} */}
       </div>
 
       <section className="px-[20px]">
-        <SectionSlider
+        {/* <SectionSlider
           className="mb-24"
           title="Recientes"
           subtitle="Las personas últimamente están hablando de esto"
-        />
+        /> */}
       </section>
     </div>
   );

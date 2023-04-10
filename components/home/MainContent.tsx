@@ -1,7 +1,8 @@
+import { FC } from 'react';
 import Categories from '../categories/homeCategories/Categories';
 import SectionSlider from '../sliders/SectionSlider';
 
-export default function Main() {
+const MainContent: FC = () => {
   return (
     <div className="mt-5 app-container max-w-[975px] mx-auto">
       <SectionSlider
@@ -20,4 +21,6 @@ export default function Main() {
       />
     </div>
   );
-}
+};
+
+export default MainContent;

@@ -16,6 +16,4 @@ export interface Tag {
   name: string;
   description: string;
   image_url: null;
-  created_at: string;
-  updated_at: string;
 }

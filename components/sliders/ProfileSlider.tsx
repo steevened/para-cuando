@@ -1,5 +1,7 @@
+import { AuthContext } from '@/context';
 import { usePublicationId } from '@/lib/services/publications/publicationId.services';
 import { useUserVotes } from '@/lib/services/votes/userVotes.services';
+import { useContext } from 'react';
 import CardItem from './CardItem';
 
 interface CardsContainerProps extends React.HTMLAttributes<HTMLDivElement> {}
@@ -17,9 +19,8 @@ const CardsContainer = ({ children }: CardsContainerProps) => {
 };
 
 function VotedPublicationsPage() {
-  const { data, isLoading, error, mutate } = useUserVotes();
-
-  console.log(data);
+  const { userData } = useContext(AuthContext);
+  const { data, isLoading, error, mutate } = useUserVotes(userData.id);
 
   return (
     <>

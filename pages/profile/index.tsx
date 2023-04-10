@@ -1,12 +1,9 @@
-import ButtonSave from '@/components/buttons/ButtonSave';
 import AddIcon from '@/components/Forms/AddIcon';
+import ButtonSave from '@/components/buttons/ButtonSave';
 import { useProfile } from '@/lib/services/profile/ProfileInfo.services';
-import Image from 'next/image';
 import { ReactElement, useEffect, useState } from 'react';
-import { Toaster } from 'react-hot-toast';
 import ProfileLayout from '../../components/layouts/ProfileLayout';
 import InputProfile from '../../components/profile/InputProfile';
-import interestImg from '../../public/profile/interest.png';
 import { NextPageWithLayout } from '../_app';
 
 const Profile: NextPageWithLayout = () => {
@@ -44,7 +41,7 @@ const Profile: NextPageWithLayout = () => {
     }
   };
 
-  // console.log(image);
+  console.log(profileDetails?.result.interests);
 
   useEffect(() => {
     if (profileDetails) {
@@ -73,7 +70,6 @@ const Profile: NextPageWithLayout = () => {
 
   return (
     <div className="">
-      <Toaster />
       <div className="py-9 bg-app-blue title-2">
         <div className="md:app-container">
           <h2 className="font-black text-app-grayLighter text-5xl leading-[56px] text-center md:text-left">
@@ -152,18 +148,18 @@ const Profile: NextPageWithLayout = () => {
             {/* interests */}
 
             <ul className="flex flex-col flex-wrap items-center justify-center gap-5 md:flex-row">
-              {profileDetails?.result.interests.map((interest) => (
+              {/* {profileDetails?.result.interests.map((interest) => (
                 <li
-                  key={interest.tag_id}
+                  key={interest.id}
                   className="min-w-[300px] min-h-[152px] overflow-hidden rounded-2xl border relative"
                 >
                   <div className="absolute inset-0 bg-black/20" />
                   <Image src={interestImg} alt="event" />
                   <p className="absolute z-20 text-white -translate-x-1/2 bottom-3 left-1/2">
-                    {interest.tags.name}
+                    {interest?.name}
                   </p>
                 </li>
-              ))}
+              ))} */}
             </ul>
 
             <div className="flex justify-center w-full mt-10 mb-20">

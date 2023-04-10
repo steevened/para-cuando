@@ -3,11 +3,14 @@ import {
   createPublication,
   uploadImgPublication,
 } from '@/lib/services/publications/publications.services';
+import { CreatePageProps } from '@/pages/posts/create';
 import { Form, Formik, useField } from 'formik';
 import { useRouter } from 'next/router';
+import { FC } from 'react';
 import { toast } from 'react-hot-toast';
 import * as Yup from 'yup';
 import InputGroup from '../InputFiles/InputGroup';
+import TextInput from '../TextInput';
 
 interface ITipos {
   name: string;
@@ -75,13 +78,13 @@ const inputFiles: IInputFles[] = [
   { name: 'img-3', id: 3 },
 ];
 
-export default function TwoStepsForm({
-  steps,
-  setSteps,
-}: {
+interface Props extends CreatePageProps {
   steps: number;
-  setSteps: any;
-}) {
+  setSteps: (_n: number) => void;
+}
+
+const TwoStepsForm: FC<Props> = ({ steps, setSteps, tags, types }) => {
+  console.log(tags);
   const router = useRouter();
 
   const firstValidationSchema = Yup.object({
@@ -133,24 +136,16 @@ export default function TwoStepsForm({
             content: 'default',
           };
 
-          //----------
-          // const imagesArr = images.filter((image) => image !== null);
-          // const image = imagesArr[0];
-          // const formData = new FormData();
-          // formData.append('image', image);
-          // console.log(formData);
-
-          // ------
-          const toasterPromise = toast.promise(createPublication(formValues), {
-            error: 'Intente nuevamente',
-            loading: 'Cargando...',
-            success: 'Publicación creada!',
-          });
+          // const toasterPromise = toast.promise(createPublication(formValues), {
+          //   error: 'Intente nuevamente',
+          //   loading: 'Cargando...',
+          //   success: 'Publicación creada!',
+          // });
 
           try {
-            const response = await toasterPromise;
+            // const response = await toasterPromise;
             // console.log(response);
-
+            const response = await createPublication(formValues);
             try {
               const imagesArr = images.filter((image) => image !== null);
               const image = imagesArr[0];
@@ -160,11 +155,16 @@ export default function TwoStepsForm({
               } else {
                 console.log('no formData');
               }
-              await uploadImgPublication(
-                formData,
-                response.data.publication_id
+              const imageUploaded = toast.promise(
+                uploadImgPublication(formData, response.data.publication_id),
+                {
+                  error: 'Intente nuevamente',
+                  loading: 'Cargando...',
+                  success: 'Publicación creada!',
+                }
               );
-              // router.push('/');
+              const res = await imageUploaded;
+              console.log(res);
             } catch (error) {
               console.log(error);
             }
@@ -173,7 +173,7 @@ export default function TwoStepsForm({
           }
 
           // -----
-
+          router.push('/');
           setSubmitting(false);
         }
       }}
@@ -195,7 +195,7 @@ export default function TwoStepsForm({
                 <option value="" disabled>
                   Tipo
                 </option>
-                {tipos.map((tipo) => (
+                {types.results.map((tipo) => (
                   <option key={tipo.id} value={tipo.id}>
                     {tipo.name}
                   </option>
@@ -210,7 +210,7 @@ export default function TwoStepsForm({
                 <option value="" disabled>
                   Categoria
                 </option>
-                {categories.map((categorie) => (
+                {tags.results.map((categorie) => (
                   <option key={categorie.id} value={categorie.id}>
                     {categorie.name}
                   </option>
@@ -252,38 +252,9 @@ export default function TwoStepsForm({
       </Form>
     </Formik>
   );
-}
+};
 
-function TextInput({ label, className, ...props }: any) {
-  const [field, meta] = useField(props);
-
-  return (
-    <>
-      <label
-        className={`relative ${className}`}
-        htmlFor={props.id || props.name}
-      >
-        <input
-          {...field}
-          {...props}
-          className={`w-full px-5 py-2 duration-100 border peer rounded-xl focus:ring-1 focus:ring-app-blue border-app-grayDark ${
-            meta.touched && meta.error
-              ? 'border-red-500'
-              : '  focus:outline-none border-app-blue'
-          }`}
-        />
-        <span
-          className={`absolute text-base cursor-text text-app-grayDark peer-active:-top-[25px] whitespace-nowrap left-4  bg-white px-1 rounded-none duration-200 peer-focus:-top-[25px] peer-focus:text-sm ease-in-out truncate pointer-events-none ${
-            field.value ? '-top-[25px] text-sm' : '-top-[1px]'
-          }`}
-        >
-          {label}
-        </span>
-      </label>
-      {/* {meta.touched && meta.error ? <div>{meta.error}</div> : null} */}
-    </>
-  );
-}
+// -----------------------------------------waste----------------------------------------------
 
 function SelectInput({ className, ...props }: any) {
   const [field, meta] = useField(props);
@@ -349,3 +320,5 @@ function TextArea({ label, className, ...props }: any) {
     </div>
   );
 }
+
+export default TwoStepsForm;

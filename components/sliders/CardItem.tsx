@@ -1,14 +1,12 @@
+import { AuthContext, AuthModalContext } from '@/context';
 import { votePublication } from '@/lib/services/publications/publicationVote.services';
 import { useUserVotes } from '@/lib/services/votes/userVotes.services';
-import useModalStore from '@/store/loginModal';
 import { Ring } from '@uiball/loaders';
-import Cookies from 'js-cookie';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import img404 from '../../public/notfound.png';
-import useAuthStore from '../../store/auth';
 import UserLogo from '../atoms/UserLogo';
 import { HearthBtn } from '../buttons/HearthBtn';
 
@@ -31,81 +29,74 @@ const CardItem = ({
   images,
   reference_link,
 }: PublicationProps) => {
-  const [isActive, setIsActive] = useState<boolean>(false);
-  const router = useRouter();
-  const { data, mutate: mutateVotes } = useUserVotes();
-  const { openLoginModal } = useModalStore();
+  // state
+  const [isPublicationVoted, setIsPublicationVoted] = useState<boolean>(false);
 
   const [isImageLoading, setIsImageLoading] = useState<boolean>(true);
 
-  const { isLogedIn } = useAuthStore();
+  const { isUserLoged, userData } = useContext(AuthContext);
 
-  const [userLogged, setUserLogged] = useState<boolean>(false);
+  // console.log(profileInfo);
 
-  console.log(images);
-
-  useEffect(() => {
-    const token = Cookies.get('token');
-    if (token) {
-      setUserLogged(true);
-    } else {
-      setUserLogged(false);
-    }
-  }, [isLogedIn]);
-
-  // console.log(data);
+  const router = useRouter();
+  const { data, mutate: mutateVotes } = useUserVotes(userData.id);
+  const { openLoginModal } = useContext(AuthModalContext);
 
   useEffect(() => {
-    if (data) {
-      const isVoted = data.find((vote) => vote.publications_id === id);
+    if (isUserLoged && data) {
+      const isVoted = data.find((vote) => vote.id === id);
       if (isVoted) {
-        setIsActive(true);
+        setIsPublicationVoted(true);
       } else {
-        setIsActive(false);
+        setIsPublicationVoted(false);
       }
+    } else {
+      setIsPublicationVoted(false);
     }
-  }, [data, id, isLogedIn]);
+  }, [isUserLoged, data, id]);
 
   const handleVote = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
 
-    const toastId = toast.promise(votePublication(id), {
-      loading: 'Espere...',
-      success: `${isActive ? 'Voto eliminado' : 'Voto agregado'}`,
-      error: `${
-        userLogged ? 'Error al votar' : 'Inicie sesión para continuar'
-      }`,
-    });
-
     try {
-      const response = await toastId;
-      // console.log(response);
-      mutate();
-      mutateVotes();
+      if (isUserLoged && userData.id) {
+        const promise = toast.promise(votePublication(id), {
+          loading: 'Cargando...',
+          success: `${isPublicationVoted ? 'Voto eliminado' : 'Voto agregado'}`,
+          error: `${
+            isUserLoged ? 'Error al votar' : 'Inicie sesión para continuar'
+          }`,
+        });
+
+        await promise;
+        mutate();
+        mutateVotes();
+      } else {
+        toast.error('Inicie sesión para continuar');
+        openLoginModal();
+      }
     } catch (error) {
-      // console.log('--------------error--------------------');
-      // console.log(error);
-      openLoginModal();
+      console.log(error);
     }
   };
 
   const handleCardClick = () => {
-    router.push(`/evento/${encodeURIComponent(id)}`);
+    router.push(`/evento/${id}`);
   };
 
   return (
     <div
       onClick={handleCardClick}
-      className="shadow-shadow1 m-1 w-[300px] rounded-[20px] h-[454px] overflow-hidden text-black bg-white border cursor-pointer"
+      className="shadow-shadow1 m-1 w-[300px] rounded-[20px] max-h-[454px] overflow-hidden text-black bg-white border cursor-pointer"
     >
-      <div className="w-full h-[239px] relative">
+      <div className="relative h-[225px] w-full overflow-hidden">
         <Image
-          width="300"
-          height="239"
+          width="1000"
+          height="1000"
           // objectFit="fill"
-          className={`w-full h-full duration-700 ease-in-out ${
+          className={`object-cover scale-125 duration-700 ease-in-out w-full h-full ${
             isImageLoading
-              ? ' grayscale blur-2xl scale-110'
+              ? ' grayscale blur-xl scale-105'
               : 'grayscale-0 blur-0 scale-100'
           }`}
           src={images && images[0]?.image_url ? images[0]?.image_url : img404}
@@ -122,7 +113,7 @@ const CardItem = ({
         <button onClick={handleVote} className="absolute right-0 -top-12">
           <HearthBtn
             aria-label="like-button"
-            isActive={isActive}
+            isPublicationVoted={isPublicationVoted}
             className={'duration-200 focus:scale-105'}
           />
         </button>

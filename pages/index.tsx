@@ -1,32 +1,51 @@
 import Hero from '@/components/home/Hero';
-import Main from '@/components/home/Main';
 import Layout from '@/components/layouts/Layout';
-import useModalStore from '@/store/loginModal';
+import { PublicationsData } from '@/lib/helpers';
+import { Types } from '@/lib/interfaces/publicationTypes/publicationTypes.interface';
+import { GetStaticProps } from 'next';
+
+import MainContent from '@/components/home/MainContent';
+import { AuthModalContext } from '@/context';
 import Head from 'next/head';
-import type { ReactElement } from 'react';
-import { Toaster } from 'react-hot-toast';
+import { ReactElement, useContext } from 'react';
 import ModalForm from '../components/Forms/ModalForm';
 import type { NextPageWithLayout } from './_app';
 
-const Home: NextPageWithLayout = () => {
-  const { isLoginModalOpen } = useModalStore();
+interface Props {
+  publicationTypes: Types;
+}
+
+const Page: NextPageWithLayout<Props> = ({ publicationTypes }) => {
+  const { isAuthModalShowed } = useContext(AuthModalContext);
+
+  // console.log(isAuthModalShowed);
 
   return (
     <>
       <Head>
         <title>Para Cuándo</title>
-        <meta name="description" content="description" />
+        <meta
+          name="description"
+          content="Descubre lo más deseado en tu ciudad"
+        />
       </Head>
-      <Toaster />
-      <Hero />
-      <Main />
-      {isLoginModalOpen && <ModalForm />}
+      <Hero publicationTypes={publicationTypes} />
+      <MainContent />
+      {isAuthModalShowed && <ModalForm />}
     </>
   );
 };
 
-Home.getLayout = function getLayout(page: ReactElement) {
+export const getStaticProps: GetStaticProps = async () => {
+  const publicationTypes = await PublicationsData.getPublicationTypesData();
+
+  return {
+    props: { publicationTypes },
+  };
+};
+
+Page.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>;
 };
 
-export default Home;
+export default Page;
