@@ -1,6 +1,6 @@
 import {
   PublicationTypeByID,
-  Types,
+  PublicationTypesResponse,
 } from '../interfaces/publicationTypes/publicationTypes.interface';
 import { PublicationbyID } from '../interfaces/publications/publicationId.interface';
 import { PublicationsResponse } from '../interfaces/publications/publications.interface';
@@ -20,7 +20,9 @@ const getPublicationById = async (id: string) => {
 };
 
 const getPublicationTypesData = async () => {
-  const { results }: Types = await fetcher('/publications-types');
+  const { results }: PublicationTypesResponse = await fetcher(
+    '/publications-types'
+  );
   return results;
 };
 

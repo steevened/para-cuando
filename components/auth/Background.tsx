@@ -5,7 +5,7 @@ import heroImg from '../../public/authRegister/bg.png';
 
 const Background: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <div className="relative flex flex-col items-center justify-between gap-5 p-10 md:h-screen md:flex-row md:px-24">
+    <div className="relative flex flex-col items-center justify-between min-h-screen gap-5 p-10 md:h-screen md:flex-row md:px-24">
       <Image src={logo} alt="logo para cuando" className="z-20 md:w-72" />
       <div className="absolute inset-0 ">
         <Image

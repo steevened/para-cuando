@@ -32,6 +32,7 @@ const EventoPage: NextPageWithLayout<Props> = ({
   publications,
 }) => {
   const [isVoted, setIsVoted] = useState<boolean>(false);
+  console.log(publicationTypes);
 
   const {
     id,
@@ -99,7 +100,15 @@ const EventoPage: NextPageWithLayout<Props> = ({
             </div>
 
             <div className="mt-8">
-              <p className="text-[#1B4DB1]">{reference_link}</p>
+              <a
+                href={`https://${reference_link}`}
+                target="_blank"
+                className="text-[#1B4DB1]"
+                rel="noreferrer noopener"
+                // rel="noopener "
+              >
+                {reference_link}
+              </a>
               <div className="flex gap-2 mt-4">
                 <UserLogo />
                 <p>

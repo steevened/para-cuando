@@ -1,6 +1,7 @@
 import Input from '@/components/Forms/Input';
 import { MenuDropDown } from '@/components/categories/homeCategories/MenuDropdown';
 import PostCategories from '@/components/categories/homeCategories/PostCategories';
+import MainContent from '@/components/home/MainContent';
 import Layout from '@/components/layouts/Layout';
 import { PublicationsData } from '@/lib/helpers';
 import {
@@ -28,7 +29,7 @@ const CategoryPage: NextPageWithLayout<Props> = ({
 }) => {
   const { name, description, id } = type;
 
-  const [imageUrl, setImageUrl] = useState<StaticImageData>();
+  const [imageUrl, setImageUrl] = useState<StaticImageData>(marcasImg);
 
   useEffect(() => {
     if (id === '1') {
@@ -48,10 +49,12 @@ const CategoryPage: NextPageWithLayout<Props> = ({
       </Head>
       <section className="relative h-52 ">
         <Image
-          src={imageUrl?.src!}
+          src={imageUrl.src}
           alt={name}
           className="absolute inset-0 object-cover w-full h-full"
-          fill
+          width={1500}
+          height={500}
+          priority
         />
         <div className="absolute inset-0 px-4 max-w-[940px] mx-auto flex flex-col justify-evenly md:justify-center py-3">
           <nav className="flex text-white subtitle-1" aria-label="Breadcrumb">
@@ -85,7 +88,7 @@ const CategoryPage: NextPageWithLayout<Props> = ({
           </div>
         </div>
       </div>
-      {/* <MainContent /> */}
+      <MainContent />
     </>
   );
 };
