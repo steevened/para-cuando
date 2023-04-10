@@ -1,9 +1,10 @@
 import {
   PublicationTypeByID,
-  PublicationTypesResponse,
+  Types,
 } from '../interfaces/publicationTypes/publicationTypes.interface';
 import { PublicationbyID } from '../interfaces/publications/publicationId.interface';
 import { PublicationsResponse } from '../interfaces/publications/publications.interface';
+import { Tags } from '../interfaces/tags/tagsResponse.interface';
 import { fetcher } from './fetcher.helper';
 
 const getAllPublications = async () => {
@@ -19,9 +20,7 @@ const getPublicationById = async (id: string) => {
 };
 
 const getPublicationTypesData = async () => {
-  const { results }: PublicationTypesResponse = await fetcher(
-    '/publications-types'
-  );
+  const { results }: Types = await fetcher('/publications-types');
   return results;
 };
 
@@ -32,9 +31,16 @@ const getPublicationTypesById = async (id: string) => {
   return result;
 };
 
+const getTags = async () => {
+  const { results }: Tags = await fetcher('/tags');
+
+  return results;
+};
+
 export {
   getPublicationTypesData,
   getPublicationTypesById,
   getAllPublications,
   getPublicationById,
+  getTags,
 };

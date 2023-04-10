@@ -1,11 +1,24 @@
 import TwoStepsForm from '@/components/create/Forms/TwoStepsForm';
+import {
+  getPublicationTypesData,
+  getTags,
+} from '@/lib/helpers/getPublications';
+
+import { Types } from '@/lib/interfaces/publicationTypes/publicationTypes.interface';
+import { Tags } from '@/lib/interfaces/tags/tagsResponse.interface';
+import { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import logo from '../../public/create/logo.svg';
 
-export default function Create() {
+export interface CreatePageProps {
+  types: Types;
+  tags: Tags;
+}
+
+const CreatePage: NextPage<CreatePageProps> = ({ types, tags }) => {
   const [steps, setSteps] = useState(1);
   const router = useRouter();
 
@@ -66,10 +79,31 @@ export default function Create() {
                 ? 'Información básica'
                 : 'Selecciona máximo tres fotos para crear una galería'}
             </p>
-            <TwoStepsForm steps={steps} setSteps={setSteps} />
+            <TwoStepsForm
+              steps={steps}
+              setSteps={setSteps}
+              types={types}
+              tags={tags}
+            />
+            {/* <TwoStepForm2
+              steps={steps}
+              setSteps={setSteps}
+              types={types}
+              tags={tags}
+            /> */}
           </div>
         </div>
       </div>
     </>
   );
-}
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  const types = await getPublicationTypesData();
+  const tags = await getTags();
+  return {
+    props: { types, tags },
+  };
+};
+
+export default CreatePage;

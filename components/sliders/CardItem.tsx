@@ -89,16 +89,14 @@ const CardItem = ({
       onClick={handleCardClick}
       className="shadow-shadow1 m-1 w-[300px] rounded-[20px] max-h-[454px] overflow-hidden text-black bg-white border cursor-pointer"
     >
-      <div className="relative h-[225px] w-full">
+      <div className="relative h-[225px] w-full overflow-hidden">
         <Image
-          width="300"
-          height="240"
+          width="1000"
+          height="1000"
           // objectFit="fill"
-          className={`${
-            images && images[0]?.image_url ? '' : 'w-full h-full'
-          } object-fill duration-700 ease-in-out ${
+          className={`object-cover scale-125 duration-700 ease-in-out w-full h-full ${
             isImageLoading
-              ? ' grayscale blur-2xl scale-110'
+              ? ' grayscale blur-xl scale-105'
               : 'grayscale-0 blur-0 scale-100'
           }`}
           src={images && images[0]?.image_url ? images[0]?.image_url : img404}
