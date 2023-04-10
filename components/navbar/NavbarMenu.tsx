@@ -36,7 +36,7 @@ export const NavbarMenu: FC<Props> = ({ handleLogOut }) => {
             </Link>
           </Menu.Item>
           {/* create post */}
-          <Menu.Item as="a" className="block md:hidden">
+          <Menu.Item as="div" className="block md:hidden">
             <Link className="flex items-center" href={'/posts/create'}>
               <AddIcon />
               {/* <Image src={addLogo} alt="add logo"></Image> */}
@@ -44,7 +44,7 @@ export const NavbarMenu: FC<Props> = ({ handleLogOut }) => {
             </Link>
           </Menu.Item>
           {/* votes */}
-          <Menu.Item as="a" className="block md:hidden">
+          <Menu.Item as="div" className="block md:hidden">
             <Link className="flex items-center" href={'/profile/votes'}>
               <VotesLogo />
               <span className="ml-2">Mis votos</span>

@@ -98,6 +98,7 @@ const PublicationsSlider: FC<Props> = ({ className }) => {
                 // mutate={mutate}
                 reference_link={publication.reference_link}
                 images={publication.images}
+                mutate={mutate}
               />
             </SwiperSlide>
           ))}

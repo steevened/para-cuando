@@ -2,7 +2,6 @@ import { AuthContext, AuthModalContext } from '@/context';
 import { votePublication } from '@/lib/services/publications/publicationVote.services';
 import { useUserVotes } from '@/lib/services/votes/userVotes.services';
 import { Ring } from '@uiball/loaders';
-import Cookies from 'js-cookie';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
@@ -31,56 +30,54 @@ const CardItem = ({
   reference_link,
 }: PublicationProps) => {
   // state
-  const [isActive, setIsActive] = useState<boolean>(false);
+  const [isPublicationVoted, setIsPublicationVoted] = useState<boolean>(false);
+
   const [isImageLoading, setIsImageLoading] = useState<boolean>(true);
-  const [userLogged, setUserLogged] = useState<boolean>(false);
+
+  const { isUserLoged, userId } = useContext(AuthContext);
+
+  // console.log(profileInfo);
 
   const router = useRouter();
-  const { data, mutate: mutateVotes } = useUserVotes();
+  const { data, mutate: mutateVotes } = useUserVotes(userId!);
   const { openLoginModal } = useContext(AuthModalContext);
-  const { isUserLoged, logIn, logOut } = useContext(AuthContext);
 
   useEffect(() => {
-    const token = Cookies.get('token');
-    if (token) {
-      logIn();
-    } else {
-      logOut();
-    }
-  }, [isUserLoged]);
-
-  console.log(data);
-
-  useEffect(() => {
-    if (data) {
-      const isVoted = data.find((vote) => vote.publications_id === id);
+    if (isUserLoged && data?.length > 0) {
+      const isVoted = data.find((vote) => vote.id === id);
       if (isVoted) {
-        setIsActive(true);
+        setIsPublicationVoted(true);
       } else {
-        setIsActive(false);
+        setIsPublicationVoted(false);
       }
+    } else {
+      setIsPublicationVoted(false);
     }
-  }, [data, id, isUserLoged]);
+  }, [isUserLoged, data, id]);
 
   const handleVote = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
 
-    const toastId = toast.promise(votePublication(id), {
-      loading: 'Espere...',
-      success: `${isActive ? 'Voto eliminado' : 'Voto agregado'}`,
-      error: `${
-        userLogged ? 'Error al votar' : 'Inicie sesión para continuar'
-      }`,
-    });
-
     try {
-      await toastId;
-      mutate();
-      mutateVotes();
+      if (isUserLoged && userId) {
+        const promise = toast.promise(votePublication(id), {
+          loading: 'Cargando...',
+          success: `${isPublicationVoted ? 'Voto eliminado' : 'Voto agregado'}`,
+          error: `${
+            isUserLoged ? 'Error al votar' : 'Inicie sesión para continuar'
+          }`,
+        });
+
+        await promise;
+        mutate();
+        mutateVotes();
+      } else {
+        toast.error('Inicie sesión para continuar');
+        openLoginModal();
+        console.log('please login');
+      }
     } catch (error) {
-      // console.log('--------------error--------------------');
-      // console.log(error);
-      openLoginModal();
+      console.log(error);
     }
   };
 
@@ -119,7 +116,7 @@ const CardItem = ({
         <button onClick={handleVote} className="absolute right-0 -top-12">
           <HearthBtn
             aria-label="like-button"
-            isActive={isActive}
+            isPublicationVoted={isPublicationVoted}
             className={'duration-200 focus:scale-105'}
           />
         </button>

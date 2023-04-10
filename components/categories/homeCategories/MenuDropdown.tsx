@@ -37,7 +37,7 @@ export const MenuDropDown: FC<Props> = ({ publicationTypes }) => {
         <Menu.Items className="absolute w-56 mt-1 rounded-[20px] origin-top-right divide-y divide-gray-100  px-2 bg-white shadow-shadow1 ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="px-1 py-1 ">
             {publicationTypes.results.map(({ name, id }) => (
-              <Menu.Item key={id}>
+              <Menu.Item as={'div'} key={id}>
                 {() => (
                   <Link className={`block py-1`} href={`/categories/${id}`}>
                     <Button

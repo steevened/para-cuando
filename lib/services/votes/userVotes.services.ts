@@ -1,12 +1,10 @@
 import { fetcher } from '@/lib/helpers/fetcher.helper';
 import { UserVotesResponse } from '@/lib/interfaces/votes/userVotes.interface';
-import { useProfile } from '@/lib/services/profile/ProfileInfo.services';
 import useSWR from 'swr';
 
-function useUserVotes() {
-  const { data: profile } = useProfile();
+function useUserVotes(id: string) {
   const { data, error, isLoading, mutate } = useSWR<UserVotesResponse>(
-    `/users/${profile?.results.id}/votes/`,
+    `/users/${id}/votes/`,
     fetcher,
     {
       revalidateIfStale: false,

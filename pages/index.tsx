@@ -18,6 +18,8 @@ interface Props {
 const Page: NextPageWithLayout<Props> = ({ publicationTypes }) => {
   const { isAuthModalShowed } = useContext(AuthModalContext);
 
+  // console.log(isAuthModalShowed);
+
   return (
     <>
       <Head>
@@ -35,11 +37,6 @@ const Page: NextPageWithLayout<Props> = ({ publicationTypes }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  // all publications
-  // const publications = await PublicationsData.getAllPublications();
-  // publication by ID
-
-  // publication types
   const publicationTypes = await PublicationsData.getPublicationTypesData();
 
   return {

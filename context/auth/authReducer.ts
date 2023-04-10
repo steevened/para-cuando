@@ -1,6 +1,8 @@
-import { AuthState } from '.';
+import { AuthState, userData } from '.';
 
-type AuthActionType = { type: 'LOGIN' } | { type: 'LOGOUT' };
+type AuthActionType =
+  | { type: 'LOGIN'; payload: userData }
+  | { type: 'LOGOUT'; payload: userData };
 
 export const authReducer = (
   state: AuthState,
@@ -10,12 +12,14 @@ export const authReducer = (
     case 'LOGIN':
       return {
         ...state,
+        userData: action.payload,
         isUserLoged: true,
       };
     case 'LOGOUT':
       return {
         ...state,
         isUserLoged: false,
+        userData: action.payload,
       };
 
     default:
