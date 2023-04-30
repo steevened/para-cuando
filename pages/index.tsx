@@ -1,8 +1,5 @@
 import Hero from '@/components/home/Hero';
 import Layout from '@/components/layouts/Layout';
-import { PublicationsData } from '@/lib/helpers';
-import { Types } from '@/lib/interfaces/publicationTypes/publicationTypes.interface';
-import { GetStaticProps } from 'next';
 
 import MainContent from '@/components/home/MainContent';
 import { AuthModalContext } from '@/context';
@@ -11,14 +8,8 @@ import { ReactElement, useContext } from 'react';
 import ModalForm from '../components/Forms/ModalForm';
 import type { NextPageWithLayout } from './_app';
 
-interface Props {
-  publicationTypes: Types;
-}
-
-const Page: NextPageWithLayout<Props> = ({ publicationTypes }) => {
+const Page: NextPageWithLayout = () => {
   const { isAuthModalShowed } = useContext(AuthModalContext);
-
-  // console.log(isAuthModalShowed);
 
   return (
     <>
@@ -29,19 +20,11 @@ const Page: NextPageWithLayout<Props> = ({ publicationTypes }) => {
           content="Descubre lo más deseado en tu ciudad"
         />
       </Head>
-      <Hero publicationTypes={publicationTypes} />
+      <Hero />
       <MainContent />
       {isAuthModalShowed && <ModalForm />}
     </>
   );
-};
-
-export const getStaticProps: GetStaticProps = async () => {
-  const publicationTypes = await PublicationsData.getPublicationTypesData();
-
-  return {
-    props: { publicationTypes },
-  };
 };
 
 Page.getLayout = function getLayout(page: ReactElement) {

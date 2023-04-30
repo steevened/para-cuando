@@ -142,7 +142,7 @@ const Profile: NextPageWithLayout = () => {
 
           <section className="w-5/6 mx-auto mt-14">
             <h2 className="text-2xl font-medium leading-7 text-center md:text-left pb-7">
-              Mis intereses
+              {/* Mis intereses */}
             </h2>
 
             {/* interests */}
