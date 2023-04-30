@@ -32,7 +32,7 @@ const EventoPage: NextPageWithLayout<Props> = ({
   publications,
 }) => {
   const [isVoted, setIsVoted] = useState<boolean>(false);
-  console.log(publicationTypes);
+  // console.log(publicationTypes);
 
   const {
     id,
@@ -88,8 +88,8 @@ const EventoPage: NextPageWithLayout<Props> = ({
       </Head>
       <CategorieNavbar publicationTypes={publicationTypes} />
       <div className="max-w-[1100px] md:mx-auto mx-5">
-        <section className="w-full grid items-start md:grid-cols-2 mt-[60px] gap-x-5">
-          <div className="md:row-span-2">
+        <section className="w-full grid items-start md:grid-cols-2 mt-[60px] gap-x-5 ">
+          <div className="md:row-span-2  h-full">
             <p>
               {publications_type.name} / {publications_type.description}
             </p>
@@ -118,7 +118,7 @@ const EventoPage: NextPageWithLayout<Props> = ({
             </div>
           </div>
           <Image
-            className="w-full mt-6 md:mt-0 md:row-span-3"
+            className="w-full mt-6 md:mt-0 md:row-span-3 "
             src={images[0]?.image_url ? images[0]?.image_url : img404}
             alt={description}
             width={1000}
@@ -126,7 +126,7 @@ const EventoPage: NextPageWithLayout<Props> = ({
             priority={true}
           />
 
-          <div className="w-full mt-7">
+          <div className="w-full pt-7  h-full flex items-end">
             <BtnVote onClick={handleVote} voted={isVoted} />
           </div>
         </section>

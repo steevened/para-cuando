@@ -14,7 +14,7 @@ const CategorieNavbar: FC<Props> = ({ publicationTypes }) => {
       <div className="flex px-5 max-w-[980px] mx-auto justify-between gap-2 items-center">
         <MenuDropDown publicationTypes={publicationTypes} />
         <div className="hidden md:block md:flex-[1] mr-10">
-          <PostCategories publicationTypes={publicationTypes} />
+          <PostCategories />
         </div>
         <div className="flex-1 ">
           <Input />

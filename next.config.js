@@ -8,7 +8,7 @@ const nextConfig = {
   },
   images: {
     domains: ['paracuando.s3.sa-east-1.amazonaws.com'],
-    unoptimized: true,
+    // unoptimized: true,
   },
   reactStrictMode: true,
 };
