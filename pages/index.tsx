@@ -11,8 +11,6 @@ import type { NextPageWithLayout } from './_app';
 const Page: NextPageWithLayout = () => {
   const { isAuthModalShowed } = useContext(AuthModalContext);
 
-  // console.log(isAuthModalShowed);
-
   return (
     <>
       <Head>
