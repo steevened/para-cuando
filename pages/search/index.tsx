@@ -1,40 +1,114 @@
-import Input from '@/components/Forms/Input';
-import More from '@/components/Forms/More';
 import ButtonSave from '@/components/buttons/ButtonSave';
 import Layout from '@/components/layouts/Layout';
+import hero from '@/public/hero.png';
 
+import More from '@/components/Forms/More';
+import CardSearch from '@/components/sliders/CardSearch';
+import { SearchIcon } from '@/components/svg/Svg';
 import { usePublications } from '@/lib/services/publications/publications.services';
+import Image from 'next/image';
 import Link from 'next/link';
-import { ReactElement, useState } from 'react';
+import { useRouter } from 'next/router';
+import { ReactElement, useEffect, useState } from 'react';
 import { NextPageWithLayout } from '../_app';
 
 const Search: NextPageWithLayout = () => {
-  const { data: publications, error, isLoading, mutate } = usePublications();
+  const router = useRouter();
+  const [query, setQuery] = useState('');
+  const [inputvalue, setInputValue] = useState('');
 
-  const [isActive, setIsActive] = useState<boolean>(false);
+  useEffect(() => {
+    const query = router.asPath.split('?')[1];
+    setQuery(query);
+  }, [router.asPath]);
 
-  // console.log(publications);
+  const {
+    data: publications,
+    // error,
+    // isLoading,
+    // mutate,
+  } = usePublications(query);
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    router.push({
+      pathname: '/search',
+      query: { title: inputvalue },
+    });
+    // setQuery('');
+  };
+
+  console.log(publications);
 
   return (
-    <div>
-      <div className="bg-[url('/hero.png')] h-[108px] bg-no-repeat bg-cover">
-        <Link href={'/'}>
-          <p className="pl-[21px] pt-[67px] relative text-base text-app-grayLighter font-medium leading-[18px]">
-            Home / Search
-          </p>
-        </Link>
+    <>
+      <div className="relative h-28">
+        <Image
+          src={hero}
+          alt="Para Cuándo Querétaro"
+          className="object-cover w-full h-full"
+        />
+        <div className="absolute z-10 flex font-semibold text-white left-14 bottom-2">
+          <Link href={'/'}>Home</Link>
+          <p className="ml-1 cursor-default"> / Search</p>
+        </div>
       </div>
       <div className="shadow-lg shadow-app-gray-500/500">
-        <div className="app-container">
+        <div className="max-w-6xl px-2 mx-auto md:px-5 ">
           <div className="pt-[37px] flex gap-[37px]">
-            <Input />
+            <form
+              onSubmit={handleSubmit}
+              className="w-full max-w-[465px]  h-12 relative flex items-center shadow-1 border-app-gray border rounded-full"
+            >
+              <input
+                className="w-full h-full px-6 duration-300 rounded-3xl focus:outline-none focus:ring-2 placeholder:text-2"
+                type="text"
+                placeholder="¿Qué quieres ver en tu ciudad?"
+                value={inputvalue}
+                onChange={(e) => setInputValue(e.target.value)}
+              />
+              <button
+                type="submit"
+                disabled={!query}
+                className="absolute hidden duration-200 xs:block right-5 text-app-grayDark hover:text-app-blue disabled:text-app-grayLight"
+              >
+                {/* <Image src={searchLogo} alt="search logo" /> */}
+                <SearchIcon />
+              </button>
+            </form>
             <ButtonSave className="hidden md:block">Buscar</ButtonSave>
           </div>
-          <div className=" flex flex-row item-center justify-between pt-[25px] cursor-pointer text-base font-normal  text-app-grayDark ">
-            <h2 className="">Todos los resultados</h2>
-            <h2 className="">Marcas y tiendas</h2>
-            <h2 className="hidden md:block">Artistas y conciertos</h2>
-            <h2 className="hidden md:block">Torneos</h2>
+
+          <div className="flex  item-center justify-between mt-[25px] cursor-pointer text-base font-normal  text-app-grayDark">
+            <button
+              onClick={() => {
+                router.push(`/search?title=${inputvalue}`);
+              }}
+              className="p-2 border-b-4 border-app-blue"
+            >
+              <p className="">Todos los resultados</p>
+            </button>
+            <button
+              onClick={() => {
+                router.push(`/search?publications_types_id=1`);
+              }}
+            >
+              <p className="">Marcas y tiendas</p>
+            </button>
+            <button
+              onClick={() => {
+                router.push(`/search?publications_types_id=2`);
+              }}
+            >
+              <p className="hidden md:block">Artistas y conciertos</p>
+            </button>
+            <button
+              onClick={() => {
+                router.push(`/search?publications_types_id=3`);
+              }}
+            >
+              <p className="hidden md:block">Torneos</p>
+            </button>
             <div className="block md:hidden">
               <More />
             </div>
@@ -42,8 +116,8 @@ const Search: NextPageWithLayout = () => {
         </div>
       </div>
 
-      <div className="md:app-container mt-[44px] mb-5 mx-4">
-        {/* {publications?.results.results.map((card: any) => (
+      <div className="md:app-container mt-[44px] my-10 mx-4 min-h-[100px]">
+        {publications?.map((card: any) => (
           <CardSearch
             key={card.id}
             id={card.id}
@@ -52,9 +126,9 @@ const Search: NextPageWithLayout = () => {
             reference_link={card.reference_link}
             votes_count={card.votes_count}
             images={card.images}
-            mutate={mutate}
+            // mutate={mutate}
           />
-        ))} */}
+        ))}
       </div>
 
       <section className="px-[20px]">
@@ -64,7 +138,7 @@ const Search: NextPageWithLayout = () => {
           subtitle="Las personas últimamente están hablando de esto"
         /> */}
       </section>
-    </div>
+    </>
   );
 };
 
