@@ -57,7 +57,7 @@ export default function RegisterModal() {
           placeholder="ejemplo@mail.com"
         />
       </Label>
-      <div className="flex gap-1.5">
+      <div className="flex gap-1.5 flex-col sm:flex-row">
         <Label htmlFor="name" labelText="Nombre">
           <Input
             onChange={(e) => setFirstName(e.target.value)}

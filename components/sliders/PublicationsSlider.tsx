@@ -17,18 +17,6 @@ interface Props {
 const PublicationsSlider: FC<Props> = ({ className }) => {
   const { data: publications, error, isLoading, mutate } = usePublications();
 
-  // const [isLoading, setIsLoading] = useState(false);
-
-  // console.log(publications);
-
-  // if (error) {
-  //   return (
-  //     <div className="absolute inset-0 flex items-center justify-center text-3xl bg-white">
-  //       Intente nuevamente
-  //     </div>
-  //   );
-  // }
-
   return (
     <div className={`relative ${className}`}>
       {isLoading ? (

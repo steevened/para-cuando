@@ -32,6 +32,8 @@ const CardItem = ({
   // state
   const [isPublicationVoted, setIsPublicationVoted] = useState<boolean>(false);
 
+  console.log(isPublicationVoted);
+
   const [isImageLoading, setIsImageLoading] = useState<boolean>(true);
 
   const { isUserLoged, userData } = useContext(AuthContext);
