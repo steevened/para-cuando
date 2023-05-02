@@ -1,13 +1,18 @@
-import Image from 'next/image';
 import { useRouter } from 'next/router';
-import searchLogo from '../../public/search.svg';
+import { useState } from 'react';
+import { SearchIcon } from '../svg/Svg';
 
 export default function Input() {
+  const [query, setQuery] = useState('');
   const router = useRouter();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    router.push('/search');
+    router.push({
+      pathname: '/search',
+      query: { title: query },
+    });
+    // setQuery('');
   };
   return (
     <form
@@ -18,9 +23,16 @@ export default function Input() {
         className="w-full h-full px-6 duration-300 rounded-3xl focus:outline-none focus:ring-2 placeholder:text-2"
         type="text"
         placeholder="¿Qué quieres ver en tu ciudad?"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
       />
-      <button type="submit" className="absolute hidden xs:block right-5">
-        <Image src={searchLogo} alt="search logo" />
+      <button
+        type="submit"
+        disabled={!query}
+        className="absolute hidden duration-200 xs:block right-5 text-app-grayDark hover:text-app-blue disabled:text-app-grayLight"
+      >
+        {/* <Image src={searchLogo} alt="search logo" /> */}
+        <SearchIcon />
       </button>
     </form>
   );

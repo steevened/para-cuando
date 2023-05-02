@@ -1,18 +1,14 @@
-import Background from '@/components/auth/Background';
 import LoginModal from '@/components/auth/LoginModal';
-import Head from 'next/head';
+import { AuthLayout } from '@/components/layouts/AuthLayout';
+import { ReactElement } from 'react';
+import { NextPageWithLayout } from '../_app';
 
-export default function Login() {
-  return (
-    <>
-      <Head>
-        <title>Log In - Para Cuándo</title>
-        <meta name="description" content="description" />
-      </Head>
+const Login: NextPageWithLayout = () => {
+  return <LoginModal />;
+};
 
-      <Background>
-        <LoginModal />
-      </Background>
-    </>
-  );
-}
+Login.getLayout = (page: ReactElement) => {
+  return <AuthLayout title="Log In - Para Cuándo">{page}</AuthLayout>;
+};
+
+export default Login;

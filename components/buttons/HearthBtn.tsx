@@ -19,7 +19,7 @@ export const HearthBtn: FC<IHearthBtn> = ({
       {...svgProps}
     >
       <circle
-        className="duration-300 cursor-pointer"
+        className="duration-100 cursor-pointer"
         cx="24.5"
         cy="24.5"
         r="23.5"

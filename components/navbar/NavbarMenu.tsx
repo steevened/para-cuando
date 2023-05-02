@@ -68,7 +68,9 @@ export const NavbarMenu: FC<Props> = ({ handleLogOut }) => {
           </Menu.Item>
 
           <Menu.Item>
-            <p className="ml-5 text-start text-app-grayDark">Ayuda y soporte</p>
+            <p className="ml-5 text-start text-app-grayDark whitespace-nowrap">
+              Ayuda y soporte
+            </p>
           </Menu.Item>
         </Menu.Items>
       </Transition>

@@ -1,19 +1,18 @@
-import Background from '@/components/auth/Background';
 import RegisterModal from '@/components/auth/RegisterModal';
-import Head from 'next/head';
+import { AuthLayout } from '@/components/layouts/AuthLayout';
+import { NextPageWithLayout } from '../_app';
 
-export default function register() {
+const Register: NextPageWithLayout = () => {
   // const {data} = useSWR
   return (
     <>
-      <Head>
-        <title>Sign Up - Para Cuándo</title>
-        <meta name="description" content="description" />
-      </Head>
-
-      <Background>
-        <RegisterModal />
-      </Background>
+      <RegisterModal />
     </>
   );
-}
+};
+
+Register.getLayout = (page) => {
+  return <AuthLayout title="Register - Para Cuándo">{page}</AuthLayout>;
+};
+
+export default Register;

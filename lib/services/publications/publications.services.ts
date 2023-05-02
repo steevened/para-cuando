@@ -4,10 +4,16 @@ import { fetcher } from '../../helpers/fetcher.helper';
 
 import axios from '../../helpers/axios.helper';
 
-function usePublications() {
+const usePublications = (query?: string) => {
   const { data, error, isLoading, mutate } = useSWR<PublicationsResponse>(
-    '/publications',
-    fetcher
+    query ? `/publications?${query}` : '/publications',
+    fetcher,
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      revalidateIfStale: false,
+      // revalidateOnMount: false,
+    }
   );
 
   return {
@@ -16,7 +22,7 @@ function usePublications() {
     isLoading,
     mutate,
   };
-}
+};
 
 function createPublication(data: any) {
   return axios.post('/publications', data);

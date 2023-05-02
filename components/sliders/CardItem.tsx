@@ -94,7 +94,7 @@ const CardItem = ({
           width="1000"
           height="1000"
           // objectFit="fill"
-          className={`object-cover scale-125 duration-700 ease-in-out w-full h-full ${
+          className={`object-cover scale-125 duration-500 ease-in-out w-full h-full ${
             isImageLoading
               ? ' grayscale blur-xl scale-105'
               : 'grayscale-0 blur-0 scale-100'
