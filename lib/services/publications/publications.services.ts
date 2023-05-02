@@ -7,7 +7,13 @@ import axios from '../../helpers/axios.helper';
 const usePublications = (query?: string) => {
   const { data, error, isLoading, mutate } = useSWR<PublicationsResponse>(
     query ? `/publications?${query}` : '/publications',
-    fetcher
+    fetcher,
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      revalidateIfStale: false,
+      // revalidateOnMount: false,
+    }
   );
 
   return {

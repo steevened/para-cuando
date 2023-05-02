@@ -2,9 +2,10 @@ import ButtonSave from '@/components/buttons/ButtonSave';
 import Layout from '@/components/layouts/Layout';
 import hero from '@/public/hero.png';
 
+import Input from '@/components/Forms/Input';
 import More from '@/components/Forms/More';
 import CardSearch from '@/components/sliders/CardSearch';
-import { SearchIcon } from '@/components/svg/Svg';
+import SectionSlider from '@/components/sliders/SectionSlider';
 import { usePublications } from '@/lib/services/publications/publications.services';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -15,12 +16,16 @@ import { NextPageWithLayout } from '../_app';
 const Search: NextPageWithLayout = () => {
   const router = useRouter();
   const [query, setQuery] = useState('');
-  const [inputvalue, setInputValue] = useState('');
+  const [currentTab, setCurrentTab] = useState(0);
 
   useEffect(() => {
-    const query = router.asPath.split('?')[1];
-    setQuery(query);
-  }, [router.asPath]);
+    const { asPath } = router;
+    setQuery(asPath.split('?')[1]);
+  }, [router]);
+
+  console.log(query);
+
+  // useEffect(() => {}, []);
 
   const {
     data: publications,
@@ -29,16 +34,18 @@ const Search: NextPageWithLayout = () => {
     // mutate,
   } = usePublications(query);
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    router.push({
-      pathname: '/search',
-      query: { title: inputvalue },
-    });
-    // setQuery('');
+  const handleChangeTab = (id: number) => {
+    setCurrentTab(id);
+    const { asPath } = router;
+    if (id === 0) {
+      router.push(`${asPath.split('&')[0]}`);
+    } else {
+      router.push(
+        `/search?title=${router.query.title}&publications_types_id=${id}`
+      );
+    }
+    console.log(asPath);
   };
-
-  console.log(publications);
 
   return (
     <>
@@ -56,56 +63,48 @@ const Search: NextPageWithLayout = () => {
       <div className="shadow-lg shadow-app-gray-500/500">
         <div className="max-w-6xl px-2 mx-auto md:px-5 ">
           <div className="pt-[37px] flex gap-[37px]">
-            <form
-              onSubmit={handleSubmit}
-              className="w-full max-w-[465px]  h-12 relative flex items-center shadow-1 border-app-gray border rounded-full"
-            >
-              <input
-                className="w-full h-full px-6 duration-300 rounded-3xl focus:outline-none focus:ring-2 placeholder:text-2"
-                type="text"
-                placeholder="¿Qué quieres ver en tu ciudad?"
-                value={inputvalue}
-                onChange={(e) => setInputValue(e.target.value)}
-              />
-              <button
-                type="submit"
-                disabled={!query}
-                className="absolute hidden duration-200 xs:block right-5 text-app-grayDark hover:text-app-blue disabled:text-app-grayLight"
-              >
-                {/* <Image src={searchLogo} alt="search logo" /> */}
-                <SearchIcon />
-              </button>
-            </form>
+            <Input />
             <ButtonSave className="hidden md:block">Buscar</ButtonSave>
           </div>
 
           <div className="flex  item-center justify-between mt-[25px] cursor-pointer text-base font-normal  text-app-grayDark">
             <button
               onClick={() => {
-                router.push(`/search?title=${inputvalue}`);
+                handleChangeTab(0);
               }}
-              className="p-2 border-b-4 border-app-blue"
+              className={`p-2  duration-200 border-b-4 hover:border-app-blue/30 ${
+                currentTab === 0 && 'border-app-blue'
+              }`}
             >
               <p className="">Todos los resultados</p>
             </button>
             <button
               onClick={() => {
-                router.push(`/search?publications_types_id=1`);
+                handleChangeTab(1);
               }}
+              className={`p-2  duration-200 border-b-4 hover:border-app-blue/30 ${
+                currentTab === 1 && 'border-app-blue'
+              }`}
             >
               <p className="">Marcas y tiendas</p>
             </button>
             <button
               onClick={() => {
-                router.push(`/search?publications_types_id=2`);
+                handleChangeTab(2);
               }}
+              className={`p-2  duration-200 border-b-4 hover:border-app-blue/30 ${
+                currentTab === 2 && 'border-app-blue'
+              }`}
             >
               <p className="hidden md:block">Artistas y conciertos</p>
             </button>
             <button
               onClick={() => {
-                router.push(`/search?publications_types_id=3`);
+                handleChangeTab(3);
               }}
+              className={`p-2  duration-200 border-b-4 hover:border-app-blue/30 ${
+                currentTab === 3 && 'border-app-blue'
+              }`}
             >
               <p className="hidden md:block">Torneos</p>
             </button>
@@ -132,11 +131,11 @@ const Search: NextPageWithLayout = () => {
       </div>
 
       <section className="px-[20px]">
-        {/* <SectionSlider
+        <SectionSlider
           className="mb-24"
           title="Recientes"
           subtitle="Las personas últimamente están hablando de esto"
-        /> */}
+        />
       </section>
     </>
   );
