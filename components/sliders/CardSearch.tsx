@@ -1,12 +1,11 @@
-import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 
 import { AuthContext } from '@/context';
 import { votePublication } from '@/lib/services/publications/publicationVote.services';
 import { useUserVotes } from '@/lib/services/votes/userVotes.services';
-import useAuthStore from '@/store/auth';
-import useModalStore from '@/store/loginModal';
-import Cookies from 'js-cookie';
+import { Ring } from '@uiball/loaders';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { toast } from 'react-hot-toast';
 import UserLogo from '../atoms/UserLogo';
 import { HearthBtn } from '../buttons/HearthBtn';
@@ -30,55 +29,48 @@ const CardSearch = ({
   id,
   mutate,
 }: PublicationProps) => {
-  const [isActive, setIsActive] = useState<boolean>(false);
+  const [isPublicationVoted, setIsPublicationVoted] = useState<boolean>(false);
+
+  const { isUserLoged, userData } = useContext(AuthContext);
+  const [isImageLoading, setIsImageLoading] = useState<boolean>(true);
+
   const router = useRouter();
-  const { userData } = useContext(AuthContext);
-  const { data, mutate: mutateVotes } = useUserVotes(userData.email);
-  const [userLogged, setUserLogged] = useState<boolean>(false);
-  const { openLoginModal } = useModalStore();
-
-  const { isLogedIn } = useAuthStore();
+  const { data, mutate: mutateVotes } = useUserVotes(userData.id);
 
   useEffect(() => {
-    const token = Cookies.get('token');
-    if (token) {
-      setUserLogged(true);
-    } else {
-      setUserLogged(false);
-      // setIsActive(false);
-    }
-  }, [isLogedIn]);
-
-  useEffect(() => {
-    if (data) {
+    if (isUserLoged && data) {
       const isVoted = data.find((vote) => vote.id === id);
       if (isVoted) {
-        setIsActive(true);
+        setIsPublicationVoted(true);
       } else {
-        setIsActive(false);
+        setIsPublicationVoted(false);
       }
-    } else return;
-  }, [data, id, isLogedIn]);
+    } else {
+      setIsPublicationVoted(false);
+    }
+  }, [isUserLoged, data, id]);
 
   const handleVote = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
 
-    const toastId = toast.promise(votePublication(id), {
-      loading: 'Espere...',
-      success: `${isActive ? 'Voto eliminado' : 'Voto agregado'}`,
-      error: `${
-        userLogged ? 'Error al votar' : 'Inicie sesión para continuar'
-      }`,
-    });
+    try {
+      if (isUserLoged && userData.id) {
+        const promise = toast.promise(votePublication(id), {
+          loading: 'Cargando...',
+          success: `${isPublicationVoted ? 'Voto eliminado' : 'Voto agregado'}`,
+          error: `${
+            isUserLoged ? 'Error al votar' : 'Inicie sesión para continuar'
+          }`,
+        });
 
-    if (isLogedIn) {
-      try {
-        const response = await toastId;
+        await promise;
         mutate();
         mutateVotes();
-      } catch (error) {
-        openLoginModal();
+      } else {
+        toast.error('Inicie sesión para continuar');
       }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -86,29 +78,44 @@ const CardSearch = ({
     router.push(`/evento/${encodeURIComponent(id)}`);
   };
 
-  // console.log(isActive);
+  // console.log(images);
 
   return (
     <section
       onClick={handleCardClick}
-      className="relative cursor-pointer border mx-[10px] flex flex-row h-[199px] shadow-shadow-1  rounded-[20px] mt-5 pr-[21px] overflow-hidden gap-6 w-full md:h-[240px] md:gap-[60px]"
+      className="relative cursor-pointer border mx-[10px] flex flex-row h-[199px] shadow-shadow-1  rounded-[20px] mt-5 pr-[21px] overflow-hidden gap-6 w-full sm:h-[240px] sm:gap-[60px]"
     >
-      <div
-        style={{ backgroundImage: `url(${images[0]?.image_url})` }}
-        className="min-w-[121px] h-full bg-center bg-cover rounded-[20px] md:w-[300px]"
-      />
+      <div className="w-[121px] sm:w-[225px]  h-full rounded-[20px] md:w-[300px] overflow-hidden relative">
+        <Image
+          src={images[0]?.image_url ? images[0]?.image_url : ''}
+          alt="Para cuando image"
+          width="1000"
+          height="1000"
+          className={`object-cover w-full h-full scale-125 duration-500 ease-in-out ${
+            isImageLoading
+              ? ' grayscale blur-xl scale-105'
+              : 'grayscale-0 blur-0 scale-100'
+          }`}
+          onLoadingComplete={() => setIsImageLoading(false)}
+        />
+        {isImageLoading && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Ring size={48} lineWeight={5} speed={2} color="gray" />
+          </div>
+        )}
+      </div>
       <header className="pt-[34px] pb-[13px]">
-        <h2 className="text-base md:text-[20px]">{title}</h2>
-        <p className="pt-[5px] text-xs text-app-grayDark text-justify w-full h-[50px] md:h-[72px] overflow-hidden md:text-[15px] md:pt[6px]">
+        <h2 className="text-base sm:text-[20px]">{title}</h2>
+        <p className="pt-[5px] text-xs text-app-grayDark text-justify w-full h-[50px] sm:h-[72px] overflow-hidden sm:text-[15px] sm:pt[6px]">
           {description}
         </p>
 
-        <p className="pt-3 text-app-blue text-[12px] md:text-sm ">
+        <p className="pt-3 text-app-blue text-[12px] sm:text-sm ">
           {reference_link}
         </p>
         <div className="flex items-center gap-[7px] pt-[7px] text-[12px]">
           <UserLogo />
-          <p className="md:text-sm">{votes_count} votos</p>
+          <p className="sm:text-sm">{votes_count} votos</p>
         </div>
       </header>
 
@@ -116,7 +123,7 @@ const CardSearch = ({
         <button onClick={handleVote} className="relative right-[13px] top-0">
           <HearthBtn
             aria-label="like-button"
-            isPublicationVoted={isActive}
+            isPublicationVoted={isPublicationVoted}
             className={'duration-200 focus:scale-105'}
           />
         </button>

@@ -3,7 +3,7 @@ import Layout from '@/components/layouts/Layout';
 import hero from '@/public/hero.png';
 
 import Input from '@/components/Forms/Input';
-import More from '@/components/Forms/More';
+import MobileMenuTabs from '@/components/Forms/MobileMenuTabs';
 import CardSearch from '@/components/sliders/CardSearch';
 import SectionSlider from '@/components/sliders/SectionSlider';
 import { usePublications } from '@/lib/services/publications/publications.services';
@@ -23,15 +23,13 @@ const Search: NextPageWithLayout = () => {
     setQuery(asPath.split('?')[1]);
   }, [router]);
 
-  console.log(query);
-
   // useEffect(() => {}, []);
 
   const {
     data: publications,
     // error,
     // isLoading,
-    // mutate,
+    mutate,
   } = usePublications(query);
 
   const handleChangeTab = (id: number) => {
@@ -44,7 +42,6 @@ const Search: NextPageWithLayout = () => {
         `/search?title=${router.query.title}&publications_types_id=${id}`
       );
     }
-    console.log(asPath);
   };
 
   return (
@@ -60,14 +57,14 @@ const Search: NextPageWithLayout = () => {
           <p className="ml-1 cursor-default"> / Search</p>
         </div>
       </div>
-      <div className="shadow-lg shadow-app-gray-500/500">
+      <div className="text-sm shadow-lg shadow-app-gray-500/500">
         <div className="max-w-6xl px-2 mx-auto md:px-5 ">
           <div className="pt-[37px] flex gap-[37px]">
             <Input />
             <ButtonSave className="hidden md:block">Buscar</ButtonSave>
           </div>
 
-          <div className="flex  item-center justify-between mt-[25px] cursor-pointer text-base font-normal  text-app-grayDark">
+          <div className="flex  item-center justify-between mt-[25px] cursor-pointer test-sm md:text-base text-app-grayDark">
             <button
               onClick={() => {
                 handleChangeTab(0);
@@ -92,24 +89,24 @@ const Search: NextPageWithLayout = () => {
               onClick={() => {
                 handleChangeTab(2);
               }}
-              className={`p-2  duration-200 border-b-4 hover:border-app-blue/30 ${
+              className={`p-2 hidden sm:block duration-200 border-b-4 hover:border-app-blue/30 ${
                 currentTab === 2 && 'border-app-blue'
               }`}
             >
-              <p className="hidden md:block">Artistas y conciertos</p>
+              Artistas y conciertos
             </button>
             <button
               onClick={() => {
                 handleChangeTab(3);
               }}
-              className={`p-2  duration-200 border-b-4 hover:border-app-blue/30 ${
+              className={`p-2 hidden sm:block   duration-200 border-b-4 hover:border-app-blue/30 ${
                 currentTab === 3 && 'border-app-blue'
               }`}
             >
-              <p className="hidden md:block">Torneos</p>
+              Torneos
             </button>
-            <div className="block md:hidden">
-              <More />
+            <div className="block sm:hidden">
+              <MobileMenuTabs handleChangeTab={handleChangeTab} />
             </div>
           </div>
         </div>
@@ -125,7 +122,7 @@ const Search: NextPageWithLayout = () => {
             reference_link={card.reference_link}
             votes_count={card.votes_count}
             images={card.images}
-            // mutate={mutate}
+            mutate={mutate}
           />
         ))}
       </div>

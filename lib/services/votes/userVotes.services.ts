@@ -11,8 +11,9 @@ function useUserVotes(id: string) {
     isUserLoged ? `/users/${id}/votes/` : null,
     fetcher,
     {
-      revalidateIfStale: false,
       revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      revalidateIfStale: false,
     }
   );
   return {
