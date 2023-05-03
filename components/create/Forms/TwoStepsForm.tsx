@@ -3,7 +3,6 @@ import {
   createPublication,
   uploadImgPublication,
 } from '@/lib/services/publications/publications.services';
-import { CreatePageProps } from '@/pages/posts/create';
 import { Form, Formik, useField } from 'formik';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
@@ -78,7 +77,9 @@ const inputFiles: IInputFles[] = [
   { name: 'img-3', id: 3 },
 ];
 
-interface Props extends CreatePageProps {
+interface Props {
+  tags: any;
+  types: any;
   steps: number;
   setSteps: (_n: number) => void;
 }
@@ -195,7 +196,7 @@ const TwoStepsForm: FC<Props> = ({ steps, setSteps, tags, types }) => {
                 <option value="" disabled>
                   Tipo
                 </option>
-                {types.results.map((tipo) => (
+                {types?.map((tipo: any) => (
                   <option key={tipo.id} value={tipo.id}>
                     {tipo.name}
                   </option>
@@ -210,7 +211,7 @@ const TwoStepsForm: FC<Props> = ({ steps, setSteps, tags, types }) => {
                 <option value="" disabled>
                   Categoria
                 </option>
-                {tags.results.map((categorie) => (
+                {tags?.map((categorie: any) => (
                   <option key={categorie.id} value={categorie.id}>
                     {categorie.name}
                   </option>

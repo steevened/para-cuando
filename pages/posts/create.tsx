@@ -1,26 +1,19 @@
 import TwoStepsForm from '@/components/create/Forms/TwoStepsForm';
-import {
-  getPublicationTypesData,
-  getTags,
-} from '@/lib/helpers/getPublications';
-
-import { Types } from '@/lib/interfaces/publicationTypes/publicationTypes.interface';
-import { Tags } from '@/lib/interfaces/tags/tagsResponse.interface';
-import { GetStaticProps, NextPage } from 'next';
+import { usePublicationTypes } from '@/lib/services/publicationTypes/publicationTypes.services';
+import { useTags } from '@/lib/services/tags/tags.services';
+import { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import logo from '../../public/create/logo.svg';
 
-export interface CreatePageProps {
-  types: Types;
-  tags: Tags;
-}
-
-const CreatePage: NextPage<CreatePageProps> = ({ types, tags }) => {
+const CreatePage: NextPage = () => {
   const [steps, setSteps] = useState(1);
   const router = useRouter();
+
+  const { tags } = useTags();
+  const { data: types } = usePublicationTypes();
 
   const handleBack = () => {
     router.back();
@@ -96,14 +89,6 @@ const CreatePage: NextPage<CreatePageProps> = ({ types, tags }) => {
       </div>
     </>
   );
-};
-
-export const getStaticProps: GetStaticProps = async () => {
-  const types = await getPublicationTypesData();
-  const tags = await getTags();
-  return {
-    props: { types, tags },
-  };
 };
 
 export default CreatePage;
