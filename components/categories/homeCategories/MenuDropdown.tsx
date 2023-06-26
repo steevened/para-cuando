@@ -7,7 +7,7 @@ import { FC, Fragment } from 'react';
 export const MenuDropDown: FC = () => {
   const { data: publicationTypes } = usePublicationTypes();
 
-  console.log(publicationTypes);
+  // console.log(publicationTypes);
 
   return (
     <Menu as="div" className="relative inline-block md:hidden">

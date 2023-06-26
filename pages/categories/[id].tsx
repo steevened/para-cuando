@@ -3,24 +3,35 @@ import PostCategories from '@/components/categories/homeCategories/PostCategorie
 import Input from '@/components/Forms/Input';
 import MainContent from '@/components/home/MainContent';
 import Layout from '@/components/layouts/Layout';
-import { Type } from '@/lib/interfaces/publicationTypes/publicationTypes.interface';
+import { usePublicationTypesById } from '@/lib/services/publicationTypes/publicationTypes.services';
 import artistasImg from '@/public/categories/artistas.png';
 import marcasImg from '@/public/categories/marcas.png';
 import torneosImg from '@/public/categories/torneos.png';
-import { GetStaticProps } from 'next';
-import getConfig from 'next/config';
 import Head from 'next/head';
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
 import { NextPageWithLayout } from '../_app';
 
-interface Props {
-  type: Type;
-}
+// interface Props {
+//   type: Type;
+// }
 
-const CategoryPage: NextPageWithLayout<Props> = ({ type }) => {
-  const { name, description, id } = type;
+const CategoryPage: NextPageWithLayout = () => {
+  const router = useRouter();
+
+  const { id: publicationID } = router.query;
+
+  const {
+    data: type,
+    error,
+    isLoading,
+  } = usePublicationTypesById(publicationID as string);
+
+  console.log(type);
+
+  const { name, description, id } = type || {};
 
   const [imageUrl, setImageUrl] = useState<StaticImageData>(marcasImg);
 
@@ -37,13 +48,13 @@ const CategoryPage: NextPageWithLayout<Props> = ({ type }) => {
   return (
     <>
       <Head>
-        <title>{type.name} - Para Cuándo</title>
-        <meta name="description" content={description.toString()} />
+        <title>{type?.name} - Para Cuándo</title>
+        <meta name="description" content={description?.toString()} />
       </Head>
       <section className="relative h-52 ">
         <Image
           src={imageUrl.src}
-          alt={name}
+          alt={'Para Cuándo'}
           className="absolute inset-0 object-cover w-full h-full"
           width={1500}
           height={500}
@@ -64,9 +75,8 @@ const CategoryPage: NextPageWithLayout<Props> = ({ type }) => {
             </ul>
           </nav>
           <h1 className="title-1 text-app-yellow md:mb-2">{name}</h1>
-          <p className="text-white subtitle-1 md:mb-4">
-            {description[0].toUpperCase()}
-            {description.slice(1)}
+          <p className="text-white subtitle-1 md:mb-4 capitalize">
+            {description}
           </p>
         </div>
       </section>
@@ -86,23 +96,23 @@ const CategoryPage: NextPageWithLayout<Props> = ({ type }) => {
   );
 };
 
-export const getServerSideProps: GetStaticProps = async ({ params }) => {
-  const { id } = params as { id: string };
+// export const getServerSideProps: GetStaticProps = async ({ params }) => {
+//   const { id } = params as { id: string };
 
-  const { publicRuntimeConfig } = getConfig();
+//   const { publicRuntimeConfig } = getConfig();
 
-  const BASE_URL = publicRuntimeConfig.BASE_URL;
+//   const BASE_URL = publicRuntimeConfig.BASE_URL;
 
-  const type = await fetch(`${BASE_URL}/publications-types/${id}`).then((res) =>
-    res.json()
-  );
+//   const type = await fetch(`${BASE_URL}/publications-types/${id}`).then((res) =>
+//     res.json()
+//   );
 
-  return {
-    props: {
-      type: type.result,
-    },
-  };
-};
+//   return {
+//     props: {
+//       type: type.result,
+//     },
+//   };
+// };
 
 // export const getStaticPaths: GetStaticPaths = async () => {
 //   const publicationTypes: Types =
