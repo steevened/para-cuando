@@ -3,12 +3,12 @@ import PostCategories from '@/components/categories/homeCategories/PostCategorie
 import Input from '@/components/Forms/Input';
 import MainContent from '@/components/home/MainContent';
 import Layout from '@/components/layouts/Layout';
-import { PublicationsData } from '@/lib/helpers';
 import { Type } from '@/lib/interfaces/publicationTypes/publicationTypes.interface';
 import artistasImg from '@/public/categories/artistas.png';
 import marcasImg from '@/public/categories/marcas.png';
 import torneosImg from '@/public/categories/torneos.png';
 import { GetStaticProps } from 'next';
+import getConfig from 'next/config';
 import Head from 'next/head';
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
@@ -88,9 +88,18 @@ const CategoryPage: NextPageWithLayout<Props> = ({ type }) => {
 
 export const getServerSideProps: GetStaticProps = async ({ params }) => {
   const { id } = params as { id: string };
+
+  const { publicRuntimeConfig } = getConfig();
+
+  const BASE_URL = publicRuntimeConfig.BASE_URL;
+
+  const type = await fetch(`${BASE_URL}/publications-types/${id}`).then((res) =>
+    res.json()
+  );
+
   return {
     props: {
-      type: await PublicationsData.getPublicationTypesById(id),
+      type: type.result,
     },
   };
 };
