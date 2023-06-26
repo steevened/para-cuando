@@ -4,14 +4,11 @@ import Input from '@/components/Forms/Input';
 import MainContent from '@/components/home/MainContent';
 import Layout from '@/components/layouts/Layout';
 import { PublicationsData } from '@/lib/helpers';
-import {
-  Type,
-  Types,
-} from '@/lib/interfaces/publicationTypes/publicationTypes.interface';
+import { Type } from '@/lib/interfaces/publicationTypes/publicationTypes.interface';
 import artistasImg from '@/public/categories/artistas.png';
 import marcasImg from '@/public/categories/marcas.png';
 import torneosImg from '@/public/categories/torneos.png';
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
@@ -89,28 +86,37 @@ const CategoryPage: NextPageWithLayout<Props> = ({ type }) => {
   );
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const publicationTypes: Types =
-    await PublicationsData.getPublicationTypesData();
-  return {
-    paths: publicationTypes.results.map((type) => ({
-      params: { id: type.id },
-    })),
-    fallback: false,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const publicationTypes: Types =
-    await PublicationsData.getPublicationTypesData();
+export const getServerSideProps: GetStaticProps = async ({ params }) => {
   const { id } = params as { id: string };
   return {
     props: {
       type: await PublicationsData.getPublicationTypesById(id),
-      publicationTypes,
     },
   };
 };
+
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   const publicationTypes: Types =
+//     await PublicationsData.getPublicationTypesData();
+//   return {
+//     paths: publicationTypes.results.map((type) => ({
+//       params: { id: type.id },
+//     })),
+//     fallback: false,
+//   };
+// };
+
+// export const getStaticProps: GetStaticProps = async ({ params }) => {
+//   const publicationTypes: Types =
+//     await PublicationsData.getPublicationTypesData();
+//   const { id } = params as { id: string };
+//   return {
+//     props: {
+//       type: await PublicationsData.getPublicationTypesById(id),
+//       publicationTypes,
+//     },
+//   };
+// };
 
 CategoryPage.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>;
