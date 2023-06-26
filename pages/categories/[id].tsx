@@ -96,47 +96,6 @@ const CategoryPage: NextPageWithLayout = () => {
   );
 };
 
-// export const getServerSideProps: GetStaticProps = async ({ params }) => {
-//   const { id } = params as { id: string };
-
-//   const { publicRuntimeConfig } = getConfig();
-
-//   const BASE_URL = publicRuntimeConfig.BASE_URL;
-
-//   const type = await fetch(`${BASE_URL}/publications-types/${id}`).then((res) =>
-//     res.json()
-//   );
-
-//   return {
-//     props: {
-//       type: type.result,
-//     },
-//   };
-// };
-
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   const publicationTypes: Types =
-//     await PublicationsData.getPublicationTypesData();
-//   return {
-//     paths: publicationTypes.results.map((type) => ({
-//       params: { id: type.id },
-//     })),
-//     fallback: false,
-//   };
-// };
-
-// export const getStaticProps: GetStaticProps = async ({ params }) => {
-//   const publicationTypes: Types =
-//     await PublicationsData.getPublicationTypesData();
-//   const { id } = params as { id: string };
-//   return {
-//     props: {
-//       type: await PublicationsData.getPublicationTypesById(id),
-//       publicationTypes,
-//     },
-//   };
-// };
-
 CategoryPage.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>;
 };

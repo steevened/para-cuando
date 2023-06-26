@@ -2,6 +2,7 @@ import { PublicationsResponse } from '@/lib/interfaces/publications/publications
 import useSWR from 'swr';
 import { fetcher } from '../../helpers/fetcher.helper';
 
+import { PublicationbyID } from '@/lib/interfaces/publications/publicationId.interface';
 import axios from '../../helpers/axios.helper';
 
 const usePublications = (query?: string) => {
@@ -24,6 +25,20 @@ const usePublications = (query?: string) => {
   };
 };
 
+function usePublicationById(id: string) {
+  const { data, error, isLoading, mutate } = useSWR<PublicationbyID>(
+    id ? `/publications/${id}` : null,
+    fetcher
+  );
+
+  return {
+    data,
+    error,
+    isLoading,
+    mutate,
+  };
+}
+
 function createPublication(data: any) {
   return axios.post('/publications', data);
 }
@@ -32,4 +47,9 @@ function uploadImgPublication(img: any, id: number) {
   return axios.post(`/publications/${id}/add-image`, img);
 }
 
-export { usePublications, createPublication, uploadImgPublication };
+export {
+  usePublications,
+  createPublication,
+  uploadImgPublication,
+  usePublicationById,
+};
