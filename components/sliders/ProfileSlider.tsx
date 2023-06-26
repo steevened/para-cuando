@@ -1,5 +1,6 @@
 import { AuthContext } from '@/context';
-import { usePublicationId } from '@/lib/services/publications/publicationId.services';
+import { usePublicationById } from '@/lib/services/publications/publications.services';
+
 import { useUserVotes } from '@/lib/services/votes/userVotes.services';
 import { useContext } from 'react';
 import CardItem from './CardItem';
@@ -36,7 +37,7 @@ function VotedPublicationsPage() {
 }
 
 function PublicationCard({ publication, mutate }: any) {
-  const { data, error, isLoading } = usePublicationId(
+  const { data, error, isLoading } = usePublicationById(
     publication.publications_id
   );
 
