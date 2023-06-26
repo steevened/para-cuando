@@ -1,6 +1,9 @@
 import useSWR from 'swr';
 import { fetcher } from '../../helpers/fetcher.helper';
-import { PublicationTypesResponse } from '../../interfaces/publicationTypes/publicationTypes.interface';
+import {
+  PublicationTypeByID,
+  PublicationTypesResponse,
+} from '../../interfaces/publicationTypes/publicationTypes.interface';
 
 function usePublicationTypes() {
   const { data, isLoading, error } = useSWR<PublicationTypesResponse>(
@@ -14,4 +17,16 @@ function usePublicationTypes() {
   };
 }
 
-export { usePublicationTypes };
+function usePublicationTypesById(id: string) {
+  const { data, isLoading, error } = useSWR<PublicationTypeByID>(
+    id ? `/publications-types/${id}` : null,
+    fetcher
+  );
+  return {
+    data: data?.result,
+    isLoading,
+    error,
+  };
+}
+
+export { usePublicationTypes, usePublicationTypesById };
