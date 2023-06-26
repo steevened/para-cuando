@@ -1,6 +1,6 @@
-import Input from '@/components/Forms/Input';
 import { MenuDropDown } from '@/components/categories/homeCategories/MenuDropdown';
 import PostCategories from '@/components/categories/homeCategories/PostCategories';
+import Input from '@/components/Forms/Input';
 import MainContent from '@/components/home/MainContent';
 import Layout from '@/components/layouts/Layout';
 import { PublicationsData } from '@/lib/helpers';
@@ -20,13 +20,9 @@ import { NextPageWithLayout } from '../_app';
 
 interface Props {
   type: Type;
-  publicationTypes: Types;
 }
 
-const CategoryPage: NextPageWithLayout<Props> = ({
-  type,
-  publicationTypes,
-}) => {
+const CategoryPage: NextPageWithLayout<Props> = ({ type }) => {
   const { name, description, id } = type;
 
   const [imageUrl, setImageUrl] = useState<StaticImageData>(marcasImg);
@@ -79,7 +75,7 @@ const CategoryPage: NextPageWithLayout<Props> = ({
       </section>
       <div className="relative w-full shadow-shadow1 py-9">
         <div className="flex px-5 max-w-[980px] mx-auto justify-between gap-2 items-center">
-          <MenuDropDown publicationTypes={publicationTypes} />
+          <MenuDropDown />
           <div className="hidden md:block md:flex-[1] mr-10 ">
             <PostCategories />
           </div>
