@@ -1,14 +1,14 @@
 import Button from '@/components/buttons/Button';
-import { Types } from '@/lib/interfaces/publicationTypes/publicationTypes.interface';
+import { usePublicationTypes } from '@/lib/services/publicationTypes/publicationTypes.services';
 import { Menu, Transition } from '@headlessui/react';
 import Link from 'next/link';
 import { FC, Fragment } from 'react';
 
-interface Props {
-  publicationTypes: Types;
-}
+export const MenuDropDown: FC = () => {
+  const { data: publicationTypes } = usePublicationTypes();
 
-export const MenuDropDown: FC<Props> = ({ publicationTypes }) => {
+  console.log(publicationTypes);
+
   return (
     <Menu as="div" className="relative inline-block md:hidden">
       <Menu.Button className="p-3 border rounded-full border-app-gray">
@@ -36,7 +36,7 @@ export const MenuDropDown: FC<Props> = ({ publicationTypes }) => {
       >
         <Menu.Items className="absolute w-56 mt-1 rounded-[20px] origin-top-right divide-y divide-gray-100  px-2 bg-white shadow-shadow1 ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="px-1 py-1 ">
-            {publicationTypes.results.map(({ name, id }) => (
+            {publicationTypes?.map(({ name, id }) => (
               <Menu.Item as={'div'} key={id}>
                 {() => (
                   <Link className={`block py-1`} href={`/categories/${id}`}>

@@ -6,13 +6,11 @@ import Layout from '@/components/layouts/Layout';
 import SectionSlider from '@/components/sliders/SectionSlider';
 import { AuthContext } from '@/context';
 import { PublicationsData } from '@/lib/helpers';
-import { Types } from '@/lib/interfaces/publicationTypes/publicationTypes.interface';
 import { PublicationbyID } from '@/lib/interfaces/publications/publicationId.interface';
-import { Publications } from '@/lib/interfaces/publications/publications.interface';
 import { usePublicationId } from '@/lib/services/publications/publicationId.services';
 import { votePublication } from '@/lib/services/publications/publicationVote.services';
 import { useUserVotes } from '@/lib/services/votes/userVotes.services';
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import { ReactElement, useContext, useEffect, useState } from 'react';
@@ -21,18 +19,11 @@ import img404 from '../../public/notfound.png';
 import { NextPageWithLayout } from '../_app';
 
 interface Props {
-  publicationTypes: Types;
   publicationById: PublicationbyID;
-  publications: Publications;
 }
 
-const EventoPage: NextPageWithLayout<Props> = ({
-  publicationTypes,
-  publicationById,
-  publications,
-}) => {
+const EventoPage: NextPageWithLayout<Props> = ({ publicationById }) => {
   const [isVoted, setIsVoted] = useState<boolean>(false);
-  // console.log(publicationTypes);
 
   const {
     id,
@@ -86,7 +77,7 @@ const EventoPage: NextPageWithLayout<Props> = ({
         <title>{title} - Para Cuándo</title>
         <meta name="description" content={description} />
       </Head>
-      <CategorieNavbar publicationTypes={publicationTypes} />
+      <CategorieNavbar />
       <div className="max-w-[1100px] md:mx-auto mx-5">
         <section className="w-full grid items-start md:grid-cols-2 mt-[60px] gap-x-5 ">
           <div className="md:row-span-2  h-full">
@@ -143,27 +134,13 @@ const EventoPage: NextPageWithLayout<Props> = ({
   );
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const publications = await PublicationsData.getAllPublications();
-
-  return {
-    paths: publications.results.map(({ id }) => ({
-      params: { id },
-    })),
-    fallback: false,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { id } = params as { id: string };
 
   const publicationById = await PublicationsData.getPublicationById(id);
-  const publications = await PublicationsData.getAllPublications();
 
-  const publicationTypes: Types =
-    await PublicationsData.getPublicationTypesData();
   return {
-    props: { publicationTypes, publicationById, publications },
+    props: { publicationById },
   };
 };
 
